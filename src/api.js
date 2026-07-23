@@ -28,4 +28,5 @@ async function post(payload) {
 export const addItem = (item) => post({ action: 'addItem', ...item });
 export const updateItem = (item) => post({ action: 'updateItem', ...item });
 export const deleteItem = (id) => post({ action: 'deleteItem', id });
-export const addCategory = (category) => post({ action: 'addCategory', category });
+export const addCategory = (project, category) => post({ action: 'addCategory', project, category });
+export const addProject = (project, category) => post({ action: 'addProject', project, category });
