@@ -1,17 +1,14 @@
 import { baht, pct } from '../format';
 
 export default function CategoryChart({ summary, onSelect, activeCategory }) {
-  const ranked = [...summary]
-    .filter((r) => Number(r.total) > 0)
-    .sort((a, b) => Number(b.total) - Number(a.total))
-    .slice(0, 12);
+  const ranked = [...summary].sort((a, b) => Number(b.total) - Number(a.total));
   const max = Math.max(...ranked.map((r) => Number(r.total)), 1);
 
   return (
     <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-5">
       <div className="flex items-baseline justify-between mb-4">
         <h2 className="text-sm font-semibold tracking-wide text-[var(--text)] uppercase">
-          ต้นทุนตามรายการเครื่องจักร <span className="text-[var(--text-muted)] normal-case">(สูงสุด 12 อันดับ)</span>
+          ต้นทุนตามรายการเครื่องจักร <span className="text-[var(--text-muted)] normal-case">({ranked.length} รายการ)</span>
         </h2>
         {activeCategory && (
           <button
@@ -22,7 +19,7 @@ export default function CategoryChart({ summary, onSelect, activeCategory }) {
           </button>
         )}
       </div>
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
         {ranked.map((r) => {
           const w = (Number(r.total) / max) * 100;
           const active = activeCategory === r.category;

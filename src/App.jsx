@@ -40,6 +40,7 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Keep the selected project valid as data changes (e.g. after a live refresh)
   useEffect(() => {
     const projects = [...new Set(allSummary.map((s) => s.project))];
     if (projects.length && !projects.includes(activeProject)) {
@@ -69,6 +70,7 @@ export default function App() {
     return s;
   }, [summary]);
 
+  // When a machine/category is selected (via chart click or table dropdown), scope the stat cards to it
   const categoryItems = useMemo(
     () => (activeCategory ? items.filter((i) => i.category === activeCategory) : items),
     [items, activeCategory]
@@ -160,6 +162,30 @@ export default function App() {
       return;
     }
     const nextItems = allItems.filter((i) => i.id !== id);
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+  };
+
+  const handleUpdateItem = async (id, form) => {
+    const qty = Number(form.qty) || 0;
+    const unitPrice = Number(form.unitPrice) || 0;
+    const total = qty * unitPrice;
+    if (api.isLive()) {
+      const res = await api.updateItem({
+        id,
+        project: activeProject,
+        category: form.category,
+        item: form.item,
+        qty,
+        unit: form.unit,
+        unitPrice,
+      });
+      await refresh();
+      return res;
+    }
+    const nextItems = allItems.map((it) =>
+      it.id === id ? { ...it, category: form.category, item: form.item, qty, unit: form.unit, unitPrice, total } : it
+    );
     setAllItems(nextItems);
     recalcLocalSummary(nextItems);
   };
@@ -315,6 +341,7 @@ export default function App() {
                   activeCategory={activeCategory}
                   setActiveCategory={setActiveCategory}
                   onDelete={handleDelete}
+                  onUpdate={handleUpdateItem}
                   canWrite
                 />
               </div>
