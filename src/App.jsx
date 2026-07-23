@@ -66,6 +66,17 @@ export default function App() {
     return s;
   }, [summary]);
 
+  // When a machine/category is selected (via chart click or table dropdown), scope the stat cards to it
+  const categoryItems = useMemo(
+    () => (activeCategory ? items.filter((i) => i.category === activeCategory) : items),
+    [items, activeCategory]
+  );
+  const categoryTotal = useMemo(
+    () => categoryItems.reduce((s, r) => s + (Number(r.total) || 0), 0),
+    [categoryItems]
+  );
+  const categoryShare = grandTotal ? categoryTotal / grandTotal : 0;
+
   const recalcLocalSummary = (nextItems) => {
     const totals = {};
     let grand = 0;
@@ -193,22 +204,51 @@ export default function App() {
       </header>
 
       <main className="max-w-7xl mx-auto px-5 py-6 space-y-6">
-        <div className="flex items-center gap-2 text-[var(--text-muted)] text-sm">
+        <div className="flex items-center gap-2 text-[var(--text-muted)] text-sm flex-wrap">
           <span className="text-[var(--blueprint)]">●</span>
           <span>
             กำลังดูโครงการ: <span className="text-[var(--text)] font-semibold">{activeProject || '—'}</span>
           </span>
+          {activeCategory && (
+            <>
+              <span className="text-[var(--blueprint-dim)]">/</span>
+              <span>
+                เครื่องจักร: <span className="text-[var(--amber)] font-semibold">{activeCategory}</span>
+              </span>
+              <button
+                onClick={() => setActiveCategory(null)}
+                className="text-[var(--amber)] hover:underline text-xs ml-1"
+              >
+                ดูทั้งโครงการ ×
+              </button>
+            </>
+          )}
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <StatCard label="ต้นทุนรวมทั้งหมด" value={`${baht(grandTotal)} ฿`} accent="amber" />
-          <StatCard label="จำนวนรายการ" value={itemCount} />
-          <StatCard label="จำนวนหมวดหมู่ / เครื่องจักร" value={categoryCount} />
           <StatCard
-            label="หมวดหมู่ต้นทุนสูงสุด"
-            value={topCategory ? topCategory.category : '—'}
-            sub={topCategory ? `${baht(topCategory.total)} ฿` : ''}
+            label={activeCategory ? `ต้นทุนของ ${activeCategory}` : 'ต้นทุนรวมทั้งหมด'}
+            value={`${baht(activeCategory ? categoryTotal : grandTotal)} ฿`}
+            accent="amber"
           />
+          <StatCard label="จำนวนรายการ" value={activeCategory ? categoryItems.length : itemCount} />
+          {activeCategory ? (
+            <StatCard label="สัดส่วนต่อโครงการ" value={`${(categoryShare * 100).toFixed(1)}%`} />
+          ) : (
+            <StatCard label="จำนวนหมวดหมู่ / เครื่องจักร" value={categoryCount} />
+          )}
+          {activeCategory ? (
+            <StatCard
+              label="ราคาเฉลี่ยต่อรายการ"
+              value={`${baht(categoryItems.length ? categoryTotal / categoryItems.length : 0)} ฿`}
+            />
+          ) : (
+            <StatCard
+              label="หมวดหมู่ต้นทุนสูงสุด"
+              value={topCategory ? topCategory.category : '—'}
+              sub={topCategory ? `${baht(topCategory.total)} ฿` : ''}
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
