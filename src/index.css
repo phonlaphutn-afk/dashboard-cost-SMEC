@@ -47,6 +47,7 @@ body {
 .print-only { display: none; }
 
 @media print {
+  @page { margin: 14mm; }
   body { background: #fff !important; color: #000 !important; }
   .no-print { display: none !important; }
   .print-only {
@@ -54,10 +55,10 @@ body {
     color: #000;
     font-family: 'IBM Plex Sans', 'IBM Plex Sans Thai', system-ui, sans-serif;
   }
-  .print-only table { width: 100%; border-collapse: collapse; font-size: 11px; }
-  .print-only th, .print-only td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
-  .print-only th { background: #eee; }
-  .print-only h1 { font-size: 18px; margin: 0 0 2px; }
-  .print-only h2 { font-size: 13px; margin: 18px 0 6px; }
-  .print-only .meta { font-size: 11px; color: #444; margin-bottom: 12px; }
+  .print-only table { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-bottom: 4px; page-break-inside: auto; }
+  .print-only tr { page-break-inside: avoid; }
+  .print-only th, .print-only td { border: 1px solid #d5dbe6; padding: 4px 6px; text-align: left; }
+  .print-only th { background: #2c4a7c; color: #fff; font-weight: 600; }
+  .print-only h1 { font-size: 17px; margin: 0; }
+  .print-only h2 { font-size: 12.5px; margin: 16px 0 6px; color: #2c4a7c; border-bottom: 2px solid #f5a623; padding-bottom: 3px; }
 }
