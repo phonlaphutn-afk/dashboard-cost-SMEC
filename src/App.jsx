@@ -86,7 +86,50 @@ export default function App() {
     () => categoryItems.reduce((s, r) => s + (Number(r.total) || 0), 0),
     [categoryItems]
   );
-  const categoryShare = grandTotal ? categoryTotal / grandTotal : 0;
+
+  // "ถ้าผลิตเครื่องเดียว" simulation: for shared/split materials, swap the allocated share
+  // back to the full purchased qty x unit price — i.e. what it'd really cost to build this
+  // machine alone, since you can't buy a fraction of a plate. Only meaningful with one
+  // machine selected, so it resets whenever the selection changes.
+  const [standalone, setStandalone] = useState(false);
+  useEffect(() => {
+    if (!activeCategory) setStandalone(false);
+  }, [activeCategory]);
+
+  const hasSharedItems = useMemo(() => categoryItems.some((i) => i.sharedGroup), [categoryItems]);
+
+  const categoryItemsDisplay = useMemo(() => {
+    if (!activeCategory || !standalone) return categoryItems;
+    return categoryItems.map((it) => {
+      if (it.sharedGroup && it.fullQty) {
+        const fullQty = Number(it.fullQty) || 0;
+        const unitPrice = Number(it.unitPrice) || 0;
+        return { ...it, qty: fullQty, total: fullQty * unitPrice };
+      }
+      return it;
+    });
+  }, [categoryItems, activeCategory, standalone]);
+
+  const categoryTotalDisplay = useMemo(
+    () => categoryItemsDisplay.reduce((s, r) => s + (Number(r.total) || 0), 0),
+    [categoryItemsDisplay]
+  );
+
+  const categoryShare = grandTotal ? categoryTotalDisplay / grandTotal : 0;
+
+  // Same swap applied inside the full items list, so ItemsTable (which does its own
+  // category filtering) shows the simulated numbers only for the selected machine's rows.
+  const itemsForTable = useMemo(() => {
+    if (!activeCategory || !standalone) return items;
+    return items.map((it) => {
+      if (it.category === activeCategory && it.sharedGroup && it.fullQty) {
+        const fullQty = Number(it.fullQty) || 0;
+        const unitPrice = Number(it.unitPrice) || 0;
+        return { ...it, qty: fullQty, total: fullQty * unitPrice };
+      }
+      return it;
+    });
+  }, [items, activeCategory, standalone]);
 
   const recalcLocalSummary = (nextItems) => {
     const totals = {};
@@ -236,8 +279,10 @@ export default function App() {
   const handleExportExcel = () => {
     if (view === 'overview') exportAllToExcel(allSummary, allItems);
     else if (activeCategory) {
-      const categorySummaryRow = summary.find((s) => s.category === activeCategory);
-      exportCategoryToExcel(activeProject, activeCategory, categoryItems, categorySummaryRow);
+      const categorySummaryRow = standalone
+        ? { ...summary.find((s) => s.category === activeCategory), total: categoryTotalDisplay }
+        : summary.find((s) => s.category === activeCategory);
+      exportCategoryToExcel(activeProject, activeCategory, categoryItemsDisplay, categorySummaryRow);
     } else exportProjectToExcel(activeProject, items, summary);
   };
 
@@ -336,17 +381,39 @@ export default function App() {
                   >
                     ดูทั้งโครงการ ×
                   </button>
+                  {hasSharedItems && (
+                    <div className="flex text-xs rounded-md overflow-hidden border border-[var(--blueprint-dim)]/50 ml-2">
+                      <button
+                        onClick={() => setStandalone(false)}
+                        className={`px-2.5 py-1 ${!standalone ? 'bg-[var(--blueprint)] text-[#04101f] font-semibold' : 'text-[var(--text-muted)]'}`}
+                      >
+                        ต้นทุนตามจริง
+                      </button>
+                      <button
+                        onClick={() => setStandalone(true)}
+                        className={`px-2.5 py-1 ${standalone ? 'bg-[var(--amber)] text-[#1a1200] font-semibold' : 'text-[var(--text-muted)]'}`}
+                      >
+                        ถ้าผลิตเครื่องเดียว
+                      </button>
+                    </div>
+                  )}
                 </>
               )}
             </div>
 
+            {standalone && (
+              <p className="text-xs text-[var(--amber)] bg-[var(--amber-dim)]/20 border border-[var(--amber-dim)]/50 rounded-md px-3 py-2">
+                กำลังดูต้นทุนจำลอง — วัสดุที่ปกติแบ่งใช้กับเครื่องอื่นจะคิดเต็มราคา (เหมือนต้องซื้อทั้งชิ้นเพื่อสร้างเครื่องนี้เครื่องเดียว) ตัวเลขนี้ไม่ได้บันทึกลง Sheet
+              </p>
+            )}
+
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               <StatCard
                 label={activeCategory ? `ต้นทุนของ ${activeCategory}` : 'ต้นทุนรวมทั้งหมด'}
-                value={`${baht(activeCategory ? categoryTotal : grandTotal)} ฿`}
+                value={`${baht(activeCategory ? categoryTotalDisplay : grandTotal)} ฿`}
                 accent="amber"
               />
-              <StatCard label="จำนวนรายการ" value={activeCategory ? categoryItems.length : itemCount} />
+              <StatCard label="จำนวนรายการ" value={activeCategory ? categoryItemsDisplay.length : itemCount} />
               {activeCategory ? (
                 <StatCard label="สัดส่วนต่อโครงการ" value={`${(categoryShare * 100).toFixed(1)}%`} />
               ) : (
@@ -355,7 +422,7 @@ export default function App() {
               {activeCategory ? (
                 <StatCard
                   label="ราคาเฉลี่ยต่อรายการ"
-                  value={`${baht(categoryItems.length ? categoryTotal / categoryItems.length : 0)} ฿`}
+                  value={`${baht(categoryItemsDisplay.length ? categoryTotalDisplay / categoryItemsDisplay.length : 0)} ฿`}
                 />
               ) : (
                 <StatCard
@@ -379,13 +446,13 @@ export default function App() {
               </div>
               <div className="lg:col-span-3">
                 <ItemsTable
-                  items={items}
+                  items={itemsForTable}
                   categories={categories}
                   activeCategory={activeCategory}
                   setActiveCategory={setActiveCategory}
                   onDelete={handleDelete}
                   onUpdate={handleUpdateItem}
-                  canWrite
+                  canWrite={!standalone}
                 />
               </div>
             </div>
@@ -401,14 +468,17 @@ export default function App() {
         scope={view === 'project' && activeCategory ? 'category' : view}
         project={activeProject}
         category={activeCategory}
+        standalone={standalone}
         summary={
           view === 'overview'
             ? allSummary
             : activeCategory
-            ? summary.filter((s) => s.category === activeCategory)
+            ? summary
+                .filter((s) => s.category === activeCategory)
+                .map((s) => (standalone ? { ...s, total: categoryTotalDisplay } : s))
             : summary
         }
-        items={view === 'overview' ? allItems : activeCategory ? categoryItems : items}
+        items={view === 'overview' ? allItems : activeCategory ? categoryItemsDisplay : items}
       />
     </div>
   );

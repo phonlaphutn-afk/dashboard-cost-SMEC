@@ -48,12 +48,12 @@ function ReportChart({ title, rows }) {
 
 // Renders nothing on screen — only appears via @media print (see index.css .print-only).
 // Used for the "Export PDF" flow: window.print() → user picks "Save as PDF" in the print dialog.
-export default function PrintReport({ scope, project, category, summary, items }) {
+export default function PrintReport({ scope, project, category, standalone, summary, items }) {
   const title =
     scope === 'overview'
       ? 'ภาพรวมต้นทุนทุกโครงการ'
       : scope === 'category'
-      ? `เครื่องจักร: ${category} — โครงการ: ${project}`
+      ? `เครื่องจักร: ${category} — โครงการ: ${project}${standalone ? ' (ต้นทุนกรณีผลิตเครื่องเดียว)' : ''}`
       : `ต้นทุนโครงการ: ${project}`;
   const grandTotal = items.reduce((s, r) => s + (Number(r.total) || 0), 0);
 
