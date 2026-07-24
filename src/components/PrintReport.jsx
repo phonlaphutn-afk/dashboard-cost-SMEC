@@ -48,7 +48,6 @@ function ReportChart({ title, rows }) {
 
 // Renders nothing on screen — only appears via @media print (see index.css .print-only).
 // Used for the "Export PDF" flow: window.print() → user picks "Save as PDF" in the print dialog.
-<<<<<<< HEAD
 export default function PrintReport({ scope, project, category, summary, items }) {
   const title =
     scope === 'overview'
@@ -56,10 +55,6 @@ export default function PrintReport({ scope, project, category, summary, items }
       : scope === 'category'
       ? `เครื่องจักร: ${category} — โครงการ: ${project}`
       : `ต้นทุนโครงการ: ${project}`;
-=======
-export default function PrintReport({ scope, project, summary, items }) {
-  const title = scope === 'overview' ? 'ภาพรวมต้นทุนทุกโครงการ' : `ต้นทุนโครงการ: ${project}`;
->>>>>>> 7f06f7ef5868259697f682ca0cc849d5d2a25f8b
   const grandTotal = items.reduce((s, r) => s + (Number(r.total) || 0), 0);
 
   const chartRows =
@@ -70,11 +65,8 @@ export default function PrintReport({ scope, project, summary, items }) {
             return acc;
           }, {})
         ).map(([label, total]) => ({ label, total }))
-<<<<<<< HEAD
       : scope === 'category'
       ? items.map((it) => ({ label: it.item, total: Number(it.total) || 0 }))
-=======
->>>>>>> 7f06f7ef5868259697f682ca0cc849d5d2a25f8b
       : summary.map((s) => ({ label: s.category, total: Number(s.total) || 0 }));
 
   return (
@@ -101,7 +93,6 @@ export default function PrintReport({ scope, project, summary, items }) {
         </div>
       </div>
 
-<<<<<<< HEAD
       <ReportChart
         title={
           scope === 'overview'
@@ -112,9 +103,6 @@ export default function PrintReport({ scope, project, summary, items }) {
         }
         rows={chartRows}
       />
-=======
-      <ReportChart title={scope === 'overview' ? 'เปรียบเทียบต้นทุนแต่ละโครงการ' : 'เปรียบเทียบต้นทุนแต่ละหมวดหมู่'} rows={chartRows} />
->>>>>>> 7f06f7ef5868259697f682ca0cc849d5d2a25f8b
 
       <h2>สรุปตามหมวดหมู่ / เครื่องจักร</h2>
       <table>
