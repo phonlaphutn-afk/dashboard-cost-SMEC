@@ -23,9 +23,9 @@ function detectColumns(headerRow) {
   return map;
 }
 
-export default function AddPanel({ categories, onAddItem, onAddCategory, isLive }) {
+export default function AddPanel({ categories, onAddItem, onAddSharedItem, onAddCategory, isLive }) {
   const [open, setOpen] = useState(false);
-  const [tab, setTab] = useState('item'); // 'item' | 'category' | 'import'
+  const [tab, setTab] = useState('item'); // 'item' | 'shared' | 'category' | 'import'
 
   return (
     <>
@@ -37,7 +37,7 @@ export default function AddPanel({ categories, onAddItem, onAddCategory, isLive 
           +
         </span>
         <span className="text-[var(--amber)] font-semibold">เพิ่มข้อมูล</span>
-        <span className="text-xs text-[var(--text-muted)]">เพิ่มรายการทีละอัน, สร้างหมวดหมู่ใหม่, หรือนำเข้าจากไฟล์ Excel / CSV</span>
+        <span className="text-xs text-[var(--text-muted)]">เพิ่มรายการทีละอัน, แบ่งใช้หลายเครื่องจักร, สร้างหมวดหมู่ใหม่, หรือนำเข้าจากไฟล์</span>
       </button>
 
       {open && (
@@ -46,6 +46,7 @@ export default function AddPanel({ categories, onAddItem, onAddCategory, isLive 
           setTab={setTab}
           categories={categories}
           onAddItem={onAddItem}
+          onAddSharedItem={onAddSharedItem}
           onAddCategory={onAddCategory}
           isLive={isLive}
           onClose={() => setOpen(false)}
@@ -55,7 +56,7 @@ export default function AddPanel({ categories, onAddItem, onAddCategory, isLive 
   );
 }
 
-function AddDataModal({ tab, setTab, categories, onAddItem, onAddCategory, isLive, onClose }) {
+function AddDataModal({ tab, setTab, categories, onAddItem, onAddSharedItem, onAddCategory, isLive, onClose }) {
   const inputClass =
     'w-full bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-3 py-2.5 text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]';
   const labelClass = 'text-xs text-[var(--text-muted)] mb-1 block';
@@ -71,9 +72,10 @@ function AddDataModal({ tab, setTab, categories, onAddItem, onAddCategory, isLiv
           </button>
         </div>
 
-        <div className="flex gap-1 px-6 pt-4">
+        <div className="flex gap-1 px-6 pt-4 flex-wrap">
           {[
             ['item', 'รายการใหม่'],
+            ['shared', 'แบ่งใช้หลายเครื่องจักร'],
             ['category', 'หมวดหมู่ใหม่ (Sheet ใหม่)'],
             ['import', 'นำเข้าจากไฟล์ Excel / CSV'],
           ].map(([key, label]) => (
@@ -100,6 +102,9 @@ function AddDataModal({ tab, setTab, categories, onAddItem, onAddCategory, isLiv
 
           {tab === 'item' && (
             <ItemForm categories={categories} onAddItem={onAddItem} inputClass={inputClass} labelClass={labelClass} onDone={onClose} />
+          )}
+          {tab === 'shared' && (
+            <SharedItemForm categories={categories} onAddSharedItem={onAddSharedItem} inputClass={inputClass} labelClass={labelClass} onDone={onClose} />
           )}
           {tab === 'category' && (
             <CategoryForm onAddCategory={onAddCategory} inputClass={inputClass} labelClass={labelClass} onDone={onClose} />
@@ -178,9 +183,172 @@ function ItemForm({ categories, onAddItem, inputClass, labelClass, onDone }) {
   );
 }
 
+function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, onDone }) {
+  const [item, setItem] = useState('');
+  const [fullQty, setFullQty] = useState('');
+  const [unit, setUnit] = useState('');
+  const [unitPrice, setUnitPrice] = useState('');
+  const [selected, setSelected] = useState([]); // category names chosen
+  const [splitMethod, setSplitMethod] = useState('equal'); // 'equal' | 'custom'
+  const [customQty, setCustomQty] = useState({}); // category -> qty string
+  const [status, setStatus] = useState(null);
+
+  const toggleCategory = (cat) => {
+    setSelected((prev) => (prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]));
+  };
+
+  const fullQtyNum = Number(fullQty) || 0;
+  const equalShare = selected.length ? fullQtyNum / selected.length : 0;
+  const allocatedTotal = selected.reduce((sum, cat) => {
+    const q = splitMethod === 'equal' ? equalShare : Number(customQty[cat]) || 0;
+    return sum + q;
+  }, 0);
+  const mismatch = selected.length > 0 && Math.abs(allocatedTotal - fullQtyNum) > 0.001;
+  const fullCost = fullQtyNum * (Number(unitPrice) || 0);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!item || !selected.length || !fullQtyNum) return;
+    setStatus('saving');
+    try {
+      const allocations = selected.map((cat) => ({
+        category: cat,
+        qty: splitMethod === 'equal' ? equalShare : Number(customQty[cat]) || 0,
+      }));
+      await onAddSharedItem({ item, fullQty: fullQtyNum, unit, unitPrice: Number(unitPrice) || 0, allocations });
+      setItem('');
+      setFullQty('');
+      setUnit('');
+      setUnitPrice('');
+      setSelected([]);
+      setCustomQty({});
+      setStatus('saved');
+      setTimeout(() => setStatus(null), 1500);
+    } catch {
+      setStatus('error');
+      setTimeout(() => setStatus(null), 2000);
+    }
+  };
+
+  return (
+    <form onSubmit={submit} className="space-y-4">
+      <div className="rounded-md border border-[var(--blueprint-dim)]/50 bg-[var(--bg-panel-raised)] p-3 text-xs text-[var(--text-muted)] leading-relaxed">
+        ใช้แท็บนี้เมื่อซื้อของมา 1 รายการ (เช่น แผ่นเหล็ก 9 มิล 1 แผ่น) แล้วตัดแบ่งไปใช้กับเครื่องจักรหลายตัว —
+        ระบบจะหารต้นทุนให้ตามจริง ไม่นับซ้ำเต็มราคาในแต่ละเครื่อง แต่ยังเก็บ "ราคาเต็ม" ไว้อ้างอิงว่าถ้าทำเครื่องเดียวต้องซื้อเท่าไหร่
+      </div>
+
+      <div>
+        <label className={labelClass}>รายการสินค้า (ของที่ซื้อจริง)</label>
+        <input value={item} onChange={(e) => setItem(e.target.value)} placeholder="เช่น แผ่นเหล็ก 9 มิล" className={inputClass} required />
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        <div>
+          <label className={labelClass}>จำนวนที่ซื้อจริงทั้งหมด</label>
+          <input value={fullQty} onChange={(e) => setFullQty(e.target.value)} type="number" step="any" className={inputClass} required />
+        </div>
+        <div>
+          <label className={labelClass}>หน่วย</label>
+          <input value={unit} onChange={(e) => setUnit(e.target.value)} placeholder="แผ่น" className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass}>ราคา/หน่วย (บาท)</label>
+          <input value={unitPrice} onChange={(e) => setUnitPrice(e.target.value)} type="number" step="any" className={inputClass} />
+        </div>
+      </div>
+
+      {fullQtyNum > 0 && Number(unitPrice) > 0 && (
+        <p className="text-xs text-[var(--text-muted)]">
+          ราคาเต็มของรายการนี้: <span className="text-[var(--amber)] font-mono-num">{baht(fullCost)} ฿</span> (ถ้าต้องซื้อคนเดียวไม่แบ่งใคร)
+        </p>
+      )}
+
+      <div>
+        <label className={labelClass}>เลือกเครื่องจักรที่ใช้ร่วมกัน</label>
+        <div className="flex flex-wrap gap-2 max-h-36 overflow-y-auto rounded-md border border-[var(--blueprint-dim)]/40 p-2">
+          {categories.map((c) => (
+            <button
+              type="button"
+              key={c}
+              onClick={() => toggleCategory(c)}
+              className={`px-2.5 py-1 text-xs rounded-full border ${
+                selected.includes(c)
+                  ? 'bg-[var(--amber)] text-[#1a1200] border-[var(--amber)] font-semibold'
+                  : 'border-[var(--blueprint-dim)]/50 text-[var(--text-muted)] hover:text-[var(--text)]'
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {selected.length > 0 && (
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <label className={labelClass + ' mb-0'}>วิธีแบ่งยอด</label>
+            <div className="flex text-xs rounded-md overflow-hidden border border-[var(--blueprint-dim)]/50">
+              <button
+                type="button"
+                onClick={() => setSplitMethod('equal')}
+                className={`px-3 py-1 ${splitMethod === 'equal' ? 'bg-[var(--blueprint)] text-[#04101f] font-semibold' : 'text-[var(--text-muted)]'}`}
+              >
+                หารเท่ากัน
+              </button>
+              <button
+                type="button"
+                onClick={() => setSplitMethod('custom')}
+                className={`px-3 py-1 ${splitMethod === 'custom' ? 'bg-[var(--blueprint)] text-[#04101f] font-semibold' : 'text-[var(--text-muted)]'}`}
+              >
+                กำหนดเอง
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            {selected.map((cat) => (
+              <div key={cat} className="flex items-center justify-between gap-2 text-sm bg-[var(--bg-panel-raised)] rounded-md px-3 py-1.5">
+                <span className="truncate">{cat}</span>
+                {splitMethod === 'equal' ? (
+                  <span className="font-mono-num text-[var(--text-muted)]">
+                    {equalShare.toFixed(3)} {unit}
+                  </span>
+                ) : (
+                  <input
+                    value={customQty[cat] ?? ''}
+                    onChange={(e) => setCustomQty({ ...customQty, [cat]: e.target.value })}
+                    type="number"
+                    step="any"
+                    placeholder="0"
+                    className="w-24 bg-[var(--bg-panel)] border border-[var(--blueprint-dim)]/50 rounded px-2 py-1 text-xs text-right focus:outline-none focus:ring-1 focus:ring-[var(--blueprint)]"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p className={`text-xs mt-2 ${mismatch ? 'text-[var(--danger)]' : 'text-[var(--text-muted)]'}`}>
+            รวมที่แบ่งแล้ว: {allocatedTotal.toFixed(3)} / {fullQtyNum} {unit}
+            {mismatch && ' — ยอดรวมไม่เท่ากับจำนวนที่ซื้อจริง ตรวจสอบอีกครั้ง'}
+          </p>
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={!item || !selected.length || !fullQtyNum}
+        className="w-full bg-[var(--amber)] text-[#1a1200] font-semibold rounded-md px-4 py-3 text-sm hover:brightness-110 transition disabled:opacity-50"
+      >
+        {status === 'saving' ? 'กำลังบันทึก...' : `บันทึก แบ่งใช้ ${selected.length || 0} เครื่องจักร`}
+      </button>
+      {status === 'saved' && <p className="text-xs text-[var(--success)]">บันทึกเรียบร้อย ✓</p>}
+      {status === 'error' && <p className="text-xs text-[var(--danger)]">บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง</p>}
+    </form>
+  );
+}
+
 function CategoryForm({ onAddCategory, inputClass, labelClass, onDone }) {
   const [name, setName] = useState('');
-  const [status, setStatus] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();

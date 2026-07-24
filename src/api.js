@@ -26,6 +26,7 @@ async function post(payload) {
 }
 
 export const addItem = (item) => post({ action: 'addItem', ...item });
+export const addSharedItem = (payload) => post({ action: 'addSharedItem', ...payload });
 export const updateItem = (item) => post({ action: 'updateItem', ...item });
 export const deleteItem = (id) => post({ action: 'deleteItem', id });
 export const addCategory = (project, category) => post({ action: 'addCategory', project, category });

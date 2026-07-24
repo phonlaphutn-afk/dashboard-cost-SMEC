@@ -137,6 +137,36 @@ export default function App() {
     recalcLocalSummary(nextItems);
   };
 
+  const handleAddSharedItem = async (payload) => {
+    // payload: { item, fullQty, unit, unitPrice, allocations: [{category, qty}, ...] }
+    if (api.isLive()) {
+      const res = await api.addSharedItem({ project: activeProject, ...payload });
+      await refresh();
+      return res;
+    }
+    const groupId = 'SH-local-' + Date.now();
+    let nextId = Math.max(0, ...allItems.map((i) => i.id)) + 1;
+    const newItems = payload.allocations.map((a) => {
+      const row = {
+        id: nextId,
+        project: activeProject,
+        category: a.category,
+        item: payload.item,
+        qty: Number(a.qty) || 0,
+        unit: payload.unit,
+        unitPrice: Number(payload.unitPrice) || 0,
+        total: (Number(a.qty) || 0) * (Number(payload.unitPrice) || 0),
+        sharedGroup: groupId,
+        fullQty: payload.fullQty,
+      };
+      nextId++;
+      return row;
+    });
+    const nextItems = [...allItems, ...newItems];
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+  };
+
   const handleAddCategory = async (category) => {
     if (api.isLive()) {
       const res = await api.addCategory(activeProject, category);
@@ -342,6 +372,7 @@ export default function App() {
                 <AddPanel
                   categories={categories}
                   onAddItem={handleAddItem}
+                  onAddSharedItem={handleAddSharedItem}
                   onAddCategory={handleAddCategory}
                   isLive={live}
                 />
