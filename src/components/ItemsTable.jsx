@@ -39,7 +39,7 @@ function SharedBadge({ row, items }) {
   );
 }
 
-export default function ItemsTable({ items, categories, activeCategory, setActiveCategory, onDelete, onUpdate, canWrite }) {
+export default function ItemsTable({ items, categories, activeCategory, setActiveCategory, onDelete, onUpdate, canWrite, standalone }) {
   const [query, setQuery] = useState('');
   const [sortKey, setSortKey] = useState('total');
   const [sortDir, setSortDir] = useState('desc');
@@ -142,7 +142,7 @@ export default function ItemsTable({ items, categories, activeCategory, setActiv
               <Th k="category">หมวดหมู่</Th>
               <Th k="item">รายการสินค้า</Th>
               <Th k="qty" className="text-right">
-                จำนวน
+                {standalone ? 'ที่ต้องซื้อ' : 'จำนวน'}
               </Th>
               <th className="px-3 py-2 text-left text-[11px] uppercase tracking-wide text-[var(--text-muted)]">
                 หน่วย
@@ -151,7 +151,7 @@ export default function ItemsTable({ items, categories, activeCategory, setActiv
                 ราคา/หน่วย
               </Th>
               <Th k="total" className="text-right">
-                ราคารวม
+                {standalone ? 'ที่ต้องจ่าย' : 'ราคารวม'}
               </Th>
               {canWrite && <th className="px-3 py-2 whitespace-nowrap">จัดการ</th>}
             </tr>

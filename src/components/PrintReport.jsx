@@ -128,17 +128,17 @@ export default function PrintReport({ scope, project, category, standalone, summ
         </tbody>
       </table>
 
-      <h2>รายการสินค้าทั้งหมด</h2>
+      <h2>{scope === 'category' && standalone ? 'รายการที่ต้องจัดซื้อ (ซื้อครั้งเดียวสร้าง 1 เครื่อง)' : 'รายการสินค้าทั้งหมด'}</h2>
       <table>
         <thead>
           <tr>
             <th>โครงการ</th>
             <th>หมวดหมู่</th>
             <th>รายการสินค้า</th>
-            <th>จำนวน</th>
+            <th>{scope === 'category' && standalone ? 'จำนวนที่ต้องซื้อ' : 'จำนวน'}</th>
             <th>หน่วย</th>
             <th>ราคา/หน่วย</th>
-            <th>ราคารวม</th>
+            <th>{scope === 'category' && standalone ? 'ราคารวมที่ต้องจ่าย' : 'ราคารวม'}</th>
           </tr>
         </thead>
         <tbody>

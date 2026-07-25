@@ -453,6 +453,7 @@ export default function App() {
                   onDelete={handleDelete}
                   onUpdate={handleUpdateItem}
                   canWrite={!standalone}
+                  standalone={standalone}
                 />
               </div>
             </div>
