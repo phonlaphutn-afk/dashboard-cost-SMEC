@@ -1781,1846 +1781,6 @@
       "total": 29.0
     },
     {
-      "id": 179,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "เฟื่องโซ่เดี่ยว  80-1x15 ฟัน SKF",
-      "qty": 1,
-      "unit": "Ea",
-      "unitPrice": 476.0,
-      "total": 476.0
-    },
-    {
-      "id": 180,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "เฟื่องโซ่เดี่ยว  80-1x18 ฟัน SKF",
-      "qty": 1,
-      "unit": "Ea",
-      "unitPrice": 619.0,
-      "total": 619.0
-    },
-    {
-      "id": 181,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "ลูกปืนตุ๊กตา UKF 211K SKF",
-      "qty": 2,
-      "unit": "Ea",
-      "unitPrice": 707.0,
-      "total": 1414.0
-    },
-    {
-      "id": 182,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "ปลอกสลิฟ H2311 SKF",
-      "qty": 2,
-      "unit": "Ea",
-      "unitPrice": 463.0,
-      "total": 926.0
-    },
-    {
-      "id": 183,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "Helical Gearmotor R47DRN100LS4 2.2 kw 100rpm",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 23100.0,
-      "total": 23100.0
-    },
-    {
-      "id": 184,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
-      "qty": 5,
-      "unit": "แผ่น",
-      "unitPrice": 7200.0,
-      "total": 36000.0
-    },
-    {
-      "id": 185,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
-      "qty": 2,
-      "unit": "แผ่น",
-      "unitPrice": 3850.0,
-      "total": 7700.0
-    },
-    {
-      "id": 186,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
-      "qty": 1,
-      "unit": "แผ่น",
-      "unitPrice": 17400.0,
-      "total": 17400.0
-    },
-    {
-      "id": 187,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 5300.0,
-      "total": 5300.0
-    },
-    {
-      "id": 188,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "ท่อสแตนเลส 1-1/2\" #40",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 2550.0,
-      "total": 2550.0
-    },
-    {
-      "id": 189,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "เพลา St 1-3/4\" (45 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 8400.0,
-      "total": 8400.0
-    },
-    {
-      "id": 190,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "เพลา St 2-3/4\"(70 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 20900.0,
-      "total": 20900.0
-    },
-    {
-      "id": 191,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1370.0,
-      "total": 2740.0
-    },
-    {
-      "id": 192,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "เพลาสแตนเลส 1/4",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 170.0,
-      "total": 340.0
-    },
-    {
-      "id": 193,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
-      "qty": 3,
-      "unit": "แผ่น",
-      "unitPrice": 5300.0,
-      "total": 15900.0
-    },
-    {
-      "id": 194,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สตัดเกลียวตลอด SUS M10",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 160.0,
-      "total": 160.0
-    },
-    {
-      "id": 195,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M10x65",
-      "qty": 5,
-      "unit": "ตัว",
-      "unitPrice": 12.0,
-      "total": 60.0
-    },
-    {
-      "id": 196,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M14x70",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 34.0,
-      "total": 340.0
-    },
-    {
-      "id": 197,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M16x35",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 23.0,
-      "total": 230.0
-    },
-    {
-      "id": 198,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M8x25",
-      "qty": 30,
-      "unit": "ตัว",
-      "unitPrice": 5.0,
-      "total": 150.0
-    },
-    {
-      "id": 199,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M8x45",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 8.0,
-      "total": 80.0
-    },
-    {
-      "id": 200,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M10x40",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 9.0,
-      "total": 90.0
-    },
-    {
-      "id": 201,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M16x70",
-      "qty": 6,
-      "unit": "ตัว",
-      "unitPrice": 33.0,
-      "total": 198.0
-    },
-    {
-      "id": 202,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "สกรู SUS M16x45",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 26.0,
-      "total": 520.0
-    },
-    {
-      "id": 203,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "หัวน็อต SUS M8",
-      "qty": 40,
-      "unit": "ตัว",
-      "unitPrice": 2.5,
-      "total": 100.0
-    },
-    {
-      "id": 204,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แหวนอีแปะ SUS M10",
-      "qty": 200,
-      "unit": "ตัว",
-      "unitPrice": 1.5,
-      "total": 300.0
-    },
-    {
-      "id": 205,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แหวนอีแปะ SUS M8",
-      "qty": 100,
-      "unit": "ตัว",
-      "unitPrice": 0.85,
-      "total": 85.0
-    },
-    {
-      "id": 206,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แหวนสปริง SUS M8",
-      "qty": 50,
-      "unit": "ตัว",
-      "unitPrice": 1.0,
-      "total": 50.0
-    },
-    {
-      "id": 207,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "แหวนสปริง SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 4.0,
-      "total": 80.0
-    },
-    {
-      "id": 208,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 250x3046",
-      "item": "หัวน็อตล็อค SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 18.0,
-      "total": 360.0
-    },
-    {
-      "id": 209,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "เฟื่องโซ่เดี่ยว  80-1x13 ฟัน SKF",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 395.0,
-      "total": 395.0
-    },
-    {
-      "id": 210,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "เฟื่องโซ่เดี่ยว  80-1x23 ฟัน SKF",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 369.0,
-      "total": 369.0
-    },
-    {
-      "id": 211,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "ลูกปืนตุ๊กตา UKF 209 K SKF",
-      "qty": 2,
-      "unit": "Ea.",
-      "unitPrice": 527.0,
-      "total": 1054.0
-    },
-    {
-      "id": 212,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "ปลอกสลิฟ H2309 SKF",
-      "qty": 2,
-      "unit": "Ea.",
-      "unitPrice": 395.0,
-      "total": 790.0
-    },
-    {
-      "id": 213,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "Helical Gearmotor R37DRN90L4 1.5 kw 110rpm",
-      "qty": 1,
-      "unit": "ตัว",
-      "unitPrice": 19800.0,
-      "total": 19800.0
-    },
-    {
-      "id": 214,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
-      "qty": 5,
-      "unit": "แผ่น",
-      "unitPrice": 7200.0,
-      "total": 36000.0
-    },
-    {
-      "id": 215,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
-      "qty": 2,
-      "unit": "แผ่น",
-      "unitPrice": 3850.0,
-      "total": 7700.0
-    },
-    {
-      "id": 216,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
-      "qty": 1,
-      "unit": "แผ่น",
-      "unitPrice": 17400.0,
-      "total": 17400.0
-    },
-    {
-      "id": 217,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 5300.0,
-      "total": 5300.0
-    },
-    {
-      "id": 218,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "ท่อสแตนเลส 1-1/2\" #40",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 2550.0,
-      "total": 2550.0
-    },
-    {
-      "id": 219,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "เพลา St 1-3/4\" (45 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 8400.0,
-      "total": 8400.0
-    },
-    {
-      "id": 220,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "เพลา St 2-3/4\"(70 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 20900.0,
-      "total": 20900.0
-    },
-    {
-      "id": 221,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1370.0,
-      "total": 2740.0
-    },
-    {
-      "id": 222,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "เพลาสแตนเลส 1/4",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 170.0,
-      "total": 340.0
-    },
-    {
-      "id": 223,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
-      "qty": 3,
-      "unit": "แผ่น",
-      "unitPrice": 5300.0,
-      "total": 15900.0
-    },
-    {
-      "id": 224,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สตัดเกลียวตลอด SUS M10",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 160.0,
-      "total": 160.0
-    },
-    {
-      "id": 225,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M10x65",
-      "qty": 5,
-      "unit": "ตัว",
-      "unitPrice": 12.0,
-      "total": 60.0
-    },
-    {
-      "id": 226,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M14x70",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 34.0,
-      "total": 340.0
-    },
-    {
-      "id": 227,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M16x35",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 23.0,
-      "total": 230.0
-    },
-    {
-      "id": 228,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M8x25",
-      "qty": 30,
-      "unit": "ตัว",
-      "unitPrice": 5.0,
-      "total": 150.0
-    },
-    {
-      "id": 229,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M8x45",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 8.0,
-      "total": 80.0
-    },
-    {
-      "id": 230,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M10x40",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 9.0,
-      "total": 90.0
-    },
-    {
-      "id": 231,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M16x70",
-      "qty": 6,
-      "unit": "ตัว",
-      "unitPrice": 33.0,
-      "total": 198.0
-    },
-    {
-      "id": 232,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "สกรู SUS M16x45",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 26.0,
-      "total": 520.0
-    },
-    {
-      "id": 233,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "หัวน็อต SUS M8",
-      "qty": 40,
-      "unit": "ตัว",
-      "unitPrice": 2.5,
-      "total": 100.0
-    },
-    {
-      "id": 234,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แหวนอีแปะ SUS M10",
-      "qty": 200,
-      "unit": "ตัว",
-      "unitPrice": 1.5,
-      "total": 300.0
-    },
-    {
-      "id": 235,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แหวนอีแปะ SUS M8",
-      "qty": 100,
-      "unit": "ตัว",
-      "unitPrice": 0.85,
-      "total": 85.0
-    },
-    {
-      "id": 236,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แหวนสปริง SUS M8",
-      "qty": 50,
-      "unit": "ตัว",
-      "unitPrice": 1.0,
-      "total": 50.0
-    },
-    {
-      "id": 237,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "แหวนสปริง SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 4.0,
-      "total": 80.0
-    },
-    {
-      "id": 238,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x2410",
-      "item": "หัวน็อตล็อค SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 18.0,
-      "total": 360.0
-    },
-    {
-      "id": 239,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "เฟื่องโซ่เดี่ยว  80-1x13 ฟัน SKF",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 395.0,
-      "total": 395.0
-    },
-    {
-      "id": 240,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "เฟื่องโซ่เดี่ยว  80-1x23 ฟัน SKF",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 369.0,
-      "total": 369.0
-    },
-    {
-      "id": 241,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "ลูกปืนตุ๊กตา UKF 209 K SKF",
-      "qty": 2,
-      "unit": "Ea.",
-      "unitPrice": 527.0,
-      "total": 1054.0
-    },
-    {
-      "id": 242,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "ปลอกสลิฟ H2309 SKF",
-      "qty": 2,
-      "unit": "Ea.",
-      "unitPrice": 395.0,
-      "total": 790.0
-    },
-    {
-      "id": 243,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "Helical Gearmotor R37DRN90L4 1.5 kw 110rpm",
-      "qty": 1,
-      "unit": "ตัว",
-      "unitPrice": 19800.0,
-      "total": 19800.0
-    },
-    {
-      "id": 244,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
-      "qty": 5,
-      "unit": "แผ่น",
-      "unitPrice": 7200.0,
-      "total": 36000.0
-    },
-    {
-      "id": 245,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
-      "qty": 2,
-      "unit": "แผ่น",
-      "unitPrice": 3850.0,
-      "total": 7700.0
-    },
-    {
-      "id": 246,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
-      "qty": 1,
-      "unit": "แผ่น",
-      "unitPrice": 17400.0,
-      "total": 17400.0
-    },
-    {
-      "id": 247,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 5300.0,
-      "total": 5300.0
-    },
-    {
-      "id": 248,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "ท่อสแตนเลส 1-1/2\" #40",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 2550.0,
-      "total": 2550.0
-    },
-    {
-      "id": 249,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "เพลา St 1-3/4\" (45 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 8400.0,
-      "total": 8400.0
-    },
-    {
-      "id": 250,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "เพลา St 2-3/4\"(70 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 20900.0,
-      "total": 20900.0
-    },
-    {
-      "id": 251,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1370.0,
-      "total": 2740.0
-    },
-    {
-      "id": 252,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "เพลาสแตนเลส 1/4",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 170.0,
-      "total": 340.0
-    },
-    {
-      "id": 253,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
-      "qty": 3,
-      "unit": "แผ่น",
-      "unitPrice": 5300.0,
-      "total": 15900.0
-    },
-    {
-      "id": 254,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สตัดเกลียวตลอด SUS M10",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 160.0,
-      "total": 160.0
-    },
-    {
-      "id": 255,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M10x65",
-      "qty": 5,
-      "unit": "ตัว",
-      "unitPrice": 12.0,
-      "total": 60.0
-    },
-    {
-      "id": 256,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M14x70",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 34.0,
-      "total": 340.0
-    },
-    {
-      "id": 257,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M16x35",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 23.0,
-      "total": 230.0
-    },
-    {
-      "id": 258,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M8x25",
-      "qty": 30,
-      "unit": "ตัว",
-      "unitPrice": 5.0,
-      "total": 150.0
-    },
-    {
-      "id": 259,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M8x45",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 8.0,
-      "total": 80.0
-    },
-    {
-      "id": 260,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M10x40",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 9.0,
-      "total": 90.0
-    },
-    {
-      "id": 261,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M16x70",
-      "qty": 6,
-      "unit": "ตัว",
-      "unitPrice": 33.0,
-      "total": 198.0
-    },
-    {
-      "id": 262,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "สกรู SUS M16x45",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 26.0,
-      "total": 520.0
-    },
-    {
-      "id": 263,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "หัวน็อต SUS M8",
-      "qty": 40,
-      "unit": "ตัว",
-      "unitPrice": 2.5,
-      "total": 100.0
-    },
-    {
-      "id": 264,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แหวนอีแปะ SUS M10",
-      "qty": 200,
-      "unit": "ตัว",
-      "unitPrice": 1.5,
-      "total": 300.0
-    },
-    {
-      "id": 265,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แหวนอีแปะ SUS M8",
-      "qty": 100,
-      "unit": "ตัว",
-      "unitPrice": 0.85,
-      "total": 85.0
-    },
-    {
-      "id": 266,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แหวนสปริง SUS M8",
-      "qty": 50,
-      "unit": "ตัว",
-      "unitPrice": 1.0,
-      "total": 50.0
-    },
-    {
-      "id": 267,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "แหวนสปริง SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 4.0,
-      "total": 80.0
-    },
-    {
-      "id": 268,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Screw 160x1110",
-      "item": "หัวน็อตล็อค SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 18.0,
-      "total": 360.0
-    },
-    {
-      "id": 269,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "กระบอกลม Bore 50 mm x Stroke 300 mm",
-      "qty": 1,
-      "unit": "อัน",
-      "unitPrice": 5642.0,
-      "total": 5642.0
-    },
-    {
-      "id": 270,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "ก้ามปูปลายแกน Bore 50",
-      "qty": 1,
-      "unit": "อัน",
-      "unitPrice": 788.0,
-      "total": 788.0
-    },
-    {
-      "id": 271,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "Sensor 3 สาย ",
-      "qty": 2,
-      "unit": "อัน",
-      "unitPrice": 1655.2,
-      "total": 3310.4
-    },
-    {
-      "id": 272,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "Solenoid Valve 5/2-Port 1/4\" Double Coil  220VAC",
-      "qty": 1,
-      "unit": "อัน",
-      "unitPrice": 4366.4,
-      "total": 4366.4
-    },
-    {
-      "id": 273,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "ข้อต่อ 8 mm 1/4\"",
-      "qty": 3,
-      "unit": "อัน",
-      "unitPrice": 62.4,
-      "total": 187.2
-    },
-    {
-      "id": 274,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "Silencer 1/4",
-      "qty": 2,
-      "unit": "อัน",
-      "unitPrice": 70.4,
-      "total": 140.8
-    },
-    {
-      "id": 275,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
-      "qty": 5,
-      "unit": "แผ่น",
-      "unitPrice": 7200.0,
-      "total": 36000.0
-    },
-    {
-      "id": 276,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
-      "qty": 2,
-      "unit": "แผ่น",
-      "unitPrice": 3850.0,
-      "total": 7700.0
-    },
-    {
-      "id": 277,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
-      "qty": 1,
-      "unit": "แผ่น",
-      "unitPrice": 17400.0,
-      "total": 17400.0
-    },
-    {
-      "id": 278,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 5300.0,
-      "total": 5300.0
-    },
-    {
-      "id": 279,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "ท่อสแตนเลส 1-1/2\" #40",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 2550.0,
-      "total": 2550.0
-    },
-    {
-      "id": 280,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "เพลา St 1-3/4\" (45 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 8400.0,
-      "total": 8400.0
-    },
-    {
-      "id": 281,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "เพลา St 2-3/4\"(70 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 20900.0,
-      "total": 20900.0
-    },
-    {
-      "id": 282,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1370.0,
-      "total": 2740.0
-    },
-    {
-      "id": 283,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "เพลาสแตนเลส 1/4",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 170.0,
-      "total": 340.0
-    },
-    {
-      "id": 284,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
-      "qty": 3,
-      "unit": "แผ่น",
-      "unitPrice": 5300.0,
-      "total": 15900.0
-    },
-    {
-      "id": 285,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สตัดเกลียวตลอด SUS M10",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 160.0,
-      "total": 160.0
-    },
-    {
-      "id": 286,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M10x65",
-      "qty": 5,
-      "unit": "ตัว",
-      "unitPrice": 12.0,
-      "total": 60.0
-    },
-    {
-      "id": 287,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M14x70",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 34.0,
-      "total": 340.0
-    },
-    {
-      "id": 288,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M16x35",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 23.0,
-      "total": 230.0
-    },
-    {
-      "id": 289,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M8x25",
-      "qty": 30,
-      "unit": "ตัว",
-      "unitPrice": 5.0,
-      "total": 150.0
-    },
-    {
-      "id": 290,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M8x45",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 8.0,
-      "total": 80.0
-    },
-    {
-      "id": 291,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M10x40",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 9.0,
-      "total": 90.0
-    },
-    {
-      "id": 292,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M16x70",
-      "qty": 6,
-      "unit": "ตัว",
-      "unitPrice": 33.0,
-      "total": 198.0
-    },
-    {
-      "id": 293,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "สกรู SUS M16x45",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 26.0,
-      "total": 520.0
-    },
-    {
-      "id": 294,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "หัวน็อต SUS M8",
-      "qty": 40,
-      "unit": "ตัว",
-      "unitPrice": 2.5,
-      "total": 100.0
-    },
-    {
-      "id": 295,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แหวนอีแปะ SUS M10",
-      "qty": 200,
-      "unit": "ตัว",
-      "unitPrice": 1.5,
-      "total": 300.0
-    },
-    {
-      "id": 296,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แหวนอีแปะ SUS M8",
-      "qty": 100,
-      "unit": "ตัว",
-      "unitPrice": 0.85,
-      "total": 85.0
-    },
-    {
-      "id": 297,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แหวนสปริง SUS M8",
-      "qty": 50,
-      "unit": "ตัว",
-      "unitPrice": 1.0,
-      "total": 50.0
-    },
-    {
-      "id": 298,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "แหวนสปริง SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 4.0,
-      "total": 80.0
-    },
-    {
-      "id": 299,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Slide Gate",
-      "item": "หัวน็อตล็อค SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 18.0,
-      "total": 360.0
-    },
-    {
-      "id": 300,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "P40 PNEUM.IMPACT VIBRATOR Code : EPP040",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 8200.0,
-      "total": 8200.0
-    },
-    {
-      "id": 301,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "P25 PNEUM.IMPACT VIBRATOR Code: EPP025 + Solenoil Coil 3/2 220VV-PN-M",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 6500.0,
-      "total": 6500.0
-    },
-    {
-      "id": 302,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
-      "qty": 5,
-      "unit": "แผ่น",
-      "unitPrice": 7200.0,
-      "total": 36000.0
-    },
-    {
-      "id": 303,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
-      "qty": 2,
-      "unit": "แผ่น",
-      "unitPrice": 3850.0,
-      "total": 7700.0
-    },
-    {
-      "id": 304,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
-      "qty": 1,
-      "unit": "แผ่น",
-      "unitPrice": 17400.0,
-      "total": 17400.0
-    },
-    {
-      "id": 305,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 5300.0,
-      "total": 5300.0
-    },
-    {
-      "id": 306,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "ท่อสแตนเลส 1-1/2\" #40",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 2550.0,
-      "total": 2550.0
-    },
-    {
-      "id": 307,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "เพลา St 1-3/4\" (45 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 8400.0,
-      "total": 8400.0
-    },
-    {
-      "id": 308,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "เพลา St 2-3/4\"(70 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 20900.0,
-      "total": 20900.0
-    },
-    {
-      "id": 309,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1370.0,
-      "total": 2740.0
-    },
-    {
-      "id": 310,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "เพลาสแตนเลส 1/4",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 170.0,
-      "total": 340.0
-    },
-    {
-      "id": 311,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
-      "qty": 3,
-      "unit": "แผ่น",
-      "unitPrice": 5300.0,
-      "total": 15900.0
-    },
-    {
-      "id": 312,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สตัดเกลียวตลอด SUS M10",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 160.0,
-      "total": 160.0
-    },
-    {
-      "id": 313,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M10x65",
-      "qty": 5,
-      "unit": "ตัว",
-      "unitPrice": 12.0,
-      "total": 60.0
-    },
-    {
-      "id": 314,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M14x70",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 34.0,
-      "total": 340.0
-    },
-    {
-      "id": 315,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M16x35",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 23.0,
-      "total": 230.0
-    },
-    {
-      "id": 316,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M8x25",
-      "qty": 30,
-      "unit": "ตัว",
-      "unitPrice": 5.0,
-      "total": 150.0
-    },
-    {
-      "id": 317,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M8x45",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 8.0,
-      "total": 80.0
-    },
-    {
-      "id": 318,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M10x40",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 9.0,
-      "total": 90.0
-    },
-    {
-      "id": 319,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M16x70",
-      "qty": 6,
-      "unit": "ตัว",
-      "unitPrice": 33.0,
-      "total": 198.0
-    },
-    {
-      "id": 320,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "สกรู SUS M16x45",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 26.0,
-      "total": 520.0
-    },
-    {
-      "id": 321,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "หัวน็อต SUS M8",
-      "qty": 40,
-      "unit": "ตัว",
-      "unitPrice": 2.5,
-      "total": 100.0
-    },
-    {
-      "id": 322,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แหวนอีแปะ SUS M10",
-      "qty": 200,
-      "unit": "ตัว",
-      "unitPrice": 1.5,
-      "total": 300.0
-    },
-    {
-      "id": 323,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แหวนอีแปะ SUS M8",
-      "qty": 100,
-      "unit": "ตัว",
-      "unitPrice": 0.85,
-      "total": 85.0
-    },
-    {
-      "id": 324,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แหวนสปริง SUS M8",
-      "qty": 50,
-      "unit": "ตัว",
-      "unitPrice": 1.0,
-      "total": 50.0
-    },
-    {
-      "id": 325,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "แหวนสปริง SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 4.0,
-      "total": 80.0
-    },
-    {
-      "id": 326,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "หัวน็อตล็อค SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 18.0,
-      "total": 360.0
-    },
-    {
-      "id": 327,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "Loadcell Brand:TAN Model:LP7110 500 kg",
-      "qty": 1,
-      "unit": "ตัว",
-      "unitPrice": 5500.0,
-      "total": 5500.0
-    },
-    {
-      "id": 328,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Scale",
-      "item": "Rotary Paddle Level Switch Model:VRS-10XLT1E",
-      "qty": 2,
-      "unit": "ตัว",
-      "unitPrice": 5980.0,
-      "total": 11960.0
-    },
-    {
-      "id": 329,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สตัดเกลียวตลอด SUS M10",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 160.0,
-      "total": 160.0
-    },
-    {
-      "id": 330,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M10x65",
-      "qty": 5,
-      "unit": "ตัว",
-      "unitPrice": 12.0,
-      "total": 60.0
-    },
-    {
-      "id": 331,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M14x70",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 34.0,
-      "total": 340.0
-    },
-    {
-      "id": 332,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M16x35",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 23.0,
-      "total": 230.0
-    },
-    {
-      "id": 333,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M8x25",
-      "qty": 30,
-      "unit": "ตัว",
-      "unitPrice": 5.0,
-      "total": 150.0
-    },
-    {
-      "id": 334,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M8x45",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 8.0,
-      "total": 80.0
-    },
-    {
-      "id": 335,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M10x40",
-      "qty": 10,
-      "unit": "ตัว",
-      "unitPrice": 9.0,
-      "total": 90.0
-    },
-    {
-      "id": 336,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M16x70",
-      "qty": 6,
-      "unit": "ตัว",
-      "unitPrice": 33.0,
-      "total": 198.0
-    },
-    {
-      "id": 337,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "สกรู SUS M16x45",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 26.0,
-      "total": 520.0
-    },
-    {
-      "id": 338,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "หัวน็อต SUS M8",
-      "qty": 40,
-      "unit": "ตัว",
-      "unitPrice": 2.5,
-      "total": 100.0
-    },
-    {
-      "id": 339,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "แหวนอีแปะ SUS M10",
-      "qty": 200,
-      "unit": "ตัว",
-      "unitPrice": 1.5,
-      "total": 300.0
-    },
-    {
-      "id": 340,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "แหวนอีแปะ SUS M8",
-      "qty": 100,
-      "unit": "ตัว",
-      "unitPrice": 0.85,
-      "total": 85.0
-    },
-    {
-      "id": 341,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "แหวนสปริง SUS M8",
-      "qty": 50,
-      "unit": "ตัว",
-      "unitPrice": 1.0,
-      "total": 50.0
-    },
-    {
-      "id": 342,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "แหวนสปริง SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 4.0,
-      "total": 80.0
-    },
-    {
-      "id": 343,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "หัวน็อตล็อค SUS M14",
-      "qty": 20,
-      "unit": "ตัว",
-      "unitPrice": 18.0,
-      "total": 360.0
-    },
-    {
-      "id": 344,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "P40 PNEUM.IMPACT VIBRATOR Code : EPP040",
-      "qty": 1,
-      "unit": "Ea.",
-      "unitPrice": 8200.0,
-      "total": 8200.0
-    },
-    {
-      "id": 345,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
-      "qty": 2,
-      "unit": "แผ่น",
-      "unitPrice": 3850.0,
-      "total": 7700.0
-    },
-    {
-      "id": 346,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
-      "qty": 1,
-      "unit": "แผ่น",
-      "unitPrice": 17400.0,
-      "total": 17400.0
-    },
-    {
-      "id": 347,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 5300.0,
-      "total": 5300.0
-    },
-    {
-      "id": 348,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "ท่อสแตนเลส 1-1/2\" #40",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 2550.0,
-      "total": 2550.0
-    },
-    {
-      "id": 349,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "เพลา St 1-3/4\" (45 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 8400.0,
-      "total": 8400.0
-    },
-    {
-      "id": 350,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "เพลา St 2-3/4\"(70 mm)",
-      "qty": 1,
-      "unit": "เส้น",
-      "unitPrice": 20900.0,
-      "total": 20900.0
-    },
-    {
-      "id": 351,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1370.0,
-      "total": 2740.0
-    },
-    {
-      "id": 352,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "เพลาสแตนเลส 1/4",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 170.0,
-      "total": 340.0
-    },
-    {
-      "id": 353,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
-      "qty": 3,
-      "unit": "แผ่น",
-      "unitPrice": 5300.0,
-      "total": 15900.0
-    },
-    {
-      "id": 354,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "Loadcell Brand:TAN Model:LP7110 500 kg",
-      "qty": 2,
-      "unit": "ตัว",
-      "unitPrice": 5500.0,
-      "total": 11000.0
-    },
-    {
-      "id": 355,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "Jucntion Box 4LC กล่องรวมสัญญาณแบบ 4 ช่อง",
-      "qty": 1,
-      "unit": "ตัว",
-      "unitPrice": 4500.0,
-      "total": 4500.0
-    },
-    {
-      "id": 356,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "Bin Tank",
-      "item": "Rotary Paddle Level Switch Model:VRS-10XLT1E",
-      "qty": 2,
-      "unit": "ตัว",
-      "unitPrice": 5980.0,
-      "total": 11960.0
-    },
-    {
-      "id": 357,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "เหล็ก",
-      "item": "เหล็กรางหนา 6\"",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 2720.0,
-      "total": 5440.0
-    },
-    {
-      "id": 358,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "เหล็ก",
-      "item": "เหล็กรางหนา 5\"",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 1880.0,
-      "total": 3760.0
-    },
-    {
-      "id": 359,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "เหล็ก",
-      "item": "เหล็กรางหนา 3\"",
-      "qty": 2,
-      "unit": "เส้น",
-      "unitPrice": 980.0,
-      "total": 1960.0
-    },
-    {
-      "id": 360,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "ค่าขนส่ง-ที่พัก",
-      "item": "ค่าห้องพัก",
-      "qty": 1,
-      "unit": "nan",
-      "unitPrice": 1800.0,
-      "total": 1800.0
-    },
-    {
-      "id": 361,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "ค่าขนส่ง-ที่พัก",
-      "item": "ค่าห้องพัก 6/7/69-11/7/69",
-      "qty": 1,
-      "unit": "nan",
-      "unitPrice": 2250.0,
-      "total": 2250.0
-    },
-    {
-      "id": 362,
-      "project": "โครงการลำเลียงถ่าน มหาชัย",
-      "category": "ค่าขนส่ง-ที่พัก",
-      "item": "ค่าห้องพัก 11/7/69-13/7/69",
-      "qty": 1,
-      "unit": "nan",
-      "unitPrice": 900.0,
-      "total": 900.0
-    },
-    {
       "id": 363,
       "project": "งานรื้อถอนโครงสร้างเก่าและปรับปรุง",
       "category": "วัสดุสิ้นเปลือง",
@@ -4269,6 +2429,1622 @@
       "unit": "แผ่น",
       "unitPrice": 2200,
       "total": 22000
+    },
+    {
+      "id": 428,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "เฟื่องโซ่เดี่ยว  80-1x15 ฟัน SKF",
+      "qty": 1,
+      "unit": "Ea",
+      "unitPrice": 476.0,
+      "total": 476.0
+    },
+    {
+      "id": 429,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "เฟื่องโซ่เดี่ยว  80-1x18 ฟัน SKF",
+      "qty": 1,
+      "unit": "Ea",
+      "unitPrice": 619.0,
+      "total": 619.0
+    },
+    {
+      "id": 430,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "ลูกปืนตุ๊กตา UKF 211K SKF",
+      "qty": 2,
+      "unit": "Ea",
+      "unitPrice": 707.0,
+      "total": 1414.0
+    },
+    {
+      "id": 431,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "ปลอกสลิฟ H2311 SKF",
+      "qty": 2,
+      "unit": "Ea",
+      "unitPrice": 463.0,
+      "total": 926.0
+    },
+    {
+      "id": 432,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "Helical Gearmotor R47DRN100LS4 2.2 kw 100rpm",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 23100.0,
+      "total": 23100.0
+    },
+    {
+      "id": 433,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
+      "qty": 5,
+      "unit": "แผ่น",
+      "unitPrice": 7200.0,
+      "total": 36000.0
+    },
+    {
+      "id": 434,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
+      "qty": 2,
+      "unit": "แผ่น",
+      "unitPrice": 3850.0,
+      "total": 7700.0
+    },
+    {
+      "id": 435,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
+      "qty": 1,
+      "unit": "แผ่น",
+      "unitPrice": 17400.0,
+      "total": 17400.0
+    },
+    {
+      "id": 436,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "เพลาสแตนเลส 1/4",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 170.0,
+      "total": 340.0
+    },
+    {
+      "id": 437,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
+      "qty": 3,
+      "unit": "แผ่น",
+      "unitPrice": 5300.0,
+      "total": 15900.0
+    },
+    {
+      "id": 438,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M10x65",
+      "qty": 5,
+      "unit": "ตัว",
+      "unitPrice": 12.0,
+      "total": 60.0
+    },
+    {
+      "id": 439,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M14x70",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 34.0,
+      "total": 340.0
+    },
+    {
+      "id": 440,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M16x35",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 23.0,
+      "total": 230.0
+    },
+    {
+      "id": 441,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M8x25",
+      "qty": 30,
+      "unit": "ตัว",
+      "unitPrice": 5.0,
+      "total": 150.0
+    },
+    {
+      "id": 442,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M8x45",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 8.0,
+      "total": 80.0
+    },
+    {
+      "id": 443,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M10x40",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 9.0,
+      "total": 90.0
+    },
+    {
+      "id": 444,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M16x70",
+      "qty": 6,
+      "unit": "ตัว",
+      "unitPrice": 33.0,
+      "total": 198.0
+    },
+    {
+      "id": 445,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "สกรู SUS M16x45",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 26.0,
+      "total": 520.0
+    },
+    {
+      "id": 446,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "หัวน็อต SUS M8",
+      "qty": 40,
+      "unit": "ตัว",
+      "unitPrice": 2.5,
+      "total": 100.0
+    },
+    {
+      "id": 447,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "หัวน็อตล็อค SUS M14",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 18.0,
+      "total": 360.0
+    },
+    {
+      "id": 448,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "เฟื่องโซ่เดี่ยว  80-1x13 ฟัน SKF",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 395.0,
+      "total": 395.0
+    },
+    {
+      "id": 449,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "เฟื่องโซ่เดี่ยว  80-1x23 ฟัน SKF",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 369.0,
+      "total": 369.0
+    },
+    {
+      "id": 450,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "ลูกปืนตุ๊กตา UKF 209 K SKF",
+      "qty": 2,
+      "unit": "Ea.",
+      "unitPrice": 527.0,
+      "total": 1054.0
+    },
+    {
+      "id": 451,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "ปลอกสลิฟ H2309 SKF",
+      "qty": 2,
+      "unit": "Ea.",
+      "unitPrice": 395.0,
+      "total": 790.0
+    },
+    {
+      "id": 452,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "Helical Gearmotor R37DRN90L4 1.5 kw 110rpm",
+      "qty": 1,
+      "unit": "ตัว",
+      "unitPrice": 19800.0,
+      "total": 19800.0
+    },
+    {
+      "id": 453,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
+      "qty": 5,
+      "unit": "แผ่น",
+      "unitPrice": 7200.0,
+      "total": 36000.0
+    },
+    {
+      "id": 454,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
+      "qty": 2,
+      "unit": "แผ่น",
+      "unitPrice": 3850.0,
+      "total": 7700.0
+    },
+    {
+      "id": 455,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
+      "qty": 1,
+      "unit": "แผ่น",
+      "unitPrice": 17400.0,
+      "total": 17400.0
+    },
+    {
+      "id": 456,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "เพลาสแตนเลส 1/4",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 170.0,
+      "total": 340.0
+    },
+    {
+      "id": 457,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
+      "qty": 3,
+      "unit": "แผ่น",
+      "unitPrice": 5300.0,
+      "total": 15900.0
+    },
+    {
+      "id": 458,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M10x65",
+      "qty": 5,
+      "unit": "ตัว",
+      "unitPrice": 12.0,
+      "total": 60.0
+    },
+    {
+      "id": 459,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M14x70",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 34.0,
+      "total": 340.0
+    },
+    {
+      "id": 460,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M16x35",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 23.0,
+      "total": 230.0
+    },
+    {
+      "id": 461,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M8x25",
+      "qty": 30,
+      "unit": "ตัว",
+      "unitPrice": 5.0,
+      "total": 150.0
+    },
+    {
+      "id": 462,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M8x45",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 8.0,
+      "total": 80.0
+    },
+    {
+      "id": 463,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M10x40",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 9.0,
+      "total": 90.0
+    },
+    {
+      "id": 464,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M16x70",
+      "qty": 6,
+      "unit": "ตัว",
+      "unitPrice": 33.0,
+      "total": 198.0
+    },
+    {
+      "id": 465,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "สกรู SUS M16x45",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 26.0,
+      "total": 520.0
+    },
+    {
+      "id": 466,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "หัวน็อต SUS M8",
+      "qty": 40,
+      "unit": "ตัว",
+      "unitPrice": 2.5,
+      "total": 100.0
+    },
+    {
+      "id": 467,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "หัวน็อตล็อค SUS M14",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 18.0,
+      "total": 360.0
+    },
+    {
+      "id": 468,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "เฟื่องโซ่เดี่ยว  80-1x13 ฟัน SKF",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 395.0,
+      "total": 395.0
+    },
+    {
+      "id": 469,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "เฟื่องโซ่เดี่ยว  80-1x23 ฟัน SKF",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 369.0,
+      "total": 369.0
+    },
+    {
+      "id": 470,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "ลูกปืนตุ๊กตา UKF 209 K SKF",
+      "qty": 2,
+      "unit": "Ea.",
+      "unitPrice": 527.0,
+      "total": 1054.0
+    },
+    {
+      "id": 471,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "ปลอกสลิฟ H2309 SKF",
+      "qty": 2,
+      "unit": "Ea.",
+      "unitPrice": 395.0,
+      "total": 790.0
+    },
+    {
+      "id": 472,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "Helical Gearmotor R37DRN90L4 1.5 kw 110rpm",
+      "qty": 1,
+      "unit": "ตัว",
+      "unitPrice": 19800.0,
+      "total": 19800.0
+    },
+    {
+      "id": 473,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
+      "qty": 5,
+      "unit": "แผ่น",
+      "unitPrice": 7200.0,
+      "total": 36000.0
+    },
+    {
+      "id": 474,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
+      "qty": 2,
+      "unit": "แผ่น",
+      "unitPrice": 3850.0,
+      "total": 7700.0
+    },
+    {
+      "id": 475,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
+      "qty": 1,
+      "unit": "แผ่น",
+      "unitPrice": 17400.0,
+      "total": 17400.0
+    },
+    {
+      "id": 476,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "เพลาสแตนเลส 1/4",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 170.0,
+      "total": 340.0
+    },
+    {
+      "id": 477,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
+      "qty": 3,
+      "unit": "แผ่น",
+      "unitPrice": 5300.0,
+      "total": 15900.0
+    },
+    {
+      "id": 478,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M10x65",
+      "qty": 5,
+      "unit": "ตัว",
+      "unitPrice": 12.0,
+      "total": 60.0
+    },
+    {
+      "id": 479,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M14x70",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 34.0,
+      "total": 340.0
+    },
+    {
+      "id": 480,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M16x35",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 23.0,
+      "total": 230.0
+    },
+    {
+      "id": 481,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M8x25",
+      "qty": 30,
+      "unit": "ตัว",
+      "unitPrice": 5.0,
+      "total": 150.0
+    },
+    {
+      "id": 482,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M8x45",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 8.0,
+      "total": 80.0
+    },
+    {
+      "id": 483,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M10x40",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 9.0,
+      "total": 90.0
+    },
+    {
+      "id": 484,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M16x70",
+      "qty": 6,
+      "unit": "ตัว",
+      "unitPrice": 33.0,
+      "total": 198.0
+    },
+    {
+      "id": 485,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "สกรู SUS M16x45",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 26.0,
+      "total": 520.0
+    },
+    {
+      "id": 486,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "หัวน็อต SUS M8",
+      "qty": 40,
+      "unit": "ตัว",
+      "unitPrice": 2.5,
+      "total": 100.0
+    },
+    {
+      "id": 487,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "หัวน็อตล็อค SUS M14",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 18.0,
+      "total": 360.0
+    },
+    {
+      "id": 488,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "กระบอกลม Bore 50 mm x Stroke 300 mm",
+      "qty": 1,
+      "unit": "อัน",
+      "unitPrice": 5642.0,
+      "total": 5642.0
+    },
+    {
+      "id": 489,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "ก้ามปูปลายแกน Bore 50",
+      "qty": 1,
+      "unit": "อัน",
+      "unitPrice": 788.0,
+      "total": 788.0
+    },
+    {
+      "id": 490,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "Sensor 3 สาย ",
+      "qty": 2,
+      "unit": "อัน",
+      "unitPrice": 1655.2,
+      "total": 3310.4
+    },
+    {
+      "id": 491,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "Solenoid Valve 5/2-Port 1/4\" Double Coil  220VAC",
+      "qty": 1,
+      "unit": "อัน",
+      "unitPrice": 4366.4,
+      "total": 4366.4
+    },
+    {
+      "id": 492,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "ข้อต่อ 8 mm 1/4\"",
+      "qty": 3,
+      "unit": "อัน",
+      "unitPrice": 62.4,
+      "total": 187.2
+    },
+    {
+      "id": 493,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "Silencer 1/4",
+      "qty": 2,
+      "unit": "อัน",
+      "unitPrice": 70.4,
+      "total": 140.8
+    },
+    {
+      "id": 494,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
+      "qty": 5,
+      "unit": "แผ่น",
+      "unitPrice": 7200.0,
+      "total": 36000.0
+    },
+    {
+      "id": 495,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
+      "qty": 2,
+      "unit": "แผ่น",
+      "unitPrice": 3850.0,
+      "total": 7700.0
+    },
+    {
+      "id": 496,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
+      "qty": 1,
+      "unit": "แผ่น",
+      "unitPrice": 17400.0,
+      "total": 17400.0
+    },
+    {
+      "id": 497,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "เพลาสแตนเลส 1/4",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 170.0,
+      "total": 340.0
+    },
+    {
+      "id": 498,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
+      "qty": 3,
+      "unit": "แผ่น",
+      "unitPrice": 5300.0,
+      "total": 15900.0
+    },
+    {
+      "id": 499,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M10x65",
+      "qty": 5,
+      "unit": "ตัว",
+      "unitPrice": 12.0,
+      "total": 60.0
+    },
+    {
+      "id": 500,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M14x70",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 34.0,
+      "total": 340.0
+    },
+    {
+      "id": 501,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M16x35",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 23.0,
+      "total": 230.0
+    },
+    {
+      "id": 502,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M8x25",
+      "qty": 30,
+      "unit": "ตัว",
+      "unitPrice": 5.0,
+      "total": 150.0
+    },
+    {
+      "id": 503,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M8x45",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 8.0,
+      "total": 80.0
+    },
+    {
+      "id": 504,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M10x40",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 9.0,
+      "total": 90.0
+    },
+    {
+      "id": 505,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M16x70",
+      "qty": 6,
+      "unit": "ตัว",
+      "unitPrice": 33.0,
+      "total": 198.0
+    },
+    {
+      "id": 506,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "สกรู SUS M16x45",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 26.0,
+      "total": 520.0
+    },
+    {
+      "id": 507,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "หัวน็อต SUS M8",
+      "qty": 40,
+      "unit": "ตัว",
+      "unitPrice": 2.5,
+      "total": 100.0
+    },
+    {
+      "id": 508,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "หัวน็อตล็อค SUS M14",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 18.0,
+      "total": 360.0
+    },
+    {
+      "id": 509,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "P40 PNEUM.IMPACT VIBRATOR Code : EPP040",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 8200.0,
+      "total": 8200.0
+    },
+    {
+      "id": 510,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "P25 PNEUM.IMPACT VIBRATOR Code: EPP025 + Solenoil Coil 3/2 220VV-PN-M",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 6500.0,
+      "total": 6500.0
+    },
+    {
+      "id": 511,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 4 มิล",
+      "qty": 5,
+      "unit": "แผ่น",
+      "unitPrice": 7200.0,
+      "total": 36000.0
+    },
+    {
+      "id": 512,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
+      "qty": 2,
+      "unit": "แผ่น",
+      "unitPrice": 3850.0,
+      "total": 7700.0
+    },
+    {
+      "id": 513,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
+      "qty": 1,
+      "unit": "แผ่น",
+      "unitPrice": 17400.0,
+      "total": 17400.0
+    },
+    {
+      "id": 514,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "เพลาสแตนเลส 1/4",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 170.0,
+      "total": 340.0
+    },
+    {
+      "id": 515,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
+      "qty": 3,
+      "unit": "แผ่น",
+      "unitPrice": 5300.0,
+      "total": 15900.0
+    },
+    {
+      "id": 516,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M10x65",
+      "qty": 5,
+      "unit": "ตัว",
+      "unitPrice": 12.0,
+      "total": 60.0
+    },
+    {
+      "id": 517,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M14x70",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 34.0,
+      "total": 340.0
+    },
+    {
+      "id": 518,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M16x35",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 23.0,
+      "total": 230.0
+    },
+    {
+      "id": 519,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M8x25",
+      "qty": 30,
+      "unit": "ตัว",
+      "unitPrice": 5.0,
+      "total": 150.0
+    },
+    {
+      "id": 520,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M8x45",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 8.0,
+      "total": 80.0
+    },
+    {
+      "id": 521,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M10x40",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 9.0,
+      "total": 90.0
+    },
+    {
+      "id": 522,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M16x70",
+      "qty": 6,
+      "unit": "ตัว",
+      "unitPrice": 33.0,
+      "total": 198.0
+    },
+    {
+      "id": 523,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สกรู SUS M16x45",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 26.0,
+      "total": 520.0
+    },
+    {
+      "id": 524,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "หัวน็อต SUS M8",
+      "qty": 40,
+      "unit": "ตัว",
+      "unitPrice": 2.5,
+      "total": 100.0
+    },
+    {
+      "id": 525,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "หัวน็อตล็อค SUS M14",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 18.0,
+      "total": 360.0
+    },
+    {
+      "id": 526,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "Loadcell Brand:TAN Model:LP7110 500 kg",
+      "qty": 1,
+      "unit": "ตัว",
+      "unitPrice": 5500.0,
+      "total": 5500.0
+    },
+    {
+      "id": 527,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "Rotary Paddle Level Switch Model:VRS-10XLT1E",
+      "qty": 2,
+      "unit": "ตัว",
+      "unitPrice": 5980.0,
+      "total": 11960.0
+    },
+    {
+      "id": 528,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M10x65",
+      "qty": 5,
+      "unit": "ตัว",
+      "unitPrice": 12.0,
+      "total": 60.0
+    },
+    {
+      "id": 529,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M14x70",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 34.0,
+      "total": 340.0
+    },
+    {
+      "id": 530,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M16x35",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 23.0,
+      "total": 230.0
+    },
+    {
+      "id": 531,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M8x25",
+      "qty": 30,
+      "unit": "ตัว",
+      "unitPrice": 5.0,
+      "total": 150.0
+    },
+    {
+      "id": 532,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M8x45",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 8.0,
+      "total": 80.0
+    },
+    {
+      "id": 533,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M10x40",
+      "qty": 10,
+      "unit": "ตัว",
+      "unitPrice": 9.0,
+      "total": 90.0
+    },
+    {
+      "id": 534,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M16x70",
+      "qty": 6,
+      "unit": "ตัว",
+      "unitPrice": 33.0,
+      "total": 198.0
+    },
+    {
+      "id": 535,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "สกรู SUS M16x45",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 26.0,
+      "total": 520.0
+    },
+    {
+      "id": 536,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "หัวน็อต SUS M8",
+      "qty": 40,
+      "unit": "ตัว",
+      "unitPrice": 2.5,
+      "total": 100.0
+    },
+    {
+      "id": 537,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "หัวน็อตล็อค SUS M14",
+      "qty": 20,
+      "unit": "ตัว",
+      "unitPrice": 18.0,
+      "total": 360.0
+    },
+    {
+      "id": 538,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "P40 PNEUM.IMPACT VIBRATOR Code : EPP040",
+      "qty": 1,
+      "unit": "Ea.",
+      "unitPrice": 8200.0,
+      "total": 8200.0
+    },
+    {
+      "id": 539,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 2 มิล",
+      "qty": 2,
+      "unit": "แผ่น",
+      "unitPrice": 3850.0,
+      "total": 7700.0
+    },
+    {
+      "id": 540,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "แผ่นสแตนเลส 4'x8' หนา 9 มิล",
+      "qty": 1,
+      "unit": "แผ่น",
+      "unitPrice": 17400.0,
+      "total": 17400.0
+    },
+    {
+      "id": 541,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "เพลาสแตนเลส 1/4",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 170.0,
+      "total": 340.0
+    },
+    {
+      "id": 542,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "เหล็กแผ่น 4'x8' หนา 3 มิล",
+      "qty": 3,
+      "unit": "แผ่น",
+      "unitPrice": 5300.0,
+      "total": 15900.0
+    },
+    {
+      "id": 543,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "Loadcell Brand:TAN Model:LP7110 500 kg",
+      "qty": 2,
+      "unit": "ตัว",
+      "unitPrice": 5500.0,
+      "total": 11000.0
+    },
+    {
+      "id": 544,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "Jucntion Box 4LC กล่องรวมสัญญาณแบบ 4 ช่อง",
+      "qty": 1,
+      "unit": "ตัว",
+      "unitPrice": 4500.0,
+      "total": 4500.0
+    },
+    {
+      "id": 545,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "Rotary Paddle Level Switch Model:VRS-10XLT1E",
+      "qty": 2,
+      "unit": "ตัว",
+      "unitPrice": 5980.0,
+      "total": 11960.0
+    },
+    {
+      "id": 546,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "เหล็ก",
+      "item": "เหล็กรางหนา 6\"",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 2720.0,
+      "total": 5440.0
+    },
+    {
+      "id": 547,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "เหล็ก",
+      "item": "เหล็กรางหนา 5\"",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 1880.0,
+      "total": 3760.0
+    },
+    {
+      "id": 548,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "เหล็ก",
+      "item": "เหล็กรางหนา 3\"",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 980.0,
+      "total": 1960.0
+    },
+    {
+      "id": 549,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "ค่าขนส่ง-ที่พัก",
+      "item": "ค่าห้องพัก",
+      "qty": 1,
+      "unit": "nan",
+      "unitPrice": 1800.0,
+      "total": 1800.0
+    },
+    {
+      "id": 550,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "ค่าขนส่ง-ที่พัก",
+      "item": "ค่าห้องพัก 6/7/69-11/7/69",
+      "qty": 1,
+      "unit": "nan",
+      "unitPrice": 2250.0,
+      "total": 2250.0
+    },
+    {
+      "id": 551,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "ค่าขนส่ง-ที่พัก",
+      "item": "ค่าห้องพัก 11/7/69-13/7/69",
+      "qty": 1,
+      "unit": "nan",
+      "unitPrice": 900.0,
+      "total": 900.0
+    },
+    {
+      "id": 552,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "ท่อสแตนเลส 2-1/2\"#40 OD73",
+      "qty": 1,
+      "unit": "เส้น",
+      "unitPrice": 5300,
+      "total": 5300
+    },
+    {
+      "id": 553,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "ท่อสแตนเลส 1-1/2\" #40",
+      "qty": 0.5,
+      "unit": "เส้น",
+      "unitPrice": 2550,
+      "total": 1275.0,
+      "sharedGroup": "SH-fix2-1784943920345-553",
+      "fullQty": 1
+    },
+    {
+      "id": 554,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "ท่อสแตนเลส 1-1/2\" #40",
+      "qty": 0.5,
+      "unit": "เส้น",
+      "unitPrice": 2550,
+      "total": 1275.0,
+      "sharedGroup": "SH-fix2-1784943920345-553",
+      "fullQty": 1
+    },
+    {
+      "id": 555,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "เพลา St 2-3/4\"(70 mm)",
+      "qty": 1,
+      "unit": "เส้น",
+      "unitPrice": 20900,
+      "total": 20900
+    },
+    {
+      "id": 556,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "เพลา St 1-3/4\" (45 mm)",
+      "qty": 0.5,
+      "unit": "เส้น",
+      "unitPrice": 8400,
+      "total": 4200.0,
+      "sharedGroup": "SH-fix2-1784943920345-556",
+      "fullQty": 1
+    },
+    {
+      "id": 557,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "เพลา St 1-3/4\" (45 mm)",
+      "qty": 0.5,
+      "unit": "เส้น",
+      "unitPrice": 8400,
+      "total": 4200.0,
+      "sharedGroup": "SH-fix2-1784943920345-556",
+      "fullQty": 1
+    },
+    {
+      "id": 558,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "ฉาก St 2\"x1/8 (2\"x2\"x3T)",
+      "qty": 2,
+      "unit": "เส้น",
+      "unitPrice": 1370,
+      "total": 2740
+    },
+    {
+      "id": 559,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "สตัดเกลียวตลอด SUS M10",
+      "qty": 1,
+      "unit": "เส้น",
+      "unitPrice": 160,
+      "total": 160
+    },
+    {
+      "id": 560,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แหวนอีแปะ SUS M10",
+      "qty": 34,
+      "unit": "ตัว",
+      "unitPrice": 1.5,
+      "total": 51.0,
+      "sharedGroup": "SH-fix2-1784943920345-560",
+      "fullQty": 200
+    },
+    {
+      "id": 561,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แหวนอีแปะ SUS M10",
+      "qty": 34,
+      "unit": "ตัว",
+      "unitPrice": 1.5,
+      "total": 51.0,
+      "sharedGroup": "SH-fix2-1784943920345-560",
+      "fullQty": 200
+    },
+    {
+      "id": 562,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แหวนอีแปะ SUS M10",
+      "qty": 33,
+      "unit": "ตัว",
+      "unitPrice": 1.5,
+      "total": 49.5,
+      "sharedGroup": "SH-fix2-1784943920345-560",
+      "fullQty": 200
+    },
+    {
+      "id": 563,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แหวนอีแปะ SUS M10",
+      "qty": 33,
+      "unit": "ตัว",
+      "unitPrice": 1.5,
+      "total": 49.5,
+      "sharedGroup": "SH-fix2-1784943920345-560",
+      "fullQty": 200
+    },
+    {
+      "id": 564,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แหวนอีแปะ SUS M10",
+      "qty": 33,
+      "unit": "ตัว",
+      "unitPrice": 1.5,
+      "total": 49.5,
+      "sharedGroup": "SH-fix2-1784943920345-560",
+      "fullQty": 200
+    },
+    {
+      "id": 565,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "แหวนอีแปะ SUS M10",
+      "qty": 33,
+      "unit": "ตัว",
+      "unitPrice": 1.5,
+      "total": 49.5,
+      "sharedGroup": "SH-fix2-1784943920345-560",
+      "fullQty": 200
+    },
+    {
+      "id": 566,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แหวนอีแปะ SUS M8",
+      "qty": 17,
+      "unit": "ตัว",
+      "unitPrice": 0.85,
+      "total": 14.45,
+      "sharedGroup": "SH-fix2-1784943920345-566",
+      "fullQty": 100
+    },
+    {
+      "id": 567,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แหวนอีแปะ SUS M8",
+      "qty": 17,
+      "unit": "ตัว",
+      "unitPrice": 0.85,
+      "total": 14.45,
+      "sharedGroup": "SH-fix2-1784943920345-566",
+      "fullQty": 100
+    },
+    {
+      "id": 568,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แหวนอีแปะ SUS M8",
+      "qty": 17,
+      "unit": "ตัว",
+      "unitPrice": 0.85,
+      "total": 14.45,
+      "sharedGroup": "SH-fix2-1784943920345-566",
+      "fullQty": 100
+    },
+    {
+      "id": 569,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แหวนอีแปะ SUS M8",
+      "qty": 17,
+      "unit": "ตัว",
+      "unitPrice": 0.85,
+      "total": 14.45,
+      "sharedGroup": "SH-fix2-1784943920345-566",
+      "fullQty": 100
+    },
+    {
+      "id": 570,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แหวนอีแปะ SUS M8",
+      "qty": 16,
+      "unit": "ตัว",
+      "unitPrice": 0.85,
+      "total": 13.6,
+      "sharedGroup": "SH-fix2-1784943920345-566",
+      "fullQty": 100
+    },
+    {
+      "id": 571,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "แหวนอีแปะ SUS M8",
+      "qty": 16,
+      "unit": "ตัว",
+      "unitPrice": 0.85,
+      "total": 13.6,
+      "sharedGroup": "SH-fix2-1784943920345-566",
+      "fullQty": 100
+    },
+    {
+      "id": 572,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แหวนสปริง SUS M8",
+      "qty": 9,
+      "unit": "ตัว",
+      "unitPrice": 1,
+      "total": 9,
+      "sharedGroup": "SH-fix2-1784943920345-572",
+      "fullQty": 50
+    },
+    {
+      "id": 573,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แหวนสปริง SUS M8",
+      "qty": 9,
+      "unit": "ตัว",
+      "unitPrice": 1,
+      "total": 9,
+      "sharedGroup": "SH-fix2-1784943920345-572",
+      "fullQty": 50
+    },
+    {
+      "id": 574,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แหวนสปริง SUS M8",
+      "qty": 8,
+      "unit": "ตัว",
+      "unitPrice": 1,
+      "total": 8,
+      "sharedGroup": "SH-fix2-1784943920345-572",
+      "fullQty": 50
+    },
+    {
+      "id": 575,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แหวนสปริง SUS M8",
+      "qty": 8,
+      "unit": "ตัว",
+      "unitPrice": 1,
+      "total": 8,
+      "sharedGroup": "SH-fix2-1784943920345-572",
+      "fullQty": 50
+    },
+    {
+      "id": 576,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แหวนสปริง SUS M8",
+      "qty": 8,
+      "unit": "ตัว",
+      "unitPrice": 1,
+      "total": 8,
+      "sharedGroup": "SH-fix2-1784943920345-572",
+      "fullQty": 50
+    },
+    {
+      "id": 577,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "แหวนสปริง SUS M8",
+      "qty": 8,
+      "unit": "ตัว",
+      "unitPrice": 1,
+      "total": 8,
+      "sharedGroup": "SH-fix2-1784943920345-572",
+      "fullQty": 50
+    },
+    {
+      "id": 578,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 250x3046",
+      "item": "แหวนสปริง SUS M14",
+      "qty": 4,
+      "unit": "ตัว",
+      "unitPrice": 4,
+      "total": 16,
+      "sharedGroup": "SH-fix2-1784943920345-578",
+      "fullQty": 20
+    },
+    {
+      "id": 579,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x2410",
+      "item": "แหวนสปริง SUS M14",
+      "qty": 4,
+      "unit": "ตัว",
+      "unitPrice": 4,
+      "total": 16,
+      "sharedGroup": "SH-fix2-1784943920345-578",
+      "fullQty": 20
+    },
+    {
+      "id": 580,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Screw 160x1110",
+      "item": "แหวนสปริง SUS M14",
+      "qty": 3,
+      "unit": "ตัว",
+      "unitPrice": 4,
+      "total": 12,
+      "sharedGroup": "SH-fix2-1784943920345-578",
+      "fullQty": 20
+    },
+    {
+      "id": 581,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Slide Gate",
+      "item": "แหวนสปริง SUS M14",
+      "qty": 3,
+      "unit": "ตัว",
+      "unitPrice": 4,
+      "total": 12,
+      "sharedGroup": "SH-fix2-1784943920345-578",
+      "fullQty": 20
+    },
+    {
+      "id": 582,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Scale",
+      "item": "แหวนสปริง SUS M14",
+      "qty": 3,
+      "unit": "ตัว",
+      "unitPrice": 4,
+      "total": 12,
+      "sharedGroup": "SH-fix2-1784943920345-578",
+      "fullQty": 20
+    },
+    {
+      "id": 583,
+      "project": "โครงการลำเลียงถ่าน มหาชัย",
+      "category": "Bin Tank",
+      "item": "แหวนสปริง SUS M14",
+      "qty": 3,
+      "unit": "ตัว",
+      "unitPrice": 4,
+      "total": 12,
+      "sharedGroup": "SH-fix2-1784943920345-578",
+      "fullQty": 20
     }
   ],
   "summary": [
@@ -4458,57 +4234,57 @@
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 1,
       "category": "Screw 250x3046",
-      "total": 146568.0,
-      "pct": 0.17164261779116347
+      "total": 132293.45,
+      "pct": 0.20318802903689942
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 2,
       "category": "Screw 160x2410",
-      "total": 142441.0,
-      "pct": 0.16680957726646412
+      "total": 107441.45,
+      "pct": 0.16501812041613984
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 3,
       "category": "Screw 160x1110",
-      "total": 142441.0,
-      "pct": 0.16680957726646412
+      "total": 107434.95,
+      "pct": 0.16500813713889717
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 4,
       "category": "Slide Gate",
-      "total": 134467.8,
-      "pct": 0.1574723350296013
+      "total": 93986.75,
+      "pct": 0.1443531972904464
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 5,
       "category": "Bin Scale",
-      "total": 152193.0,
-      "pct": 0.17822993374741103
+      "total": 111871.1,
+      "pct": 0.1718215702681416
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 6,
       "category": "Bin Tank",
-      "total": 119693.0,
-      "pct": 0.14016988600020283
+      "total": 81951.1,
+      "pct": 0.12586777717570938
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 7,
       "category": "เหล็ก",
       "total": 11160.0,
-      "pct": 0.013069234857195187
+      "pct": 0.017140519081268176
     },
     {
       "project": "โครงการลำเลียงถ่าน มหาชัย",
       "no": 8,
       "category": "ค่าขนส่ง-ที่พัก",
       "total": 4950.0,
-      "pct": 0.005796838041497865
+      "pct": 0.007602649592497982
     },
     {
       "project": "งานรื้อถอนโครงสร้างเก่าและปรับปรุง",

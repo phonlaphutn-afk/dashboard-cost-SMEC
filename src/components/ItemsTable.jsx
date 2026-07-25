@@ -1,6 +1,44 @@
 import { useMemo, useState } from 'react';
 import { baht } from '../format';
 
+function SharedBadge({ row, items }) {
+  const [open, setOpen] = useState(false);
+  const siblings = items.filter((i) => i.sharedGroup && i.sharedGroup === row.sharedGroup);
+  const fullCost = (Number(row.fullQty) || 0) * (Number(row.unitPrice) || 0);
+
+  return (
+    <span className="relative inline-block ml-1.5 align-middle">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        title="รายการนี้แบ่งใช้ร่วมกับเครื่องจักรอื่น"
+        className="text-[10px] px-1.5 py-0.5 rounded-full border border-[var(--amber)]/60 text-[var(--amber)] hover:bg-[var(--amber)]/10"
+      >
+        🔗 แบ่งใช้
+      </button>
+      {open && (
+        <div className="absolute z-20 left-0 top-full mt-1 w-64 bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/60 rounded-md shadow-xl p-3 text-xs">
+          <p className="text-[var(--text-muted)] mb-1.5">
+            ซื้อจริง {row.fullQty} {row.unit} · ราคาเต็ม{' '}
+            <span className="text-[var(--amber)] font-mono-num">{baht(fullCost)} ฿</span> (ถ้าทำเครื่องเดียว)
+          </p>
+          <p className="text-[var(--text)] font-semibold mb-1">แบ่งใช้ {siblings.length} เครื่องจักร:</p>
+          <ul className="space-y-0.5">
+            {siblings.map((s) => (
+              <li key={s.id} className="flex justify-between">
+                <span className="truncate mr-2">{s.category}</span>
+                <span className="font-mono-num text-[var(--text-muted)]">
+                  {s.qty} {s.unit} · {baht(s.total)} ฿
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </span>
+  );
+}
+
 export default function ItemsTable({ items, categories, activeCategory, setActiveCategory, onDelete, onUpdate, canWrite }) {
   const [query, setQuery] = useState('');
   const [sortKey, setSortKey] = useState('total');
@@ -195,7 +233,10 @@ export default function ItemsTable({ items, categories, activeCategory, setActiv
                   ) : (
                     <>
                       <td className="px-3 py-2 text-[var(--text-muted)]">{r.category}</td>
-                      <td className="px-3 py-2">{r.item}</td>
+                      <td className="px-3 py-2">
+                        {r.item}
+                        {r.sharedGroup && <SharedBadge row={r} items={items} />}
+                      </td>
                       <td className="px-3 py-2 text-right font-mono-num">{r.qty ?? '—'}</td>
                       <td className="px-3 py-2 text-[var(--text-muted)]">{r.unit || '—'}</td>
                       <td className="px-3 py-2 text-right font-mono-num">{baht(r.unitPrice)}</td>
