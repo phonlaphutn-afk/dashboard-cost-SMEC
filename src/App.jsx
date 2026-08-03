@@ -61,6 +61,27 @@ export default function App() {
     [allSummary]
   );
 
+  // Which projects are included when viewing/exporting the combined "ภาพรวม" report.
+  // Defaults to all projects; stays in sync as projects are added/removed.
+  const [overviewSelected, setOverviewSelected] = useState(projects);
+  useEffect(() => {
+    setOverviewSelected((prev) => {
+      const stillValid = prev.filter((p) => projects.includes(p));
+      const hasNew = projects.some((p) => !prev.includes(p));
+      return hasNew ? projects : stillValid;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects]);
+
+  const overviewSummary = useMemo(
+    () => allSummary.filter((s) => overviewSelected.includes(s.project)),
+    [allSummary, overviewSelected]
+  );
+  const overviewItems = useMemo(
+    () => allItems.filter((i) => overviewSelected.includes(i.project)),
+    [allItems, overviewSelected]
+  );
+
   const summary = useMemo(() => allSummary.filter((s) => s.project === activeProject), [allSummary, activeProject]);
   const items = useMemo(() => allItems.filter((i) => i.project === activeProject), [allItems, activeProject]);
 
@@ -277,7 +298,7 @@ export default function App() {
   };
 
   const handleExportExcel = () => {
-    if (view === 'overview') exportAllToExcel(allSummary, allItems);
+    if (view === 'overview') exportAllToExcel(overviewSummary, overviewItems);
     else if (activeCategory) {
       const categorySummaryRow = standalone
         ? { ...summary.find((s) => s.category === activeCategory), total: categoryTotalDisplay }
@@ -361,7 +382,14 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-5 py-6 space-y-6 no-print">
         {view === 'overview' ? (
-          <Overview allSummary={allSummary} allItems={allItems} onSelectProject={goToProject} />
+          <Overview
+            allSummary={allSummary}
+            allItems={allItems}
+            projects={projects}
+            selected={overviewSelected}
+            setSelected={setOverviewSelected}
+            onSelectProject={goToProject}
+          />
         ) : (
           <>
             <div className="flex items-center gap-2 text-[var(--text-muted)] text-sm flex-wrap">
@@ -472,14 +500,14 @@ export default function App() {
         standalone={standalone}
         summary={
           view === 'overview'
-            ? allSummary
+            ? overviewSummary
             : activeCategory
             ? summary
                 .filter((s) => s.category === activeCategory)
                 .map((s) => (standalone ? { ...s, total: categoryTotalDisplay } : s))
             : summary
         }
-        items={view === 'overview' ? allItems : activeCategory ? categoryItemsDisplay : items}
+        items={view === 'overview' ? overviewItems : activeCategory ? categoryItemsDisplay : items}
       />
     </div>
   );
