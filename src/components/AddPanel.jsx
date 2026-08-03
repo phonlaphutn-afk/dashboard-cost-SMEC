@@ -370,6 +370,7 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
 
 function CategoryForm({ onAddCategory, inputClass, labelClass, onDone }) {
   const [name, setName] = useState('');
+  const [status, setStatus] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();

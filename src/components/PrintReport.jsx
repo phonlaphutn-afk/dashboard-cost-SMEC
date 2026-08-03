@@ -29,7 +29,7 @@ function ReportChart({ title, rows }) {
           const w = Math.max((r.total / max) * barAreaW, 2);
           const color = heatColor(r.total / max);
           return (
-            <g key={r.label}>
+            <g key={`${r.label}-${i}`}>
               <text x={0} y={y + 15} fontSize="10" fill="#222">
                 {r.label.length > 26 ? r.label.slice(0, 25) + '…' : r.label}
               </text>
