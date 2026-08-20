@@ -506,11 +506,7 @@ export default function App() {
                 .map((s) => (standalone ? { ...s, total: categoryTotalDisplay } : s))
             : summary
         }
-<<<<<<< HEAD
         items={view === 'overview' ? allItems : activeCategory ? categoryItemsDisplay : items}
-=======
-        items={view === 'overview' ? overviewItems : activeCategory ? categoryItemsDisplay : items}
->>>>>>> eb0aadf862d39e0c252a56cc0574f16593cb9a07
       />
     </div>
   );
