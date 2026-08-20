@@ -108,7 +108,7 @@ export default function PrintReport({ scope, project, category, standalone, summ
       : summary.map((s) => ({ label: s.category, total: Number(s.total) || 0 }));
 
   const avgPerItem = items.length ? grandTotal / items.length : 0;
-  const topRow = [...summary].sort((a, b) => Number(b.total) - Number(a.total))[0];
+  const topRows = [...summary].sort((a, b) => Number(b.total) - Number(a.total)).slice(0, 3);
   const chartTitle =
     scope === 'overview'
       ? 'เปรียบเทียบต้นทุนแต่ละโครงการ'
@@ -159,27 +159,58 @@ export default function PrintReport({ scope, project, category, standalone, summ
           </div>
         </div>
 
-        {topRow && (
+        {topRows.length > 0 && (
           <div
             style={{
-              background: '#fdf3e0',
-              borderRadius: 14,
-              borderLeft: `7px solid ${AMBER}`,
-              padding: '14px 20px',
+              display: 'flex',
+              gap: 12,
               marginBottom: 18,
             }}
           >
-            <div style={{ fontSize: 11.5, color: '#8a5a00', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 700 }}>
-              หมวดหมู่ที่ใช้ต้นทุนสูงสุด
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8, marginTop: 4 }}>
-              <div style={{ fontSize: 19, fontWeight: 700, color: '#222' }}>
-                {topRow.project} — {topRow.category}
-              </div>
-              <div style={{ fontSize: 21, fontWeight: 800, color: '#8a5a00' }}>
-                {baht(topRow.total)} ฿ <span style={{ fontSize: 12.5, fontWeight: 500, color: '#666' }}>({pct(topRow.pct)})</span>
-              </div>
-            </div>
+            {topRows.map((row, i) => {
+              const rankColor = i === 0 ? AMBER : i === 1 ? '#9aa5b5' : '#c47a3a';
+              const bg = i === 0 ? '#fdf3e0' : '#f5f6f9';
+              return (
+                <div
+                  key={`${row.project}-${row.category}-${i}`}
+                  style={{
+                    flex: 1,
+                    background: bg,
+                    borderRadius: 14,
+                    borderLeft: `7px solid ${rankColor}`,
+                    padding: '12px 16px',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 800,
+                        color: '#fff',
+                        background: rankColor,
+                        borderRadius: 999,
+                        width: 18,
+                        height: 18,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span style={{ fontSize: 10.5, color: '#8a5a00', textTransform: 'uppercase', letterSpacing: 0.5, fontWeight: 700 }}>
+                      {i === 0 ? 'ต้นทุนสูงสุด' : `อันดับ ${i + 1}`}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 14.5, fontWeight: 700, color: '#222', marginTop: 5, lineHeight: 1.3 }}>
+                    {row.project} — {row.category}
+                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#5b4600', marginTop: 3 }}>
+                    {baht(row.total)} ฿ <span style={{ fontSize: 11.5, fontWeight: 500, color: '#666' }}>({pct(row.pct)})</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
 
