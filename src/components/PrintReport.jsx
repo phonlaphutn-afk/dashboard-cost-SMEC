@@ -10,32 +10,36 @@ function heatColor(ratio) {
   return `rgb(${rgb.join(',')})`;
 }
 
-// Simple horizontal bar chart built from SVG — renders fine in print/PDF (no external deps)
+// Simple horizontal bar chart built from SVG — renders fine in print/PDF (no external deps).
+// Labels are shown in full (no truncation) — the label column width is sized to the
+// longest label so long project/category names never get cut off with "…".
 function ReportChart({ title, rows }) {
   const sorted = [...rows].sort((a, b) => b.total - a.total).slice(0, 15);
   const max = Math.max(...sorted.map((r) => r.total), 1);
-  const rowH = 22;
-  const chartW = 640;
-  const labelW = 190;
-  const barAreaW = chartW - labelW - 90;
+  const rowH = 26;
+  const valueW = 100;
+  const barAreaW = 420;
+  const longestLabel = Math.max(...sorted.map((r) => r.label.length), 10);
+  const labelW = Math.min(340, Math.max(150, longestLabel * 7.2));
+  const chartW = labelW + barAreaW + valueW;
   const h = sorted.length * rowH + 10;
 
   return (
     <div style={{ marginBottom: 16 }}>
       <h2>{title}</h2>
-      <svg width={chartW} height={h} viewBox={`0 0 ${chartW} ${h}`} style={{ fontFamily: 'inherit' }}>
+      <svg width="100%" height={h} viewBox={`0 0 ${chartW} ${h}`} style={{ fontFamily: 'inherit' }}>
         {sorted.map((r, i) => {
           const y = i * rowH;
           const w = Math.max((r.total / max) * barAreaW, 2);
           const color = heatColor(r.total / max);
           return (
             <g key={`${r.label}-${i}`}>
-              <text x={0} y={y + 15} fontSize="10" fill="#222">
-                {r.label.length > 26 ? r.label.slice(0, 25) + '…' : r.label}
+              <text x={0} y={y + 17} fontSize="12" fill="#222">
+                {r.label}
               </text>
-              <rect x={labelW} y={y + 3} width={barAreaW} height={14} fill="#eee" rx="2" />
-              <rect x={labelW} y={y + 3} width={w} height={14} fill={color} rx="2" />
-              <text x={labelW + barAreaW + 6} y={y + 14} fontSize="9" fill="#333">
+              <rect x={labelW} y={y + 4} width={barAreaW} height={16} fill="#eee" rx="2" />
+              <rect x={labelW} y={y + 4} width={w} height={16} fill={color} rx="2" />
+              <text x={labelW + barAreaW + 8} y={y + 17} fontSize="11" fontWeight="700" fill="#222">
                 {new Intl.NumberFormat('th-TH').format(Math.round(r.total))} ฿
               </text>
             </g>
@@ -94,49 +98,78 @@ export default function PrintReport({ scope, project, category, standalone, summ
   const showFullItems = scope === 'category';
   const TOP_N = 5;
   const displayedItems = showFullItems ? items : topItemsByGroup(items, TOP_N);
+  const avgPerItem = items.length ? grandTotal / items.length : 0;
+  const topRow = [...summary].sort((a, b) => Number(b.total) - Number(a.total))[0];
 
   return (
     <div className="print-only">
-      <div style={{ background: BLUEPRINT, color: '#fff', padding: '12px 20px' }}>
-        <h1 style={{ color: '#fff', margin: 0, fontSize: 18 }}>SIAMMAC ENGINEERING &amp; CONSTRUCTION</h1>
-        <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
+      <div style={{ background: BLUEPRINT, color: '#fff', padding: '16px 24px' }}>
+        <h1 style={{ color: '#fff', margin: 0 }}>SIAMMAC ENGINEERING &amp; CONSTRUCTION</h1>
+        <div style={{ fontSize: 13, opacity: 0.9, marginTop: 4 }}>
           {title} — พิมพ์เมื่อ {new Date().toLocaleString('th-TH')}
         </div>
       </div>
 
-      {/* Hero summary — the number that matters most, made impossible to miss */}
+      {/* Hero summary — page 1 content. Sized to fill the page width so it reads
+          clearly at a glance when screenshotted or presented on its own. */}
       <div
         style={{
           background: `linear-gradient(135deg, ${BLUEPRINT} 0%, #1a3155 100%)`,
           color: '#fff',
-          padding: '26px 24px',
-          marginBottom: 18,
+          padding: '40px 36px',
+          marginBottom: 22,
           display: 'flex',
-          alignItems: 'flex-end',
+          alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: 16,
+          gap: 24,
         }}
       >
         <div>
-          <div style={{ fontSize: 12, opacity: 0.8, textTransform: 'uppercase', letterSpacing: 1.5 }}>
+          <div style={{ fontSize: 15, opacity: 0.85, textTransform: 'uppercase', letterSpacing: 2 }}>
             ยอดรวมทั้งหมด
           </div>
-          <div style={{ fontSize: 46, fontWeight: 800, color: AMBER, lineHeight: 1.1, marginTop: 4 }}>
-            {baht(grandTotal)} <span style={{ fontSize: 26 }}>฿</span>
+          <div style={{ fontSize: 68, fontWeight: 800, color: AMBER, lineHeight: 1.1, marginTop: 6 }}>
+            {baht(grandTotal)} <span style={{ fontSize: 38 }}>฿</span>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 28 }}>
+        <div style={{ display: 'flex', gap: 44 }}>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 700 }}>{items.length}</div>
-            <div style={{ fontSize: 11, opacity: 0.8 }}>รายการทั้งหมด</div>
+            <div style={{ fontSize: 38, fontWeight: 800 }}>{items.length}</div>
+            <div style={{ fontSize: 13, opacity: 0.85, marginTop: 2 }}>รายการทั้งหมด</div>
           </div>
           <div>
-            <div style={{ fontSize: 24, fontWeight: 700 }}>{summary.length}</div>
-            <div style={{ fontSize: 11, opacity: 0.8 }}>หมวดหมู่ / เครื่องจักร</div>
+            <div style={{ fontSize: 38, fontWeight: 800 }}>{summary.length}</div>
+            <div style={{ fontSize: 13, opacity: 0.85, marginTop: 2 }}>หมวดหมู่ / เครื่องจักร</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 38, fontWeight: 800 }}>{baht(avgPerItem)}</div>
+            <div style={{ fontSize: 13, opacity: 0.85, marginTop: 2 }}>เฉลี่ยต่อรายการ (฿)</div>
           </div>
         </div>
       </div>
+
+      {topRow && (
+        <div
+          style={{
+            display: 'flex',
+            gap: 14,
+            marginBottom: 20,
+          }}
+        >
+          <div style={{ flex: 1, background: '#fdf3e0', borderLeft: `6px solid ${AMBER}`, padding: '14px 18px' }}>
+            <div style={{ fontSize: 12, color: '#8a5a00', textTransform: 'uppercase', letterSpacing: 1 }}>
+              หมวดหมู่ที่ใช้ต้นทุนสูงสุด
+            </div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: '#222', marginTop: 4 }}>
+              {topRow.project} — {topRow.category}
+            </div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#8a5a00', marginTop: 2 }}>
+              {baht(topRow.total)} ฿ <span style={{ fontSize: 13, fontWeight: 500, color: '#555' }}>({pct(topRow.pct)})</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       <ReportChart
         title={
@@ -148,6 +181,10 @@ export default function PrintReport({ scope, project, category, standalone, summ
         }
         rows={chartRows}
       />
+
+      {/* End of page 1 — everything above is the at-a-glance summary meant to be
+          screenshotted or presented alone. Detail tables start on a fresh page. */}
+      <div className="page-break" />
 
       <h2>สรุปตามหมวดหมู่ / เครื่องจักร</h2>
       <table>
