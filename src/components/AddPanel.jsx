@@ -23,6 +23,21 @@ function detectColumns(headerRow) {
   return map;
 }
 
+// Units that can only be counted in whole numbers — no half a bolt or a third of a washer.
+const COUNT_UNITS = new Set(['ตัว', 'ชิ้น', 'อัน', 'ชุด', 'ตัว/ชิ้น']);
+const isCountUnit = (unit) => COUNT_UNITS.has((unit || '').trim());
+
+// Splits fullQty across n machines. Whole-number units round down then hand the leftover
+// +1 to the first few machines so shares are always integers that still sum to fullQty.
+// Other units (แผ่น, เส้น, กก. ...) can be cut/measured fractionally.
+function splitWhole(fullQty, n, unit) {
+  if (!n) return [];
+  if (!isCountUnit(unit)) return new Array(n).fill(fullQty / n);
+  const base = Math.floor(fullQty / n);
+  const remainder = Math.round(fullQty - base * n);
+  return Array.from({ length: n }, (_, i) => base + (i < remainder ? 1 : 0));
+}
+
 export default function AddPanel({ categories, onAddItem, onAddSharedItem, onAddCategory, isLive }) {
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState('item'); // 'item' | 'shared' | 'category' | 'import'
@@ -198,9 +213,9 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
   };
 
   const fullQtyNum = Number(fullQty) || 0;
-  const equalShare = selected.length ? fullQtyNum / selected.length : 0;
-  const allocatedTotal = selected.reduce((sum, cat) => {
-    const q = splitMethod === 'equal' ? equalShare : Number(customQty[cat]) || 0;
+  const equalShares = splitWhole(fullQtyNum, selected.length, unit); // array aligned with `selected`
+  const allocatedTotal = selected.reduce((sum, cat, idx) => {
+    const q = splitMethod === 'equal' ? equalShares[idx] || 0 : Number(customQty[cat]) || 0;
     return sum + q;
   }, 0);
   const mismatch = selected.length > 0 && Math.abs(allocatedTotal - fullQtyNum) > 0.001;
@@ -211,9 +226,9 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
     if (!item || !selected.length || !fullQtyNum) return;
     setStatus('saving');
     try {
-      const allocations = selected.map((cat) => ({
+      const allocations = selected.map((cat, idx) => ({
         category: cat,
-        qty: splitMethod === 'equal' ? equalShare : Number(customQty[cat]) || 0,
+        qty: splitMethod === 'equal' ? equalShares[idx] || 0 : Number(customQty[cat]) || 0,
       }));
       await onAddSharedItem({ item, fullQty: fullQtyNum, unit, unitPrice: Number(unitPrice) || 0, allocations });
       setItem('');
@@ -306,12 +321,12 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
           </div>
 
           <div className="space-y-1.5">
-            {selected.map((cat) => (
+            {selected.map((cat, idx) => (
               <div key={cat} className="flex items-center justify-between gap-2 text-sm bg-[var(--bg-panel-raised)] rounded-md px-3 py-1.5">
                 <span className="truncate">{cat}</span>
                 {splitMethod === 'equal' ? (
                   <span className="font-mono-num text-[var(--text-muted)]">
-                    {equalShare.toFixed(3)} {unit}
+                    {isCountUnit(unit) ? equalShares[idx] : (equalShares[idx] || 0).toFixed(3)} {unit}
                   </span>
                 ) : (
                   <input
@@ -326,6 +341,12 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
               </div>
             ))}
           </div>
+
+          {splitMethod === 'equal' && isCountUnit(unit) && (
+            <p className="text-[11px] text-[var(--text-muted)] mt-1">
+              หน่วยนับเป็นชิ้น จึงปัดเป็นจำนวนเต็ม (เศษที่เหลือจะได้เพิ่มให้บางเครื่องจักร 1 หน่วย)
+            </p>
+          )}
 
           <p className={`text-xs mt-2 ${mismatch ? 'text-[var(--danger)]' : 'text-[var(--text-muted)]'}`}>
             รวมที่แบ่งแล้ว: {allocatedTotal.toFixed(3)} / {fullQtyNum} {unit}
@@ -349,6 +370,7 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
 
 function CategoryForm({ onAddCategory, inputClass, labelClass, onDone }) {
   const [name, setName] = useState('');
+  const [status, setStatus] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
