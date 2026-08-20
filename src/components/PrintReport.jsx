@@ -46,6 +46,26 @@ function ReportChart({ title, rows }) {
   );
 }
 
+// Picks the top-N highest-value items within each project+category group.
+// Used to keep the printed item table readable when a report spans many
+// categories (overview / whole-project scope) — full detail is only shown
+// when the report is already scoped to a single category.
+function topItemsByGroup(items, n = 5) {
+  const groups = {};
+  items.forEach((it) => {
+    const key = `${it.project}||${it.category}`;
+    (groups[key] = groups[key] || []).push(it);
+  });
+  const picked = [];
+  Object.values(groups).forEach((arr) => {
+    [...arr]
+      .sort((a, b) => (Number(b.total) || 0) - (Number(a.total) || 0))
+      .slice(0, n)
+      .forEach((it) => picked.push(it));
+  });
+  return picked;
+}
+
 // Renders nothing on screen — only appears via @media print (see index.css .print-only).
 // Used for the "Export PDF" flow: window.print() → user picks "Save as PDF" in the print dialog.
 export default function PrintReport({ scope, project, category, standalone, summary, items }) {
@@ -69,27 +89,52 @@ export default function PrintReport({ scope, project, category, standalone, summ
       ? items.map((it) => ({ label: it.item, total: Number(it.total) || 0 }))
       : summary.map((s) => ({ label: s.category, total: Number(s.total) || 0 }));
 
+  // Full detail only when the report is already scoped to one machine/category —
+  // otherwise show just the top items per category so the printout stays readable.
+  const showFullItems = scope === 'category';
+  const TOP_N = 5;
+  const displayedItems = showFullItems ? items : topItemsByGroup(items, TOP_N);
+
   return (
     <div className="print-only">
-      <div style={{ background: BLUEPRINT, color: '#fff', padding: '14px 18px', marginBottom: 14 }}>
-        <h1 style={{ color: '#fff', margin: 0 }}>SIAMMAC ENGINEERING &amp; CONSTRUCTION</h1>
-        <div style={{ fontSize: 12, opacity: 0.9, marginTop: 4 }}>
+      <div style={{ background: BLUEPRINT, color: '#fff', padding: '12px 20px' }}>
+        <h1 style={{ color: '#fff', margin: 0, fontSize: 18 }}>SIAMMAC ENGINEERING &amp; CONSTRUCTION</h1>
+        <div style={{ fontSize: 11, opacity: 0.85, marginTop: 2 }}>
           {title} — พิมพ์เมื่อ {new Date().toLocaleString('th-TH')}
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 10, marginBottom: 16 }}>
-        <div style={{ flex: 1, background: '#eef3fb', borderLeft: `4px solid ${BLUEPRINT}`, padding: '8px 12px' }}>
-          <div style={{ fontSize: 10, color: '#555' }}>ยอดรวม</div>
-          <div style={{ fontSize: 16, fontWeight: 'bold', color: BLUEPRINT }}>{baht(grandTotal)} ฿</div>
+      {/* Hero summary — the number that matters most, made impossible to miss */}
+      <div
+        style={{
+          background: `linear-gradient(135deg, ${BLUEPRINT} 0%, #1a3155 100%)`,
+          color: '#fff',
+          padding: '26px 24px',
+          marginBottom: 18,
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 16,
+        }}
+      >
+        <div>
+          <div style={{ fontSize: 12, opacity: 0.8, textTransform: 'uppercase', letterSpacing: 1.5 }}>
+            ยอดรวมทั้งหมด
+          </div>
+          <div style={{ fontSize: 46, fontWeight: 800, color: AMBER, lineHeight: 1.1, marginTop: 4 }}>
+            {baht(grandTotal)} <span style={{ fontSize: 26 }}>฿</span>
+          </div>
         </div>
-        <div style={{ flex: 1, background: '#fdf3e0', borderLeft: `4px solid ${AMBER}`, padding: '8px 12px' }}>
-          <div style={{ fontSize: 10, color: '#555' }}>จำนวนรายการ</div>
-          <div style={{ fontSize: 16, fontWeight: 'bold', color: '#8a5a00' }}>{items.length}</div>
-        </div>
-        <div style={{ flex: 1, background: '#eef3fb', borderLeft: `4px solid ${BLUEPRINT}`, padding: '8px 12px' }}>
-          <div style={{ fontSize: 10, color: '#555' }}>จำนวนหมวดหมู่</div>
-          <div style={{ fontSize: 16, fontWeight: 'bold', color: BLUEPRINT }}>{summary.length}</div>
+        <div style={{ display: 'flex', gap: 28 }}>
+          <div>
+            <div style={{ fontSize: 24, fontWeight: 700 }}>{items.length}</div>
+            <div style={{ fontSize: 11, opacity: 0.8 }}>รายการทั้งหมด</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 24, fontWeight: 700 }}>{summary.length}</div>
+            <div style={{ fontSize: 11, opacity: 0.8 }}>หมวดหมู่ / เครื่องจักร</div>
+          </div>
         </div>
       </div>
 
@@ -128,7 +173,19 @@ export default function PrintReport({ scope, project, category, standalone, summ
         </tbody>
       </table>
 
-      <h2>{scope === 'category' && standalone ? 'รายการที่ต้องจัดซื้อ (ซื้อครั้งเดียวสร้าง 1 เครื่อง)' : 'รายการสินค้าทั้งหมด'}</h2>
+      <h2>
+        {scope === 'category' && standalone
+          ? 'รายการที่ต้องจัดซื้อ (ซื้อครั้งเดียวสร้าง 1 เครื่อง)'
+          : showFullItems
+          ? 'รายการสินค้าทั้งหมด'
+          : `รายการมูลค่าสูงสุด ${TOP_N} อันดับต่อหมวดหมู่`}
+      </h2>
+      {!showFullItems && (
+        <p style={{ fontSize: 10, color: '#777', marginTop: -6, marginBottom: 8 }}>
+          แสดงเฉพาะรายการที่มียอดสูงสุด {TOP_N} รายการของแต่ละหมวดหมู่ (จากทั้งหมด {items.length} รายการ) —
+          ดูรายละเอียดครบทุกรายการได้โดยเลือกดูทีละหมวดหมู่/เครื่องจักร
+        </p>
+      )}
       <table>
         <thead>
           <tr>
@@ -142,7 +199,7 @@ export default function PrintReport({ scope, project, category, standalone, summ
           </tr>
         </thead>
         <tbody>
-          {items.map((it, i) => (
+          {displayedItems.map((it, i) => (
             <tr key={it.id} style={i % 2 === 1 ? { background: '#f5f8fc' } : undefined}>
               <td>{it.project}</td>
               <td>{it.category}</td>
@@ -155,6 +212,34 @@ export default function PrintReport({ scope, project, category, standalone, summ
           ))}
         </tbody>
       </table>
+
+      <div
+        style={{
+          marginTop: 22,
+          paddingTop: 10,
+          borderTop: '1px dashed #ccc',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          fontSize: 10,
+          color: '#888',
+        }}
+      >
+        <span
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            color: '#fff',
+            background: `linear-gradient(135deg, ${BLUEPRINT}, ${AMBER})`,
+            padding: '2px 8px',
+            borderRadius: 10,
+            letterSpacing: 0.5,
+          }}
+        >
+          ✨ AI-GENERATED
+        </span>
+        <span>รายงานนี้จัดทำและวิเคราะห์ข้อมูลโดยระบบ AI Cost Dashboard (Powered by Claude · Anthropic)</span>
+      </div>
     </div>
   );
 }
