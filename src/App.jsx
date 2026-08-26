@@ -506,7 +506,7 @@ export default function App() {
                 .map((s) => (standalone ? { ...s, total: categoryTotalDisplay } : s))
             : summary
         }
-        items={view === 'overview' ? allItems : activeCategory ? categoryItemsDisplay : items}
+        items={view === 'overview' ? overviewItems : activeCategory ? categoryItemsDisplay : items}
       />
     </div>
   );
