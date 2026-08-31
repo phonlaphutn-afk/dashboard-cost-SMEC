@@ -1,0 +1,676 @@
+import { useEffect, useMemo, useState } from 'react';
+import seed from './data.json';
+import * as api from './api';
+import { baht } from './format';
+import CategoryChart from './components/CategoryChart';
+import ItemsTable from './components/ItemsTable';
+import AddPanel from './components/AddPanel';
+import Overview from './components/Overview';
+import PrintReport from './components/PrintReport';
+import TransferHistory from './components/TransferHistory';
+import { exportProjectToExcel, exportAllToExcel, exportCategoryToExcel } from './utils/export';
+
+export default function App() {
+  const [allItems, setAllItems] = useState(seed.items);
+  const [allSummary, setAllSummary] = useState(seed.summary);
+  const [allTransfers, setAllTransfers] = useState(seed.transfers || []);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeProject, setActiveProject] = useState(seed.summary[0]?.project || '');
+  const [view, setView] = useState('overview'); // 'overview' | 'project' | 'transfers'
+  const [live, setLive] = useState(api.isLive());
+  const [syncedAt, setSyncedAt] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const refresh = async () => {
+    if (!api.isLive()) return;
+    setLoading(true);
+    try {
+      const data = await api.fetchAll();
+      setAllItems(data.items || []);
+      setAllSummary(data.summary || []);
+      setAllTransfers(data.transfers || []);
+      setSyncedAt(new Date());
+      setLive(true);
+    } catch (err) {
+      setLive(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    document.title =
+      view === 'overview'
+        ? 'ภาพรวมทุกโครงการ | SIAMMAC'
+        : view === 'transfers'
+        ? 'ประวัติการโยกย้าย | SIAMMAC'
+        : `${activeProject || 'ต้นทุนโครงการเครื่องจักร'} | SIAMMAC`;
+  }, [view, activeProject]);
+
+  // Keep the selected project valid as data changes (e.g. after a live refresh)
+  useEffect(() => {
+    const projects = [...new Set(allSummary.map((s) => s.project))];
+    if (projects.length && !projects.includes(activeProject)) {
+      setActiveProject(projects[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allSummary]);
+
+  const projects = useMemo(
+    () => [...new Set(allSummary.map((s) => s.project))].sort((a, b) => a.localeCompare(b)),
+    [allSummary]
+  );
+
+  // Maps each project -> its sorted unique category/machine names, for the transfer
+  // modal's destination picker (which can point at any project, not just the current one).
+  const categoriesByProject = useMemo(() => {
+    const map = {};
+    allSummary.forEach((s) => {
+      if (!map[s.project]) map[s.project] = new Set();
+      map[s.project].add(s.category);
+    });
+    const out = {};
+    Object.keys(map).forEach((p) => {
+      out[p] = [...map[p]].sort((a, b) => a.localeCompare(b));
+    });
+    return out;
+  }, [allSummary]);
+
+  // Which projects are included when viewing/exporting the combined "ภาพรวม" report.
+  // Defaults to all projects; stays in sync as projects are added/removed.
+  const [overviewSelected, setOverviewSelected] = useState(projects);
+  useEffect(() => {
+    setOverviewSelected((prev) => {
+      const stillValid = prev.filter((p) => projects.includes(p));
+      const hasNew = projects.some((p) => !prev.includes(p));
+      return hasNew ? projects : stillValid;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects]);
+
+  const overviewSummary = useMemo(
+    () => allSummary.filter((s) => overviewSelected.includes(s.project)),
+    [allSummary, overviewSelected]
+  );
+  const overviewItems = useMemo(
+    () => allItems.filter((i) => overviewSelected.includes(i.project)),
+    [allItems, overviewSelected]
+  );
+
+  const summary = useMemo(() => allSummary.filter((s) => s.project === activeProject), [allSummary, activeProject]);
+  const items = useMemo(() => allItems.filter((i) => i.project === activeProject), [allItems, activeProject]);
+
+  const categories = useMemo(
+    () => [...new Set(summary.map((s) => s.category))].sort((a, b) => a.localeCompare(b)),
+    [summary]
+  );
+
+  const grandTotal = useMemo(() => items.reduce((s, r) => s + (Number(r.total) || 0), 0), [items]);
+  const itemCount = items.length;
+  const categoryCount = categories.length;
+  const topCategory = useMemo(() => {
+    const s = [...summary].sort((a, b) => Number(b.total) - Number(a.total))[0];
+    return s;
+  }, [summary]);
+
+  // When a machine/category is selected (via chart click or table dropdown), scope the stat cards to it
+  const categoryItems = useMemo(
+    () => (activeCategory ? items.filter((i) => i.category === activeCategory) : items),
+    [items, activeCategory]
+  );
+  const categoryTotal = useMemo(
+    () => categoryItems.reduce((s, r) => s + (Number(r.total) || 0), 0),
+    [categoryItems]
+  );
+
+  // "ถ้าผลิตเครื่องเดียว" simulation: for shared/split materials, swap the allocated share
+  // back to the full purchased qty x unit price — i.e. what it'd really cost to build this
+  // machine alone, since you can't buy a fraction of a plate. Only meaningful with one
+  // machine selected, so it resets whenever the selection changes.
+  const [standalone, setStandalone] = useState(false);
+  useEffect(() => {
+    if (!activeCategory) setStandalone(false);
+  }, [activeCategory]);
+
+  const hasSharedItems = useMemo(() => categoryItems.some((i) => i.sharedGroup), [categoryItems]);
+
+  const categoryItemsDisplay = useMemo(() => {
+    if (!activeCategory || !standalone) return categoryItems;
+    return categoryItems.map((it) => {
+      if (it.sharedGroup && it.fullQty) {
+        const fullQty = Number(it.fullQty) || 0;
+        const unitPrice = Number(it.unitPrice) || 0;
+        return { ...it, qty: fullQty, total: fullQty * unitPrice };
+      }
+      return it;
+    });
+  }, [categoryItems, activeCategory, standalone]);
+
+  const categoryTotalDisplay = useMemo(
+    () => categoryItemsDisplay.reduce((s, r) => s + (Number(r.total) || 0), 0),
+    [categoryItemsDisplay]
+  );
+
+  const categoryShare = grandTotal ? categoryTotalDisplay / grandTotal : 0;
+
+  // Same swap applied inside the full items list, so ItemsTable (which does its own
+  // category filtering) shows the simulated numbers only for the selected machine's rows.
+  const itemsForTable = useMemo(() => {
+    if (!activeCategory || !standalone) return items;
+    return items.map((it) => {
+      if (it.category === activeCategory && it.sharedGroup && it.fullQty) {
+        const fullQty = Number(it.fullQty) || 0;
+        const unitPrice = Number(it.unitPrice) || 0;
+        return { ...it, qty: fullQty, total: fullQty * unitPrice };
+      }
+      return it;
+    });
+  }, [items, activeCategory, standalone]);
+
+  const recalcLocalSummary = (nextItems) => {
+    const totals = {};
+    let grand = 0;
+    nextItems
+      .filter((it) => it.project === activeProject)
+      .forEach((it) => {
+        totals[it.category] = (totals[it.category] || 0) + (Number(it.total) || 0);
+        grand += Number(it.total) || 0;
+      });
+    setAllSummary((prev) =>
+      prev.map((s) =>
+        s.project === activeProject
+          ? { ...s, total: totals[s.category] || 0, pct: grand ? (totals[s.category] || 0) / grand : 0 }
+          : s
+      )
+    );
+  };
+
+  const handleAddItem = async (form) => {
+    const qty = Number(form.qty) || 0;
+    const unitPrice = Number(form.unitPrice) || 0;
+    const total = qty * unitPrice;
+    if (api.isLive()) {
+      const res = await api.addItem({
+        project: activeProject,
+        category: form.category,
+        item: form.item,
+        qty,
+        unit: form.unit,
+        unitPrice,
+      });
+      await refresh();
+      return res;
+    }
+    const nextItem = {
+      id: Math.max(0, ...allItems.map((i) => i.id)) + 1,
+      project: activeProject,
+      category: form.category,
+      item: form.item,
+      qty,
+      unit: form.unit,
+      unitPrice,
+      total,
+    };
+    const nextItems = [...allItems, nextItem];
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+  };
+
+  const handleAddSharedItem = async (payload) => {
+    // payload: { item, fullQty, unit, unitPrice, allocations: [{category, qty}, ...] }
+    if (api.isLive()) {
+      const res = await api.addSharedItem({ project: activeProject, ...payload });
+      await refresh();
+      return res;
+    }
+    const groupId = 'SH-local-' + Date.now();
+    let nextId = Math.max(0, ...allItems.map((i) => i.id)) + 1;
+    const newItems = payload.allocations.map((a) => {
+      const row = {
+        id: nextId,
+        project: activeProject,
+        category: a.category,
+        item: payload.item,
+        qty: Number(a.qty) || 0,
+        unit: payload.unit,
+        unitPrice: Number(payload.unitPrice) || 0,
+        total: (Number(a.qty) || 0) * (Number(payload.unitPrice) || 0),
+        sharedGroup: groupId,
+        fullQty: payload.fullQty,
+      };
+      nextId++;
+      return row;
+    });
+    const nextItems = [...allItems, ...newItems];
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+  };
+
+  const handleAddCategory = async (category) => {
+    if (api.isLive()) {
+      const res = await api.addCategory(activeProject, category);
+      await refresh();
+      return res;
+    }
+    setAllSummary((prev) => [
+      ...prev,
+      { project: activeProject, no: prev.filter((s) => s.project === activeProject).length + 1, category, total: 0, pct: 0 },
+    ]);
+  };
+
+  const handleAddProject = async (projectName, firstCategory) => {
+    if (api.isLive()) {
+      const res = await api.addProject(projectName, firstCategory);
+      await refresh();
+      setActiveProject(projectName);
+      setView('project');
+      return res;
+    }
+    setAllSummary((prev) => [...prev, { project: projectName, no: 1, category: firstCategory || 'ทั่วไป', total: 0, pct: 0 }]);
+    setActiveProject(projectName);
+    setView('project');
+  };
+
+  const handleDelete = async (id) => {
+    if (api.isLive()) {
+      await api.deleteItem(id);
+      await refresh();
+      return;
+    }
+    const nextItems = allItems.filter((i) => i.id !== id);
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+  };
+
+  const handleUpdateItem = async (id, form) => {
+    const qty = Number(form.qty) || 0;
+    const unitPrice = Number(form.unitPrice) || 0;
+    const total = qty * unitPrice;
+    if (api.isLive()) {
+      const res = await api.updateItem({
+        id,
+        project: activeProject,
+        category: form.category,
+        item: form.item,
+        qty,
+        unit: form.unit,
+        unitPrice,
+      });
+      await refresh();
+      return res;
+    }
+    const nextItems = allItems.map((it) =>
+      it.id === id ? { ...it, category: form.category, item: form.item, qty, unit: form.unit, unitPrice, total } : it
+    );
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+  };
+
+  // Issues part of an already-purchased item out to a different project/category:
+  // shrinks the source row's qty, creates a new row at the destination with the
+  // same item/unit/price, and (when live) logs the move for history.
+  const handleTransferItem = async (itemId, form) => {
+    const qty = Number(form.qty) || 0;
+    if (api.isLive()) {
+      const res = await api.transferItem({ itemId, qty, toProject: form.toProject, toCategory: form.toCategory, note: form.note });
+      if (!res.ok) throw new Error(res.error || 'Transfer failed');
+      await refresh();
+      return res;
+    }
+    const source = allItems.find((it) => it.id === itemId);
+    if (!source || qty <= 0 || qty > (Number(source.qty) || 0)) throw new Error('Invalid transfer');
+    const nextId = Math.max(0, ...allItems.map((i) => i.id)) + 1;
+    const nextItems = allItems
+      .map((it) => (it.id === itemId ? { ...it, qty: it.qty - qty, total: (it.qty - qty) * it.unitPrice } : it))
+      .concat([
+        {
+          id: nextId,
+          project: form.toProject,
+          category: form.toCategory,
+          item: source.item,
+          qty,
+          unit: source.unit,
+          unitPrice: source.unitPrice,
+          total: qty * source.unitPrice,
+        },
+      ]);
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+    setAllSummary((prev) =>
+      prev.some((s) => s.project === form.toProject && s.category === form.toCategory)
+        ? prev
+        : [...prev, { project: form.toProject, no: prev.filter((s) => s.project === form.toProject).length + 1, category: form.toCategory, total: 0, pct: 0 }]
+    );
+    setAllTransfers((prev) => [
+      {
+        id: 'local-' + Date.now(),
+        timestamp: new Date().toISOString(),
+        item: source.item,
+        qty,
+        unit: source.unit,
+        unitPrice: source.unitPrice,
+        value: qty * source.unitPrice,
+        fromProject: source.project,
+        fromCategory: source.category,
+        toProject: form.toProject,
+        toCategory: form.toCategory,
+        note: form.note || '',
+      },
+      ...prev,
+    ]);
+  };
+
+  const goToProject = (project) => {
+    setActiveProject(project);
+    setActiveCategory(null);
+    setView('project');
+  };
+
+  const handleExportExcel = () => {
+    if (view === 'overview') exportAllToExcel(overviewSummary, overviewItems);
+    else if (activeCategory) {
+      const categorySummaryRow = standalone
+        ? { ...summary.find((s) => s.category === activeCategory), total: categoryTotalDisplay }
+        : summary.find((s) => s.category === activeCategory);
+      exportCategoryToExcel(activeProject, activeCategory, categoryItemsDisplay, categorySummaryRow);
+    } else exportProjectToExcel(activeProject, items, summary);
+  };
+
+  const handleExportPdf = () => window.print();
+
+  return (
+    <div className="min-h-screen">
+      <header className="border-b border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)]/70 backdrop-blur sticky top-0 z-20 no-print">
+        <div className="max-w-7xl mx-auto px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:justify-between">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--blueprint)] font-semibold">
+              SIAMMAC ENGINEERING &amp; CONSTRUCTION
+            </p>
+            <h1 className="text-lg sm:text-xl font-semibold">
+              {view === 'overview'
+                ? 'ภาพรวมต้นทุนทุกโครงการ'
+                : view === 'transfers'
+                ? 'ประวัติการโยกย้ายวัสดุ'
+                : activeProject || 'ต้นทุนโครงการเครื่องจักร'}
+            </h1>
+          </div>
+          <div className="flex items-center gap-2 text-xs flex-wrap">
+            <button
+              onClick={() => setView('overview')}
+              className={`px-3 py-1 rounded-full border text-xs ${
+                view === 'overview'
+                  ? 'border-[var(--amber)] text-[var(--amber)] bg-[var(--amber-dim)]/20'
+                  : 'border-[var(--blueprint-dim)]/50 text-[var(--text-muted)] hover:text-[var(--text)]'
+              }`}
+            >
+              ภาพรวมทุกโครงการ
+            </button>
+            <button
+              onClick={() => setView('transfers')}
+              className={`px-3 py-1 rounded-full border text-xs ${
+                view === 'transfers'
+                  ? 'border-[var(--amber)] text-[var(--amber)] bg-[var(--amber-dim)]/20'
+                  : 'border-[var(--blueprint-dim)]/50 text-[var(--text-muted)] hover:text-[var(--text)]'
+              }`}
+            >
+              ประวัติการโยกย้าย
+            </button>
+            <ProjectSelector
+              projects={projects}
+              activeProject={activeProject}
+              setActiveProject={(p) => {
+                setActiveProject(p);
+                setActiveCategory(null);
+                setView('project');
+              }}
+              onAddProject={handleAddProject}
+            />
+            <div className="flex items-center gap-1 border-l border-[var(--blueprint-dim)]/40 pl-2 ml-1">
+              <button
+                onClick={handleExportExcel}
+                title="ส่งออกเป็น Excel"
+                className="text-[var(--text-muted)] hover:text-[var(--text)] border border-[var(--blueprint-dim)]/50 rounded-full px-3 py-1"
+              >
+                Excel
+              </button>
+              <button
+                onClick={handleExportPdf}
+                title="พิมพ์ / บันทึกเป็น PDF"
+                className="text-[var(--text-muted)] hover:text-[var(--text)] border border-[var(--blueprint-dim)]/50 rounded-full px-3 py-1"
+              >
+                PDF
+              </button>
+            </div>
+            <span
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border ${
+                live
+                  ? 'border-[var(--success)]/50 text-[var(--success)]'
+                  : 'border-[var(--amber)]/50 text-[var(--amber)]'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${live ? 'bg-[var(--success)]' : 'bg-[var(--amber)]'}`} />
+              {loading ? 'กำลังซิงค์...' : live ? 'เชื่อมต่อ Google Sheet' : 'โหมดออฟไลน์ (ยังไม่เชื่อมต่อ)'}
+            </span>
+            {live && (
+              <button
+                onClick={refresh}
+                className="text-[var(--text-muted)] hover:text-[var(--text)] border border-[var(--blueprint-dim)]/50 rounded-full px-3 py-1"
+              >
+                รีเฟรช
+              </button>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-5 py-6 space-y-6 no-print">
+        {view === 'overview' ? (
+          <Overview
+            allSummary={allSummary}
+            allItems={allItems}
+            projects={projects}
+            selected={overviewSelected}
+            setSelected={setOverviewSelected}
+            onSelectProject={goToProject}
+          />
+        ) : view === 'transfers' ? (
+          <TransferHistory transfers={allTransfers} />
+        ) : (
+          <>
+            <div className="flex items-center gap-2 text-[var(--text-muted)] text-sm flex-wrap">
+              <span className="text-[var(--blueprint)]">●</span>
+              <span>
+                กำลังดูโครงการ: <span className="text-[var(--text)] font-semibold">{activeProject || '—'}</span>
+              </span>
+              {activeCategory && (
+                <>
+                  <span className="text-[var(--blueprint-dim)]">/</span>
+                  <span>
+                    เครื่องจักร: <span className="text-[var(--amber)] font-semibold">{activeCategory}</span>
+                  </span>
+                  <button
+                    onClick={() => setActiveCategory(null)}
+                    className="text-[var(--amber)] hover:underline text-xs ml-1"
+                  >
+                    ดูทั้งโครงการ ×
+                  </button>
+                  {hasSharedItems && (
+                    <div className="flex text-xs rounded-md overflow-hidden border border-[var(--blueprint-dim)]/50 ml-2">
+                      <button
+                        onClick={() => setStandalone(false)}
+                        className={`px-2.5 py-1 ${!standalone ? 'bg-[var(--blueprint)] text-[#04101f] font-semibold' : 'text-[var(--text-muted)]'}`}
+                      >
+                        ต้นทุนตามจริง
+                      </button>
+                      <button
+                        onClick={() => setStandalone(true)}
+                        className={`px-2.5 py-1 ${standalone ? 'bg-[var(--amber)] text-[#1a1200] font-semibold' : 'text-[var(--text-muted)]'}`}
+                      >
+                        ถ้าผลิตเครื่องเดียว
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {standalone && (
+              <p className="text-xs text-[var(--amber)] bg-[var(--amber-dim)]/20 border border-[var(--amber-dim)]/50 rounded-md px-3 py-2">
+                กำลังดูต้นทุนจำลอง — วัสดุที่ปกติแบ่งใช้กับเครื่องอื่นจะคิดเต็มราคา (เหมือนต้องซื้อทั้งชิ้นเพื่อสร้างเครื่องนี้เครื่องเดียว) ตัวเลขนี้ไม่ได้บันทึกลง Sheet
+              </p>
+            )}
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <StatCard
+                label={activeCategory ? `ต้นทุนของ ${activeCategory}` : 'ต้นทุนรวมทั้งหมด'}
+                value={`${baht(activeCategory ? categoryTotalDisplay : grandTotal)} ฿`}
+                accent="amber"
+              />
+              <StatCard label="จำนวนรายการ" value={activeCategory ? categoryItemsDisplay.length : itemCount} />
+              {activeCategory ? (
+                <StatCard label="สัดส่วนต่อโครงการ" value={`${(categoryShare * 100).toFixed(1)}%`} />
+              ) : (
+                <StatCard label="จำนวนหมวดหมู่ / เครื่องจักร" value={categoryCount} />
+              )}
+              {activeCategory ? (
+                <StatCard
+                  label="ราคาเฉลี่ยต่อรายการ"
+                  value={`${baht(categoryItemsDisplay.length ? categoryTotalDisplay / categoryItemsDisplay.length : 0)} ฿`}
+                />
+              ) : (
+                <StatCard
+                  label="หมวดหมู่ต้นทุนสูงสุด"
+                  value={topCategory ? topCategory.category : '—'}
+                  sub={topCategory ? `${baht(topCategory.total)} ฿` : ''}
+                />
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <CategoryChart summary={summary} onSelect={setActiveCategory} activeCategory={activeCategory} />
+                <AddPanel
+                  categories={categories}
+                  onAddItem={handleAddItem}
+                  onAddSharedItem={handleAddSharedItem}
+                  onAddCategory={handleAddCategory}
+                  isLive={live}
+                />
+              </div>
+              <div className="lg:col-span-3">
+                <ItemsTable
+                  items={itemsForTable}
+                  categories={categories}
+                  activeCategory={activeCategory}
+                  setActiveCategory={setActiveCategory}
+                  onDelete={handleDelete}
+                  onUpdate={handleUpdateItem}
+                  onTransfer={handleTransferItem}
+                  projects={projects}
+                  categoriesByProject={categoriesByProject}
+                  canWrite={!standalone}
+                />
+              </div>
+            </div>
+          </>
+        )}
+      </main>
+
+      <footer className="max-w-7xl mx-auto px-5 pb-8 pt-2 text-[11px] text-[var(--text-muted)] no-print">
+        {syncedAt ? `ซิงค์ล่าสุด ${syncedAt.toLocaleString('th-TH')}` : 'ข้อมูลเริ่มต้นจากไฟล์ Excel ที่อัปโหลด'}
+      </footer>
+
+      <PrintReport
+        scope={view === 'project' && activeCategory ? 'category' : view}
+        project={activeProject}
+        category={activeCategory}
+        standalone={standalone}
+        summary={
+          view === 'overview'
+            ? overviewSummary
+            : activeCategory
+            ? summary
+                .filter((s) => s.category === activeCategory)
+                .map((s) => (standalone ? { ...s, total: categoryTotalDisplay } : s))
+            : summary
+        }
+        items={view === 'overview' ? overviewItems : activeCategory ? categoryItemsDisplay : items}
+      />
+    </div>
+  );
+}
+
+function ProjectSelector({ projects, activeProject, setActiveProject, onAddProject }) {
+  const [adding, setAdding] = useState(false);
+  const [name, setName] = useState('');
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!name.trim()) return;
+    await onAddProject(name.trim());
+    setName('');
+    setAdding(false);
+  };
+
+  if (adding) {
+    return (
+      <form onSubmit={submit} className="flex items-center gap-1.5">
+        <input
+          autoFocus
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="ชื่อโครงการใหม่"
+          className="bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-2.5 py-1 text-xs w-40 focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]"
+        />
+        <button type="submit" className="text-[var(--success)] text-xs px-2 py-1">
+          บันทึก
+        </button>
+        <button type="button" onClick={() => setAdding(false)} className="text-[var(--text-muted)] text-xs px-1">
+          ×
+        </button>
+      </form>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-1.5">
+      <select
+        value={activeProject}
+        onChange={(e) => setActiveProject(e.target.value)}
+        className="bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-2.5 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)] max-w-[160px]"
+      >
+        {projects.map((p) => (
+          <option key={p} value={p}>
+            {p}
+          </option>
+        ))}
+      </select>
+      <button
+        onClick={() => setAdding(true)}
+        title="เพิ่มโครงการใหม่"
+        className="text-[var(--blueprint)] border border-[var(--blueprint-dim)]/50 rounded-md w-6 h-6 flex items-center justify-center text-sm hover:bg-[var(--bg-panel-raised)]"
+      >
+        +
+      </button>
+    </div>
+  );
+}
+
+function StatCard({ label, value, sub, accent }) {
+  return (
+    <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-4">
+      <p className="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1 truncate">{label}</p>
+      <p
+        className={`text-xl font-semibold font-mono-num truncate ${accent === 'amber' ? 'text-[var(--amber)]' : 'text-[var(--text)]'}`}
+      >
+        {value}
+      </p>
+      {sub && <p className="text-xs text-[var(--text-muted)] font-mono-num truncate">{sub}</p>}
+    </div>
+  );
+}
