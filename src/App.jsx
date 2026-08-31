@@ -7,14 +7,16 @@ import ItemsTable from './components/ItemsTable';
 import AddPanel from './components/AddPanel';
 import Overview from './components/Overview';
 import PrintReport from './components/PrintReport';
+import TransferHistory from './components/TransferHistory';
 import { exportProjectToExcel, exportAllToExcel, exportCategoryToExcel } from './utils/export';
 
 export default function App() {
   const [allItems, setAllItems] = useState(seed.items);
   const [allSummary, setAllSummary] = useState(seed.summary);
+  const [allTransfers, setAllTransfers] = useState(seed.transfers || []);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeProject, setActiveProject] = useState(seed.summary[0]?.project || '');
-  const [view, setView] = useState('overview'); // 'overview' | 'project'
+  const [view, setView] = useState('overview'); // 'overview' | 'project' | 'transfers'
   const [live, setLive] = useState(api.isLive());
   const [syncedAt, setSyncedAt] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,6 +28,7 @@ export default function App() {
       const data = await api.fetchAll();
       setAllItems(data.items || []);
       setAllSummary(data.summary || []);
+      setAllTransfers(data.transfers || []);
       setSyncedAt(new Date());
       setLive(true);
     } catch (err) {
@@ -44,6 +47,8 @@ export default function App() {
     document.title =
       view === 'overview'
         ? 'ภาพรวมทุกโครงการ | SIAMMAC'
+        : view === 'transfers'
+        ? 'ประวัติการโยกย้าย | SIAMMAC'
         : `${activeProject || 'ต้นทุนโครงการเครื่องจักร'} | SIAMMAC`;
   }, [view, activeProject]);
 
@@ -60,6 +65,21 @@ export default function App() {
     () => [...new Set(allSummary.map((s) => s.project))].sort((a, b) => a.localeCompare(b)),
     [allSummary]
   );
+
+  // Maps each project -> its sorted unique category/machine names, for the transfer
+  // modal's destination picker (which can point at any project, not just the current one).
+  const categoriesByProject = useMemo(() => {
+    const map = {};
+    allSummary.forEach((s) => {
+      if (!map[s.project]) map[s.project] = new Set();
+      map[s.project].add(s.category);
+    });
+    const out = {};
+    Object.keys(map).forEach((p) => {
+      out[p] = [...map[p]].sort((a, b) => a.localeCompare(b));
+    });
+    return out;
+  }, [allSummary]);
 
   // Which projects are included when viewing/exporting the combined "ภาพรวม" report.
   // Defaults to all projects; stays in sync as projects are added/removed.
@@ -291,6 +311,60 @@ export default function App() {
     recalcLocalSummary(nextItems);
   };
 
+  // Issues part of an already-purchased item out to a different project/category:
+  // shrinks the source row's qty, creates a new row at the destination with the
+  // same item/unit/price, and (when live) logs the move for history.
+  const handleTransferItem = async (itemId, form) => {
+    const qty = Number(form.qty) || 0;
+    if (api.isLive()) {
+      const res = await api.transferItem({ itemId, qty, toProject: form.toProject, toCategory: form.toCategory, note: form.note });
+      if (!res.ok) throw new Error(res.error || 'Transfer failed');
+      await refresh();
+      return res;
+    }
+    const source = allItems.find((it) => it.id === itemId);
+    if (!source || qty <= 0 || qty > (Number(source.qty) || 0)) throw new Error('Invalid transfer');
+    const nextId = Math.max(0, ...allItems.map((i) => i.id)) + 1;
+    const nextItems = allItems
+      .map((it) => (it.id === itemId ? { ...it, qty: it.qty - qty, total: (it.qty - qty) * it.unitPrice } : it))
+      .concat([
+        {
+          id: nextId,
+          project: form.toProject,
+          category: form.toCategory,
+          item: source.item,
+          qty,
+          unit: source.unit,
+          unitPrice: source.unitPrice,
+          total: qty * source.unitPrice,
+        },
+      ]);
+    setAllItems(nextItems);
+    recalcLocalSummary(nextItems);
+    setAllSummary((prev) =>
+      prev.some((s) => s.project === form.toProject && s.category === form.toCategory)
+        ? prev
+        : [...prev, { project: form.toProject, no: prev.filter((s) => s.project === form.toProject).length + 1, category: form.toCategory, total: 0, pct: 0 }]
+    );
+    setAllTransfers((prev) => [
+      {
+        id: 'local-' + Date.now(),
+        timestamp: new Date().toISOString(),
+        item: source.item,
+        qty,
+        unit: source.unit,
+        unitPrice: source.unitPrice,
+        value: qty * source.unitPrice,
+        fromProject: source.project,
+        fromCategory: source.category,
+        toProject: form.toProject,
+        toCategory: form.toCategory,
+        note: form.note || '',
+      },
+      ...prev,
+    ]);
+  };
+
   const goToProject = (project) => {
     setActiveProject(project);
     setActiveCategory(null);
@@ -318,7 +392,11 @@ export default function App() {
               SIAMMAC ENGINEERING &amp; CONSTRUCTION
             </p>
             <h1 className="text-lg sm:text-xl font-semibold">
-              {view === 'overview' ? 'ภาพรวมต้นทุนทุกโครงการ' : activeProject || 'ต้นทุนโครงการเครื่องจักร'}
+              {view === 'overview'
+                ? 'ภาพรวมต้นทุนทุกโครงการ'
+                : view === 'transfers'
+                ? 'ประวัติการโยกย้ายวัสดุ'
+                : activeProject || 'ต้นทุนโครงการเครื่องจักร'}
             </h1>
           </div>
           <div className="flex items-center gap-2 text-xs flex-wrap">
@@ -331,6 +409,16 @@ export default function App() {
               }`}
             >
               ภาพรวมทุกโครงการ
+            </button>
+            <button
+              onClick={() => setView('transfers')}
+              className={`px-3 py-1 rounded-full border text-xs ${
+                view === 'transfers'
+                  ? 'border-[var(--amber)] text-[var(--amber)] bg-[var(--amber-dim)]/20'
+                  : 'border-[var(--blueprint-dim)]/50 text-[var(--text-muted)] hover:text-[var(--text)]'
+              }`}
+            >
+              ประวัติการโยกย้าย
             </button>
             <ProjectSelector
               projects={projects}
@@ -390,6 +478,8 @@ export default function App() {
             setSelected={setOverviewSelected}
             onSelectProject={goToProject}
           />
+        ) : view === 'transfers' ? (
+          <TransferHistory transfers={allTransfers} />
         ) : (
           <>
             <div className="flex items-center gap-2 text-[var(--text-muted)] text-sm flex-wrap">
@@ -480,6 +570,9 @@ export default function App() {
                   setActiveCategory={setActiveCategory}
                   onDelete={handleDelete}
                   onUpdate={handleUpdateItem}
+                  onTransfer={handleTransferItem}
+                  projects={projects}
+                  categoriesByProject={categoriesByProject}
                   canWrite={!standalone}
                 />
               </div>

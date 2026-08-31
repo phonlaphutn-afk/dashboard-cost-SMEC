@@ -31,3 +31,4 @@ export const updateItem = (item) => post({ action: 'updateItem', ...item });
 export const deleteItem = (id) => post({ action: 'deleteItem', id });
 export const addCategory = (project, category) => post({ action: 'addCategory', project, category });
 export const addProject = (project, category) => post({ action: 'addProject', project, category });
+export const transferItem = (payload) => post({ action: 'transferItem', ...payload });

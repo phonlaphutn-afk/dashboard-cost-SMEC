@@ -39,13 +39,160 @@ function SharedBadge({ row, items }) {
   );
 }
 
-export default function ItemsTable({ items, categories, activeCategory, setActiveCategory, onDelete, onUpdate, canWrite, standalone }) {
+function TransferModal({ row, projects, categoriesByProject, onTransfer, onClose }) {
+  const [toProject, setToProject] = useState(row.project);
+  const [toCategory, setToCategory] = useState('');
+  const [newCategory, setNewCategory] = useState('');
+  const [qty, setQty] = useState('');
+  const [note, setNote] = useState('');
+  const [status, setStatus] = useState(null);
+  const [error, setError] = useState('');
+
+  const destCategories = categoriesByProject[toProject] || [];
+  const usingNewCategory = toCategory === '__new__';
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const qtyNum = Number(qty) || 0;
+    const category = usingNewCategory ? newCategory.trim() : toCategory;
+    if (!qtyNum || qtyNum <= 0 || qtyNum > (Number(row.qty) || 0) || !toProject || !category) {
+      setError('ตรวจสอบจำนวน/โครงการ/หมวดหมู่ปลายทางอีกครั้ง');
+      return;
+    }
+    setError('');
+    setStatus('saving');
+    try {
+      await onTransfer(row.id, { qty: qtyNum, toProject, toCategory: category, note });
+      setStatus('saved');
+      setTimeout(onClose, 700);
+    } catch {
+      setStatus('error');
+      setError('โยกย้ายไม่สำเร็จ ลองใหม่อีกครั้ง');
+    }
+  };
+
+  const inputClass =
+    'w-full bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]';
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={onClose}>
+      <div
+        className="w-full max-w-md bg-[var(--bg-panel)] border border-[var(--blueprint-dim)]/60 rounded-xl shadow-2xl p-5"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 className="text-base font-semibold mb-1">โยกย้ายวัสดุ</h3>
+        <p className="text-xs text-[var(--text-muted)] mb-4">
+          {row.item} — เหลืออยู่ {row.qty} {row.unit} ที่ {row.project} / {row.category}
+        </p>
+
+        <form onSubmit={submit} className="space-y-3">
+          <div>
+            <label className="text-xs text-[var(--text-muted)]">จำนวนที่จะโยกย้าย</label>
+            <input
+              type="number"
+              step="any"
+              value={qty}
+              onChange={(e) => setQty(e.target.value)}
+              max={row.qty}
+              className={inputClass}
+              placeholder={`สูงสุด ${row.qty} ${row.unit}`}
+              required
+            />
+          </div>
+          <div>
+            <label className="text-xs text-[var(--text-muted)]">ไปโครงการ</label>
+            <select
+              value={toProject}
+              onChange={(e) => {
+                setToProject(e.target.value);
+                setToCategory('');
+              }}
+              className={inputClass}
+            >
+              {projects.map((p) => (
+                <option key={p} value={p}>
+                  {p}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="text-xs text-[var(--text-muted)]">ไปหมวดหมู่ / เครื่องจักร</label>
+            <select value={toCategory} onChange={(e) => setToCategory(e.target.value)} className={inputClass} required>
+              <option value="" disabled>
+                เลือกหมวดหมู่ปลายทาง
+              </option>
+              {destCategories.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+              <option value="__new__">+ สร้างหมวดหมู่ใหม่</option>
+            </select>
+            {usingNewCategory && (
+              <input
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                placeholder="ชื่อหมวดหมู่ใหม่"
+                className={`${inputClass} mt-2`}
+                required
+              />
+            )}
+          </div>
+          <div>
+            <label className="text-xs text-[var(--text-muted)]">หมายเหตุ (ไม่บังคับ)</label>
+            <input
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="เช่น เอาไปใช้ซ่อมเครื่อง X"
+              className={inputClass}
+            />
+          </div>
+
+          {error && <p className="text-xs text-[var(--danger)]">{error}</p>}
+
+          <div className="flex gap-2 pt-1">
+            <button
+              type="submit"
+              disabled={status === 'saving'}
+              className="flex-1 bg-[var(--amber)] text-[#1a1200] font-semibold rounded-md px-4 py-2 text-sm hover:brightness-110 transition disabled:opacity-50"
+            >
+              {status === 'saving' ? 'กำลังบันทึก...' : status === 'saved' ? 'บันทึกแล้ว ✓' : 'ยืนยันโยกย้าย'}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-sm text-[var(--text-muted)] border border-[var(--blueprint-dim)]/50 rounded-md hover:bg-[var(--bg-panel-raised)]"
+            >
+              ยกเลิก
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default function ItemsTable({
+  items,
+  categories,
+  activeCategory,
+  setActiveCategory,
+  onDelete,
+  onUpdate,
+  onTransfer,
+  projects,
+  categoriesByProject,
+  canWrite,
+  standalone,
+}) {
   const [query, setQuery] = useState('');
   const [sortKey, setSortKey] = useState('total');
   const [sortDir, setSortDir] = useState('desc');
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [transferringRow, setTransferringRow] = useState(null);
 
   const filtered = useMemo(() => {
     let rows = items;
@@ -249,6 +396,14 @@ export default function ItemsTable({ items, categories, activeCategory, setActiv
                           >
                             แก้ไข
                           </button>
+                          {onTransfer && Number(r.qty) > 0 && (
+                            <button
+                              onClick={() => setTransferringRow(r)}
+                              className="text-[var(--amber)] hover:underline text-xs mr-2"
+                            >
+                              โยกย้าย
+                            </button>
+                          )}
                           <button
                             onClick={() => onDelete(r.id)}
                             className="text-[var(--danger)] hover:underline text-xs"
@@ -272,6 +427,15 @@ export default function ItemsTable({ items, categories, activeCategory, setActiv
           </tbody>
         </table>
       </div>
+      {transferringRow && (
+        <TransferModal
+          row={transferringRow}
+          projects={projects || []}
+          categoriesByProject={categoriesByProject || {}}
+          onTransfer={onTransfer}
+          onClose={() => setTransferringRow(null)}
+        />
+      )}
     </div>
   );
 }
