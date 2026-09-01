@@ -1,9 +1,36 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { baht } from '../format';
+
+const PRESETS_KEY = 'costDashboard_projectGroups';
+
+function loadPresets() {
+  try {
+    const raw = localStorage.getItem(PRESETS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function savePresets(presets) {
+  try {
+    localStorage.setItem(PRESETS_KEY, JSON.stringify(presets));
+  } catch {
+    // ignore storage errors (e.g. private browsing)
+  }
+}
 
 export default function Overview({ allSummary, allItems, projects, selected, setSelected, onSelectProject }) {
   const filteredSummary = useMemo(() => allSummary.filter((s) => selected.includes(s.project)), [allSummary, selected]);
   const filteredItems = useMemo(() => allItems.filter((i) => selected.includes(i.project)), [allItems, selected]);
+
+  const [presets, setPresets] = useState([]);
+  const [savingName, setSavingName] = useState(false);
+  const [newGroupName, setNewGroupName] = useState('');
+
+  useEffect(() => {
+    setPresets(loadPresets());
+  }, []);
 
   const projectTotals = useMemo(() => {
     const totals = {};
@@ -28,6 +55,27 @@ export default function Overview({ allSummary, allItems, projects, selected, set
   };
 
   const allSelected = selected.length === projects.length;
+
+  const applyPreset = (preset) => {
+    // Only keep projects that still exist, in case one was renamed/removed since saving
+    setSelected(preset.projects.filter((p) => projects.includes(p)));
+  };
+
+  const saveCurrentAsPreset = () => {
+    const name = newGroupName.trim();
+    if (!name || !selected.length) return;
+    const next = [...presets.filter((p) => p.name !== name), { name, projects: selected }];
+    setPresets(next);
+    savePresets(next);
+    setNewGroupName('');
+    setSavingName(false);
+  };
+
+  const deletePreset = (name) => {
+    const next = presets.filter((p) => p.name !== name);
+    setPresets(next);
+    savePresets(next);
+  };
 
   return (
     <div className="space-y-6">
@@ -59,6 +107,75 @@ export default function Overview({ allSummary, allItems, projects, selected, set
         {selected.length === 0 && (
           <p className="text-xs text-[var(--danger)] mt-2">ยังไม่ได้เลือกโครงการ — เลือกอย่างน้อย 1 โครงการเพื่อดูรายงาน</p>
         )}
+
+        {/* Saved project-group presets: click once to re-apply a combination instead of
+            re-selecting the same set of chips every time (e.g. every "Greatest" job that
+            got split across several project names). */}
+        <div className="mt-4 pt-4 border-t border-[var(--blueprint-dim)]/30">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xs font-semibold tracking-wide uppercase text-[var(--text-muted)]">
+              กลุ่มที่บันทึกไว้
+            </h3>
+            {!savingName ? (
+              <button
+                onClick={() => setSavingName(true)}
+                disabled={!selected.length}
+                className="text-xs text-[var(--blueprint)] hover:underline disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                + บันทึกตัวที่เลือกเป็นกลุ่ม
+              </button>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <input
+                  autoFocus
+                  value={newGroupName}
+                  onChange={(e) => setNewGroupName(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && saveCurrentAsPreset()}
+                  placeholder="ชื่อกลุ่ม เช่น Greatest รวม"
+                  className="bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-2.5 py-1 text-xs w-52 focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]"
+                />
+                <button onClick={saveCurrentAsPreset} className="text-[var(--success)] text-xs px-2 py-1">
+                  บันทึก
+                </button>
+                <button
+                  onClick={() => {
+                    setSavingName(false);
+                    setNewGroupName('');
+                  }}
+                  className="text-[var(--text-muted)] text-xs px-1"
+                >
+                  ×
+                </button>
+              </div>
+            )}
+          </div>
+
+          {presets.length === 0 ? (
+            <p className="text-xs text-[var(--text-muted)]">
+              ยังไม่มีกลุ่มที่บันทึกไว้ — เลือกโครงการที่ต้องการรวมกันด้านบน แล้วกด "บันทึกตัวที่เลือกเป็นกลุ่ม"
+            </p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {presets.map((preset) => (
+                <span
+                  key={preset.name}
+                  className="inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1.5 text-xs rounded-full border border-[var(--blueprint)]/50 text-[var(--blueprint)] hover:bg-[var(--bg-panel-raised)]"
+                >
+                  <button onClick={() => applyPreset(preset)} className="font-semibold">
+                    📁 {preset.name} <span className="text-[var(--text-muted)] font-normal">({preset.projects.length})</span>
+                  </button>
+                  <button
+                    onClick={() => deletePreset(preset.name)}
+                    title="ลบกลุ่มนี้"
+                    className="text-[var(--text-muted)] hover:text-[var(--danger)] w-4 h-4 flex items-center justify-center"
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
