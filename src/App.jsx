@@ -283,20 +283,30 @@ export default function App() {
     setAllSummary((prev) => prev.filter((s) => !(s.project === activeProject && s.category === category)));
   };
 
-  const handleAddProject = async (projectName, firstCategory) => {
+  const handleAddProject = async (projectName, firstCategory, group) => {
     if (api.isLive()) {
-      const res = await api.addProject(projectName, firstCategory);
+      const res = await api.addProject(projectName, firstCategory, group);
       await refresh();
       setActiveProject(projectName);
       setView('project');
       return res;
     }
-    setAllSummary((prev) => [...prev, { project: projectName, no: 1, category: firstCategory || 'ทั่วไป', total: 0, pct: 0 }]);
+    setAllSummary((prev) => [
+      ...prev,
+      { project: projectName, no: 1, category: firstCategory || 'ทั่วไป', total: 0, pct: 0, group: group || '' },
+    ]);
     setActiveProject(projectName);
     setView('project');
   };
 
-  const handleDelete = async (id) => {
+  const handleSetProjectGroup = async (project, group) => {
+    if (api.isLive()) {
+      const res = await api.setProjectGroup(project, group);
+      await refresh();
+      return res;
+    }
+    setAllSummary((prev) => prev.map((s) => (s.project === project ? { ...s, group } : s)));
+  };  const handleDelete = async (id) => {
     if (api.isLive()) {
       await api.deleteItem(id);
       await refresh();
@@ -497,6 +507,7 @@ export default function App() {
             selected={overviewSelected}
             setSelected={setOverviewSelected}
             onSelectProject={goToProject}
+            onSetProjectGroup={handleSetProjectGroup}
           />
         ) : view === 'transfers' ? (
           <TransferHistory transfers={allTransfers} />
@@ -636,12 +647,14 @@ export default function App() {
 function ProjectSelector({ projects, activeProject, setActiveProject, onAddProject }) {
   const [adding, setAdding] = useState(false);
   const [name, setName] = useState('');
+  const [group, setGroup] = useState('');
 
   const submit = async (e) => {
     e.preventDefault();
     if (!name.trim()) return;
-    await onAddProject(name.trim());
+    await onAddProject(name.trim(), undefined, group.trim() || undefined);
     setName('');
+    setGroup('');
     setAdding(false);
   };
 
@@ -654,6 +667,13 @@ function ProjectSelector({ projects, activeProject, setActiveProject, onAddProje
           onChange={(e) => setName(e.target.value)}
           placeholder="ชื่อโครงการใหม่"
           className="bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-2.5 py-1 text-xs w-40 focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]"
+        />
+        <input
+          value={group}
+          onChange={(e) => setGroup(e.target.value)}
+          placeholder="กลุ่ม (ไม่บังคับ)"
+          title="ถ้าโครงการนี้เป็นส่วนหนึ่งของงานใหญ่ที่แบ่งหลายโครงการ ใส่ชื่อกลุ่มให้เหมือนกัน"
+          className="bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-2.5 py-1 text-xs w-32 focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]"
         />
         <button type="submit" className="text-[var(--success)] text-xs px-2 py-1">
           บันทึก

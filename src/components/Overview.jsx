@@ -20,7 +20,7 @@ function savePresets(presets) {
   }
 }
 
-export default function Overview({ allSummary, allItems, projects, selected, setSelected, onSelectProject }) {
+export default function Overview({ allSummary, allItems, projects, selected, setSelected, onSelectProject, onSetProjectGroup }) {
   const filteredSummary = useMemo(() => allSummary.filter((s) => selected.includes(s.project)), [allSummary, selected]);
   const filteredItems = useMemo(() => allItems.filter((i) => selected.includes(i.project)), [allItems, selected]);
 
@@ -42,6 +42,30 @@ export default function Overview({ allSummary, allItems, projects, selected, set
   const [presets, setPresets] = useState([]);
   const [savingName, setSavingName] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
+  const [editingGroupFor, setEditingGroupFor] = useState(null);
+  const [groupInput, setGroupInput] = useState('');
+
+  // Current group (if any) already set for each project, so the edit box opens pre-filled
+  const projectGroupMap = useMemo(() => {
+    const map = {};
+    allSummary.forEach((s) => {
+      if (s.group && !map[s.project]) map[s.project] = s.group;
+    });
+    return map;
+  }, [allSummary]);
+
+  const startEditGroup = (project, e) => {
+    e.stopPropagation();
+    setEditingGroupFor(project);
+    setGroupInput(projectGroupMap[project] || '');
+  };
+
+  const saveGroup = async (project, e) => {
+    e.stopPropagation();
+    if (!onSetProjectGroup) return;
+    await onSetProjectGroup(project, groupInput.trim());
+    setEditingGroupFor(null);
+  };
 
   useEffect(() => {
     setPresets(loadPresets());
@@ -226,27 +250,65 @@ export default function Overview({ allSummary, allItems, projects, selected, set
         <div className="space-y-3">
           {projectTotals.map((p) => {
             const w = (p.total / max) * 100;
+            const currentGroup = projectGroupMap[p.project];
             return (
-              <button
-                key={p.project}
-                onClick={() => onSelectProject(p.project)}
-                className="w-full text-left group"
-              >
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-[var(--text)] group-hover:text-[var(--amber)] font-medium">
-                    {p.project}
-                  </span>
-                  <span className="font-mono-num text-[var(--text-muted)] group-hover:text-[var(--text)]">
+              <div key={p.project} className="group">
+                <div className="flex justify-between items-center text-sm mb-1 gap-2">
+                  <button onClick={() => onSelectProject(p.project)} className="flex-1 text-left flex items-center gap-2 min-w-0">
+                    <span className="text-[var(--text)] group-hover:text-[var(--amber)] font-medium truncate">
+                      {p.project}
+                    </span>
+                    {currentGroup && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[var(--success)]/15 text-[var(--success)] whitespace-nowrap">
+                        🏷️ {currentGroup}
+                      </span>
+                    )}
+                  </button>
+                  {onSetProjectGroup &&
+                    (editingGroupFor === p.project ? (
+                      <span className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          autoFocus
+                          value={groupInput}
+                          onChange={(e) => setGroupInput(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && saveGroup(p.project, e)}
+                          placeholder="ชื่อกลุ่ม"
+                          className="bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-2 py-0.5 text-xs w-24 focus:outline-none focus:ring-1 focus:ring-[var(--blueprint)]"
+                        />
+                        <button onClick={(e) => saveGroup(p.project, e)} className="text-[var(--success)] text-xs px-1">
+                          ✓
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditingGroupFor(null);
+                          }}
+                          className="text-[var(--text-muted)] text-xs px-1"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ) : (
+                      <button
+                        onClick={(e) => startEditGroup(p.project, e)}
+                        className="text-[10px] text-[var(--text-muted)] hover:text-[var(--blueprint)] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        {currentGroup ? 'แก้กลุ่ม' : '+ ตั้งกลุ่ม'}
+                      </button>
+                    ))}
+                  <span className="font-mono-num text-[var(--text-muted)] whitespace-nowrap">
                     {baht(p.total)} ฿ <span className="text-[var(--text-muted)]">· {p.items} รายการ</span>
                   </span>
                 </div>
-                <div className="h-3 rounded-full bg-[var(--bg-panel-raised)] overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-[var(--blueprint-dim)] to-[var(--blueprint)] group-hover:from-[var(--amber-dim)] group-hover:to-[var(--amber)] transition-all"
-                    style={{ width: `${Math.max(w, 1.5)}%` }}
-                  />
-                </div>
-              </button>
+                <button onClick={() => onSelectProject(p.project)} className="w-full text-left">
+                  <div className="h-3 rounded-full bg-[var(--bg-panel-raised)] overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-[var(--blueprint-dim)] to-[var(--blueprint)] group-hover:from-[var(--amber-dim)] group-hover:to-[var(--amber)] transition-all"
+                      style={{ width: `${Math.max(w, 1.5)}%` }}
+                    />
+                  </div>
+                </button>
+              </div>
             );
           })}
         </div>
