@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { baht } from '../format';
+import CategoryDonut from './CategoryDonut';
 
 const PRESETS_KEY = 'costDashboard_projectGroups';
 
@@ -313,6 +314,14 @@ export default function Overview({ allSummary, allItems, projects, selected, set
         <StatCard label="จำนวนโครงการที่เลือก" value={projectTotals.length} icon="🗂️" />
         <StatCard label="จำนวนรายการรวม" value={totalItems} icon="📦" />
       </div>
+
+      {projectTotals.length > 0 && (
+        <CategoryDonut
+          summary={projectTotals.map((p) => ({ category: p.project, total: p.total }))}
+          onSelect={(name) => name && onSelectProject(name)}
+          title="สัดส่วนต้นทุนแต่ละโครงการ"
+        />
+      )}
 
       <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-5">
         <h2 className="text-sm font-semibold tracking-wide uppercase mb-4">

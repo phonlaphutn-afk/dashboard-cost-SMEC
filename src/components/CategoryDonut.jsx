@@ -4,7 +4,7 @@ import { baht, pct } from '../format';
 // few more distinguishable hues for a multi-slice donut (industrial gauge feel).
 const SLICE_COLORS = ['#4c8dff', '#f5a623', '#34d399', '#a78bfa', '#f87171', '#22d3ee', '#fb923c', '#94a3b8'];
 
-export default function CategoryDonut({ summary, onSelect, activeCategory }) {
+export default function CategoryDonut({ summary, onSelect, activeCategory, title }) {
   const ranked = [...summary].filter((r) => Number(r.total) > 0).sort((a, b) => Number(b.total) - Number(a.total));
   const top = ranked.slice(0, 6);
   const restTotal = ranked.slice(6).reduce((s, r) => s + Number(r.total), 0);
@@ -35,7 +35,7 @@ export default function CategoryDonut({ summary, onSelect, activeCategory }) {
 
   return (
     <div className="rounded-xl border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-5">
-      <h2 className="text-sm font-semibold tracking-wide text-[var(--text)] uppercase mb-4">สัดส่วนต้นทุนตามหมวดหมู่</h2>
+      <h2 className="text-sm font-semibold tracking-wide text-[var(--text)] uppercase mb-4">{title || 'สัดส่วนต้นทุนตามหมวดหมู่'}</h2>
       <div className="flex flex-col sm:flex-row items-center gap-6">
         <div className="relative shrink-0" style={{ width: size, height: size }}>
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
