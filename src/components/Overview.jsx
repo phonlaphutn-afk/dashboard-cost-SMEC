@@ -27,32 +27,30 @@ export default function Overview({ allSummary, allItems, projects, selected, set
   // Groups defined in the Sheet's "กลุ่มโครงการหลัก (Group)" column — e.g. every
   // sub-project of the same real job (Greatest, etc.) tagged with the same group name.
   // Shared across every device/browser since it lives in the Sheet, not localStorage.
-  const sheetGroups = useMemo(() => {
-    const map = {};
+  const { groupList, ungroupedProjects, projectGroupMap } = useMemo(() => {
+    const map = {}; // group -> Set(project)
+    const groupOf = {}; // project -> group
     allSummary.forEach((s) => {
       if (!s.group) return;
       if (!map[s.group]) map[s.group] = new Set();
       map[s.group].add(s.project);
+      if (!groupOf[s.project]) groupOf[s.project] = s.group;
     });
-    return Object.entries(map)
-      .map(([name, set]) => ({ name, projects: [...set] }))
+    const groups = Object.entries(map)
+      .map(([name, set]) => ({ name, projects: [...set].filter((p) => projects.includes(p)) }))
+      .filter((g) => g.projects.length)
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [allSummary]);
+    const ungrouped = projects.filter((p) => !groupOf[p]);
+    return { groupList: groups, ungroupedProjects: ungrouped, projectGroupMap: groupOf };
+  }, [allSummary, projects]);
 
   const [presets, setPresets] = useState([]);
   const [savingName, setSavingName] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
   const [editingGroupFor, setEditingGroupFor] = useState(null);
   const [groupInput, setGroupInput] = useState('');
-
-  // Current group (if any) already set for each project, so the edit box opens pre-filled
-  const projectGroupMap = useMemo(() => {
-    const map = {};
-    allSummary.forEach((s) => {
-      if (s.group && !map[s.project]) map[s.project] = s.group;
-    });
-    return map;
-  }, [allSummary]);
+  const [expandedGroups, setExpandedGroups] = useState({}); // group name -> bool, collapsed by default
+  const [showAllUngrouped, setShowAllUngrouped] = useState(false);
 
   const startEditGroup = (project, e) => {
     e.stopPropagation();
@@ -95,6 +93,17 @@ export default function Overview({ allSummary, allItems, projects, selected, set
 
   const allSelected = selected.length === projects.length;
 
+  // A group is "on" once every one of its member projects is selected
+  const isGroupSelected = (group) => group.projects.every((p) => selected.includes(p));
+  const toggleGroup = (group) => {
+    if (isGroupSelected(group)) {
+      setSelected((prev) => prev.filter((p) => !group.projects.includes(p)));
+    } else {
+      setSelected((prev) => [...new Set([...prev, ...group.projects])]);
+    }
+  };
+  const toggleExpanded = (name) => setExpandedGroups((prev) => ({ ...prev, [name]: !prev[name] }));
+
   const applyPreset = (preset) => {
     // Only keep projects that still exist, in case one was renamed/removed since saving
     setSelected(preset.projects.filter((p) => projects.includes(p)));
@@ -116,6 +125,8 @@ export default function Overview({ allSummary, allItems, projects, selected, set
     savePresets(next);
   };
 
+  const visibleUngrouped = showAllUngrouped ? ungroupedProjects : ungroupedProjects.slice(0, 10);
+
   return (
     <div className="space-y-6">
       <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-4">
@@ -128,48 +139,108 @@ export default function Overview({ allSummary, allItems, projects, selected, set
             {allSelected ? 'ล้างทั้งหมด' : 'เลือกทั้งหมด'}
           </button>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {projects.map((p) => (
-            <button
-              key={p}
-              onClick={() => toggleProject(p)}
-              className={`px-3 py-1.5 text-xs rounded-full border ${
-                selected.includes(p)
-                  ? 'bg-[var(--amber)] text-[#1a1200] border-[var(--amber)] font-semibold'
-                  : 'border-[var(--blueprint-dim)]/50 text-[var(--text-muted)] hover:text-[var(--text)]'
-              }`}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
-        {selected.length === 0 && (
-          <p className="text-xs text-[var(--danger)] mt-2">ยังไม่ได้เลือกโครงการ — เลือกอย่างน้อย 1 โครงการเพื่อดูรายงาน</p>
+
+        {/* Groups collapse to one row each so this stays usable with many groups —
+            click the row to select/deselect the whole group, click the arrow to peek
+            inside and toggle individual projects within it. */}
+        {groupList.length > 0 && (
+          <div className="space-y-1.5 mb-2">
+            {groupList.map((g) => {
+              const on = isGroupSelected(g);
+              const expanded = !!expandedGroups[g.name];
+              const partiallyOn = !on && g.projects.some((p) => selected.includes(p));
+              return (
+                <div key={g.name} className="rounded-md border border-[var(--blueprint-dim)]/40 overflow-hidden">
+                  <div
+                    className={`flex items-center gap-2 px-3 py-2 cursor-pointer ${
+                      on ? 'bg-[var(--success)]/15' : partiallyOn ? 'bg-[var(--amber-dim)]/10' : 'bg-[var(--bg-panel-raised)]'
+                    }`}
+                    onClick={() => toggleGroup(g)}
+                  >
+                    <span
+                      className={`w-4 h-4 rounded flex items-center justify-center text-[10px] border shrink-0 ${
+                        on
+                          ? 'bg-[var(--success)] border-[var(--success)] text-[#04150e]'
+                          : partiallyOn
+                          ? 'border-[var(--amber)] text-[var(--amber)]'
+                          : 'border-[var(--blueprint-dim)]/60 text-transparent'
+                      }`}
+                    >
+                      {on ? '✓' : partiallyOn ? '–' : ''}
+                    </span>
+                    <span className={`text-sm font-semibold flex-1 ${on ? 'text-[var(--success)]' : 'text-[var(--text)]'}`}>
+                      🏷️ {g.name}
+                    </span>
+                    <span className="text-xs text-[var(--text-muted)]">{g.projects.length} โครงการ</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleExpanded(g.name);
+                      }}
+                      className="text-xs text-[var(--text-muted)] hover:text-[var(--text)] w-5 h-5 flex items-center justify-center"
+                      title={expanded ? 'ย่อ' : 'ดูรายชื่อโครงการในกลุ่ม'}
+                    >
+                      {expanded ? '▲' : '▼'}
+                    </button>
+                  </div>
+                  {expanded && (
+                    <div className="p-2.5 bg-[var(--bg-panel)] space-y-1">
+                      {g.projects.map((p) => (
+                        <div key={p} className="flex items-center justify-between gap-2 text-xs px-2 py-1 rounded hover:bg-[var(--bg-panel-raised)]">
+                          <button
+                            onClick={() => toggleProject(p)}
+                            className={`flex-1 text-left truncate ${selected.includes(p) ? 'text-[var(--amber)] font-medium' : 'text-[var(--text-muted)]'}`}
+                          >
+                            {selected.includes(p) ? '● ' : '○ '}
+                            {p}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         )}
 
-        {/* Groups defined directly in the Google Sheet — shared across every device */}
-        {sheetGroups.length > 0 && (
-          <div className="mt-4 pt-4 border-t border-[var(--blueprint-dim)]/30">
-            <h3 className="text-xs font-semibold tracking-wide uppercase text-[var(--text-muted)] mb-2">
-              กลุ่มโครงการ (จากชีต)
-            </h3>
+        {/* Ungrouped projects: still a flat chip list (assign them a group above to tidy this up) */}
+        {ungroupedProjects.length > 0 && (
+          <div className={groupList.length > 0 ? 'pt-3 mt-1 border-t border-[var(--blueprint-dim)]/30' : ''}>
+            {groupList.length > 0 && (
+              <p className="text-xs text-[var(--text-muted)] mb-2">โครงการที่ยังไม่มีกลุ่ม</p>
+            )}
             <div className="flex flex-wrap gap-2">
-              {sheetGroups.map((g) => (
+              {visibleUngrouped.map((p) => (
                 <button
-                  key={g.name}
-                  onClick={() => setSelected(g.projects.filter((p) => projects.includes(p)))}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full border border-[var(--success)]/50 text-[var(--success)] hover:bg-[var(--bg-panel-raised)] font-semibold"
+                  key={p}
+                  onClick={() => toggleProject(p)}
+                  className={`px-3 py-1.5 text-xs rounded-full border ${
+                    selected.includes(p)
+                      ? 'bg-[var(--amber)] text-[#1a1200] border-[var(--amber)] font-semibold'
+                      : 'border-[var(--blueprint-dim)]/50 text-[var(--text-muted)] hover:text-[var(--text)]'
+                  }`}
                 >
-                  🏷️ {g.name} <span className="text-[var(--text-muted)] font-normal">({g.projects.length})</span>
+                  {p}
                 </button>
               ))}
+              {ungroupedProjects.length > 10 && (
+                <button
+                  onClick={() => setShowAllUngrouped((v) => !v)}
+                  className="px-3 py-1.5 text-xs rounded-full border border-[var(--blueprint-dim)]/50 text-[var(--blueprint)] hover:bg-[var(--bg-panel-raised)]"
+                >
+                  {showAllUngrouped ? 'ย่อ' : `+${ungroupedProjects.length - 10} เพิ่มเติม`}
+                </button>
+              )}
             </div>
           </div>
         )}
 
-        {/* Saved project-group presets: click once to re-apply a combination instead of
-            re-selecting the same set of chips every time (e.g. every "Greatest" job that
-            got split across several project names). */}
+        {selected.length === 0 && (
+          <p className="text-xs text-[var(--danger)] mt-2">ยังไม่ได้เลือกโครงการ — เลือกอย่างน้อย 1 โครงการเพื่อดูรายงาน</p>
+        )}
+
+        {/* Saved project-group presets: for ad-hoc combos that don't match an official Sheet group */}
         <div className="mt-4 pt-4 border-t border-[var(--blueprint-dim)]/30">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-semibold tracking-wide uppercase text-[var(--text-muted)]">
