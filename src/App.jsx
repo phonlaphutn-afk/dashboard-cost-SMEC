@@ -573,7 +573,13 @@ export default function App() {
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
               <div className="lg:col-span-2 space-y-6">
-                <CategoryChart summary={summary} onSelect={setActiveCategory} activeCategory={activeCategory} />
+                <CategoryChart
+                  summary={summary}
+                  onSelect={setActiveCategory}
+                  activeCategory={activeCategory}
+                  emptyCategories={emptyCategories}
+                  onDeleteCategory={handleDeleteCategory}
+                />
                 <AddPanel
                   categories={categories}
                   emptyCategories={emptyCategories}
