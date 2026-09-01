@@ -30,5 +30,6 @@ export const addSharedItem = (payload) => post({ action: 'addSharedItem', ...pay
 export const updateItem = (item) => post({ action: 'updateItem', ...item });
 export const deleteItem = (id) => post({ action: 'deleteItem', id });
 export const addCategory = (project, category) => post({ action: 'addCategory', project, category });
+export const deleteCategory = (project, category) => post({ action: 'deleteCategory', project, category });
 export const addProject = (project, category) => post({ action: 'addProject', project, category });
 export const transferItem = (payload) => post({ action: 'transferItem', ...payload });

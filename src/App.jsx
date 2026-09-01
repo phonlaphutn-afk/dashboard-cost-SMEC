@@ -110,6 +110,12 @@ export default function App() {
     [summary]
   );
 
+  // Categories with no items yet — safe to offer for deletion (e.g. created by mistake)
+  const emptyCategories = useMemo(() => {
+    const itemCategories = new Set(items.map((i) => i.category));
+    return summary.filter((s) => !itemCategories.has(s.category)).map((s) => s.category);
+  }, [summary, items]);
+
   const grandTotal = useMemo(() => items.reduce((s, r) => s + (Number(r.total) || 0), 0), [items]);
   const itemCount = items.length;
   const categoryCount = categories.length;
@@ -261,6 +267,20 @@ export default function App() {
       ...prev,
       { project: activeProject, no: prev.filter((s) => s.project === activeProject).length + 1, category, total: 0, pct: 0 },
     ]);
+  };
+
+  // Removes an empty category (no items) from the current project. Safety check
+  // against real data happens server-side too, so this can't silently drop items.
+  const handleDeleteCategory = async (category) => {
+    if (api.isLive()) {
+      const res = await api.deleteCategory(activeProject, category);
+      if (!res.ok) throw new Error(res.error || 'Delete failed');
+      await refresh();
+      return res;
+    }
+    const stillHasItems = allItems.some((i) => i.project === activeProject && i.category === category);
+    if (stillHasItems) throw new Error('Category still has items');
+    setAllSummary((prev) => prev.filter((s) => !(s.project === activeProject && s.category === category)));
   };
 
   const handleAddProject = async (projectName, firstCategory) => {
@@ -556,9 +576,11 @@ export default function App() {
                 <CategoryChart summary={summary} onSelect={setActiveCategory} activeCategory={activeCategory} />
                 <AddPanel
                   categories={categories}
+                  emptyCategories={emptyCategories}
                   onAddItem={handleAddItem}
                   onAddSharedItem={handleAddSharedItem}
                   onAddCategory={handleAddCategory}
+                  onDeleteCategory={handleDeleteCategory}
                   isLive={live}
                 />
               </div>

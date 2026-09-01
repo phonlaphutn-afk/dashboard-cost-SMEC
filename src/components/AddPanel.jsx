@@ -38,7 +38,7 @@ function splitWhole(fullQty, n, unit) {
   return Array.from({ length: n }, (_, i) => base + (i < remainder ? 1 : 0));
 }
 
-export default function AddPanel({ categories, onAddItem, onAddSharedItem, onAddCategory, isLive }) {
+export default function AddPanel({ categories, emptyCategories, onAddItem, onAddSharedItem, onAddCategory, onDeleteCategory, isLive }) {
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState('item'); // 'item' | 'shared' | 'category' | 'import'
 
@@ -60,9 +60,11 @@ export default function AddPanel({ categories, onAddItem, onAddSharedItem, onAdd
           tab={tab}
           setTab={setTab}
           categories={categories}
+          emptyCategories={emptyCategories}
           onAddItem={onAddItem}
           onAddSharedItem={onAddSharedItem}
           onAddCategory={onAddCategory}
+          onDeleteCategory={onDeleteCategory}
           isLive={isLive}
           onClose={() => setOpen(false)}
         />
@@ -71,7 +73,7 @@ export default function AddPanel({ categories, onAddItem, onAddSharedItem, onAdd
   );
 }
 
-function AddDataModal({ tab, setTab, categories, onAddItem, onAddSharedItem, onAddCategory, isLive, onClose }) {
+function AddDataModal({ tab, setTab, categories, emptyCategories, onAddItem, onAddSharedItem, onAddCategory, onDeleteCategory, isLive, onClose }) {
   const inputClass =
     'w-full bg-[var(--bg-panel-raised)] border border-[var(--blueprint-dim)]/50 rounded-md px-3 py-2.5 text-sm placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--blueprint)]';
   const labelClass = 'text-xs text-[var(--text-muted)] mb-1 block';
@@ -122,7 +124,14 @@ function AddDataModal({ tab, setTab, categories, onAddItem, onAddSharedItem, onA
             <SharedItemForm categories={categories} onAddSharedItem={onAddSharedItem} inputClass={inputClass} labelClass={labelClass} onDone={onClose} />
           )}
           {tab === 'category' && (
-            <CategoryForm onAddCategory={onAddCategory} inputClass={inputClass} labelClass={labelClass} onDone={onClose} />
+            <CategoryForm
+              onAddCategory={onAddCategory}
+              emptyCategories={emptyCategories}
+              onDeleteCategory={onDeleteCategory}
+              inputClass={inputClass}
+              labelClass={labelClass}
+              onDone={onClose}
+            />
           )}
           {tab === 'import' && (
             <ImportTab categories={categories} onAddItem={onAddItem} onAddCategory={onAddCategory} onDone={onClose} />
@@ -368,9 +377,11 @@ function SharedItemForm({ categories, onAddSharedItem, inputClass, labelClass, o
   );
 }
 
-function CategoryForm({ onAddCategory, inputClass, labelClass, onDone }) {
+function CategoryForm({ onAddCategory, emptyCategories, onDeleteCategory, inputClass, labelClass, onDone }) {
   const [name, setName] = useState('');
   const [status, setStatus] = useState(null);
+  const [deletingName, setDeletingName] = useState(null);
+  const [deleteError, setDeleteError] = useState('');
 
   const submit = async (e) => {
     e.preventDefault();
@@ -387,18 +398,60 @@ function CategoryForm({ onAddCategory, inputClass, labelClass, onDone }) {
     }
   };
 
+  const remove = async (category) => {
+    if (!onDeleteCategory) return;
+    setDeleteError('');
+    setDeletingName(category);
+    try {
+      await onDeleteCategory(category);
+    } catch {
+      setDeleteError(`ลบ "${category}" ไม่สำเร็จ — อาจมีรายการข้างในแล้ว`);
+    } finally {
+      setDeletingName(null);
+    }
+  };
+
   return (
-    <form onSubmit={submit} className="space-y-4">
-      <div>
-        <label className={labelClass}>ชื่อหมวดหมู่ / เครื่องจักรใหม่</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="เช่น Vibrating Screen" className={inputClass} required />
-      </div>
-      <button type="submit" className="bg-[var(--blueprint)] text-[#04101f] font-semibold rounded-md px-4 py-3 text-sm hover:brightness-110 transition">
-        {status === 'saving' ? 'กำลังสร้าง...' : 'สร้างหมวดหมู่ใหม่'}
-      </button>
-      {status === 'saved' && <p className="text-xs text-[var(--success)]">สร้างหมวดหมู่เรียบร้อย ✓</p>}
-      {status === 'error' && <p className="text-xs text-[var(--danger)]">สร้างไม่สำเร็จ ลองใหม่อีกครั้ง</p>}
-    </form>
+    <div className="space-y-5">
+      <form onSubmit={submit} className="space-y-4">
+        <div>
+          <label className={labelClass}>ชื่อหมวดหมู่ / เครื่องจักรใหม่</label>
+          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="เช่น Vibrating Screen" className={inputClass} required />
+        </div>
+        <button type="submit" className="bg-[var(--blueprint)] text-[#04101f] font-semibold rounded-md px-4 py-3 text-sm hover:brightness-110 transition">
+          {status === 'saving' ? 'กำลังสร้าง...' : 'สร้างหมวดหมู่ใหม่'}
+        </button>
+        {status === 'saved' && <p className="text-xs text-[var(--success)]">สร้างหมวดหมู่เรียบร้อย ✓</p>}
+        {status === 'error' && <p className="text-xs text-[var(--danger)]">สร้างไม่สำเร็จ ลองใหม่อีกครั้ง</p>}
+      </form>
+
+      {emptyCategories && emptyCategories.length > 0 && (
+        <div className="pt-4 border-t border-[var(--blueprint-dim)]/30">
+          <p className={labelClass}>หมวดหมู่ที่ยังว่างอยู่ (ลบได้)</p>
+          <p className="text-xs text-[var(--text-muted)] mb-2">
+            ยังไม่มีรายการข้างใน — ลบได้เลยถ้าสร้างผิดหรือไม่ได้ใช้แล้ว
+          </p>
+          <div className="space-y-1.5">
+            {emptyCategories.map((cat) => (
+              <div
+                key={cat}
+                className="flex items-center justify-between bg-[var(--bg-panel-raised)] rounded-md px-3 py-1.5 text-sm"
+              >
+                <span className="truncate">{cat}</span>
+                <button
+                  onClick={() => remove(cat)}
+                  disabled={deletingName === cat}
+                  className="text-[var(--danger)] hover:underline text-xs disabled:opacity-50"
+                >
+                  {deletingName === cat ? 'กำลังลบ...' : 'ลบ'}
+                </button>
+              </div>
+            ))}
+          </div>
+          {deleteError && <p className="text-xs text-[var(--danger)] mt-2">{deleteError}</p>}
+        </div>
+      )}
+    </div>
   );
 }
 
