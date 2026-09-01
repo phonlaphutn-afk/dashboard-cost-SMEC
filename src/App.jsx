@@ -3,6 +3,7 @@ import seed from './data.json';
 import * as api from './api';
 import { baht } from './format';
 import CategoryChart from './components/CategoryChart';
+import CategoryDonut from './components/CategoryDonut';
 import ItemsTable from './components/ItemsTable';
 import AddPanel from './components/AddPanel';
 import Overview from './components/Overview';
@@ -561,29 +562,37 @@ export default function App() {
                 label={activeCategory ? `ต้นทุนของ ${activeCategory}` : 'ต้นทุนรวมทั้งหมด'}
                 value={`${baht(activeCategory ? categoryTotalDisplay : grandTotal)} ฿`}
                 accent="amber"
+                icon="💰"
               />
-              <StatCard label="จำนวนรายการ" value={activeCategory ? categoryItemsDisplay.length : itemCount} />
+              <StatCard
+                label="จำนวนรายการ"
+                value={activeCategory ? categoryItemsDisplay.length : itemCount}
+                icon="📦"
+              />
               {activeCategory ? (
-                <StatCard label="สัดส่วนต่อโครงการ" value={`${(categoryShare * 100).toFixed(1)}%`} />
+                <StatCard label="สัดส่วนต่อโครงการ" value={`${(categoryShare * 100).toFixed(1)}%`} icon="📊" />
               ) : (
-                <StatCard label="จำนวนหมวดหมู่ / เครื่องจักร" value={categoryCount} />
+                <StatCard label="จำนวนหมวดหมู่ / เครื่องจักร" value={categoryCount} icon="⚙️" />
               )}
               {activeCategory ? (
                 <StatCard
                   label="ราคาเฉลี่ยต่อรายการ"
                   value={`${baht(categoryItemsDisplay.length ? categoryTotalDisplay / categoryItemsDisplay.length : 0)} ฿`}
+                  icon="📐"
                 />
               ) : (
                 <StatCard
                   label="หมวดหมู่ต้นทุนสูงสุด"
                   value={topCategory ? topCategory.category : '—'}
                   sub={topCategory ? `${baht(topCategory.total)} ฿` : ''}
+                  icon="🏆"
                 />
               )}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
               <div className="lg:col-span-2 space-y-6">
+                {!activeCategory && <CategoryDonut summary={summary} onSelect={setActiveCategory} activeCategory={activeCategory} />}
                 <CategoryChart
                   summary={summary}
                   onSelect={setActiveCategory}
@@ -709,16 +718,27 @@ function ProjectSelector({ projects, activeProject, setActiveProject, onAddProje
   );
 }
 
-function StatCard({ label, value, sub, accent }) {
+function StatCard({ label, value, sub, accent, icon }) {
+  const accentColor = accent === 'amber' ? 'var(--amber)' : 'var(--blueprint)';
   return (
-    <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-4">
-      <p className="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1 truncate">{label}</p>
-      <p
-        className={`text-xl font-semibold font-mono-num truncate ${accent === 'amber' ? 'text-[var(--amber)]' : 'text-[var(--text)]'}`}
-      >
-        {value}
-      </p>
-      {sub && <p className="text-xs text-[var(--text-muted)] font-mono-num truncate">{sub}</p>}
+    <div className="rounded-xl border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-4 flex items-start gap-3 shadow-[0_1px_0_rgba(255,255,255,0.02)]">
+      {icon && (
+        <span
+          className="w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0"
+          style={{ background: `${accentColor}1f`, color: accentColor }}
+        >
+          {icon}
+        </span>
+      )}
+      <div className="min-w-0">
+        <p className="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1 truncate">{label}</p>
+        <p
+          className={`text-xl font-semibold font-mono-num truncate ${accent === 'amber' ? 'text-[var(--amber)]' : 'text-[var(--text)]'}`}
+        >
+          {value}
+        </p>
+        {sub && <p className="text-xs text-[var(--text-muted)] font-mono-num truncate">{sub}</p>}
+      </div>
     </div>
   );
 }

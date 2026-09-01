@@ -309,9 +309,9 @@ export default function Overview({ allSummary, allItems, projects, selected, set
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-        <StatCard label={`ต้นทุนรวม (${selected.length} โครงการที่เลือก)`} value={`${baht(grandTotal)} ฿`} accent="amber" />
-        <StatCard label="จำนวนโครงการที่เลือก" value={projectTotals.length} />
-        <StatCard label="จำนวนรายการรวม" value={totalItems} />
+        <StatCard label={`ต้นทุนรวม (${selected.length} โครงการที่เลือก)`} value={`${baht(grandTotal)} ฿`} accent="amber" icon="💰" />
+        <StatCard label="จำนวนโครงการที่เลือก" value={projectTotals.length} icon="🗂️" />
+        <StatCard label="จำนวนรายการรวม" value={totalItems} icon="📦" />
       </div>
 
       <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-5">
@@ -388,15 +388,26 @@ export default function Overview({ allSummary, allItems, projects, selected, set
   );
 }
 
-function StatCard({ label, value, accent }) {
+function StatCard({ label, value, accent, icon }) {
+  const accentColor = accent === 'amber' ? 'var(--amber)' : 'var(--blueprint)';
   return (
-    <div className="rounded-lg border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-4">
-      <p className="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1 truncate">{label}</p>
-      <p
-        className={`text-xl font-semibold font-mono-num truncate ${accent === 'amber' ? 'text-[var(--amber)]' : 'text-[var(--text)]'}`}
-      >
-        {value}
-      </p>
+    <div className="rounded-xl border border-[var(--blueprint-dim)]/40 bg-[var(--bg-panel)] p-4 flex items-start gap-3">
+      {icon && (
+        <span
+          className="w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0"
+          style={{ background: `${accentColor}1f`, color: accentColor }}
+        >
+          {icon}
+        </span>
+      )}
+      <div className="min-w-0">
+        <p className="text-[11px] uppercase tracking-wide text-[var(--text-muted)] mb-1 truncate">{label}</p>
+        <p
+          className={`text-xl font-semibold font-mono-num truncate ${accent === 'amber' ? 'text-[var(--amber)]' : 'text-[var(--text)]'}`}
+        >
+          {value}
+        </p>
+      </div>
     </div>
   );
 }
