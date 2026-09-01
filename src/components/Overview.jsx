@@ -24,6 +24,21 @@ export default function Overview({ allSummary, allItems, projects, selected, set
   const filteredSummary = useMemo(() => allSummary.filter((s) => selected.includes(s.project)), [allSummary, selected]);
   const filteredItems = useMemo(() => allItems.filter((i) => selected.includes(i.project)), [allItems, selected]);
 
+  // Groups defined in the Sheet's "กลุ่มโครงการหลัก (Group)" column — e.g. every
+  // sub-project of the same real job (Greatest, etc.) tagged with the same group name.
+  // Shared across every device/browser since it lives in the Sheet, not localStorage.
+  const sheetGroups = useMemo(() => {
+    const map = {};
+    allSummary.forEach((s) => {
+      if (!s.group) return;
+      if (!map[s.group]) map[s.group] = new Set();
+      map[s.group].add(s.project);
+    });
+    return Object.entries(map)
+      .map(([name, set]) => ({ name, projects: [...set] }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [allSummary]);
+
   const [presets, setPresets] = useState([]);
   const [savingName, setSavingName] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
@@ -108,13 +123,33 @@ export default function Overview({ allSummary, allItems, projects, selected, set
           <p className="text-xs text-[var(--danger)] mt-2">ยังไม่ได้เลือกโครงการ — เลือกอย่างน้อย 1 โครงการเพื่อดูรายงาน</p>
         )}
 
+        {/* Groups defined directly in the Google Sheet — shared across every device */}
+        {sheetGroups.length > 0 && (
+          <div className="mt-4 pt-4 border-t border-[var(--blueprint-dim)]/30">
+            <h3 className="text-xs font-semibold tracking-wide uppercase text-[var(--text-muted)] mb-2">
+              กลุ่มโครงการ (จากชีต)
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {sheetGroups.map((g) => (
+                <button
+                  key={g.name}
+                  onClick={() => setSelected(g.projects.filter((p) => projects.includes(p)))}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full border border-[var(--success)]/50 text-[var(--success)] hover:bg-[var(--bg-panel-raised)] font-semibold"
+                >
+                  🏷️ {g.name} <span className="text-[var(--text-muted)] font-normal">({g.projects.length})</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Saved project-group presets: click once to re-apply a combination instead of
             re-selecting the same set of chips every time (e.g. every "Greatest" job that
             got split across several project names). */}
         <div className="mt-4 pt-4 border-t border-[var(--blueprint-dim)]/30">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-semibold tracking-wide uppercase text-[var(--text-muted)]">
-              กลุ่มที่บันทึกไว้
+              กลุ่มที่บันทึกไว้เอง (เฉพาะเครื่องนี้)
             </h3>
             {!savingName ? (
               <button
